@@ -3,22 +3,27 @@
 import { useEffect, useState } from "react";
 import { boot } from "@/lib/content";
 
+const BOOT_KEY = "true-boot-seen";
+
 export function BootIntro() {
   const [phase, setPhase] = useState<"typing" | "hold" | "exit" | "done">(
     "typing",
   );
   const [chars, setChars] = useState(0);
+  const [ready, setReady] = useState(false);
   const [skip, setSkip] = useState(false);
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const seen = sessionStorage.getItem("true-boot") === "1";
+    const seen = window.localStorage.getItem(BOOT_KEY) === "1";
     if (reduced || seen) {
-      setPhase("done");
       setSkip(true);
+      setPhase("done");
+      setReady(true);
       return;
     }
 
+    setReady(true);
     let i = 0;
     const full = boot.line;
     const type = window.setInterval(() => {
@@ -41,14 +46,12 @@ export function BootIntro() {
 
   useEffect(() => {
     if (phase !== "exit") return;
-    const t = window.setTimeout(() => {
-      sessionStorage.setItem("true-boot", "1");
-      setPhase("done");
-    }, 900);
+    window.localStorage.setItem(BOOT_KEY, "1");
+    const t = window.setTimeout(() => setPhase("done"), 900);
     return () => window.clearTimeout(t);
   }, [phase]);
 
-  if (skip || phase === "done") return null;
+  if (!ready || skip || phase === "done") return null;
 
   return (
     <div
