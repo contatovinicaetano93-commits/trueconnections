@@ -104,7 +104,7 @@ export function Hero() {
         <div className="hero-cta mt-10 flex flex-wrap items-center justify-center gap-4 md:justify-start">
           <MagneticButton
             href="#manifesto"
-            className="rounded-full bg-parchment px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-deep"
+            className="rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
           >
             Quem somos
           </MagneticButton>
