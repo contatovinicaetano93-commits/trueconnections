@@ -8,10 +8,14 @@ export function CTA() {
       id="contato"
       className="section-pad relative overflow-hidden border-t border-line py-28 md:py-36"
     >
-      <div className="mesh opacity-60" aria-hidden />
+      <div className="liquid-mesh" aria-hidden />
+      <div className="glow-line absolute inset-x-[10%] top-0 h-px" aria-hidden />
       <div className="relative z-10 mx-auto max-w-4xl text-center">
         <Reveal>
-          <p className="eyebrow mb-6">Pertencimento</p>
+          <p className="eyebrow mb-6">
+            <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse-glow rounded-full bg-gold align-middle" />
+            Pertencimento
+          </p>
           <h2 className="display text-[clamp(2.6rem,7vw,5rem)] leading-[1.02] text-parchment">
             {site.tagline}
           </h2>

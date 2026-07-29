@@ -43,9 +43,13 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="focus-ring text-[0.68rem] tracking-[0.22em] uppercase text-mute/60 transition-colors hover:text-parchment"
+              className="focus-ring group relative text-[0.68rem] tracking-[0.22em] uppercase text-mute/60 transition-colors hover:text-parchment"
             >
               {item.label}
+              <span
+                className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-gold transition-transform duration-300 ease-out group-hover:scale-x-100"
+                aria-hidden
+              />
             </a>
           ))}
         </nav>

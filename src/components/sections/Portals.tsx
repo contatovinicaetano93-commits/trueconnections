@@ -3,7 +3,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function Portals() {
   return (
-    <section className="section-pad relative z-10 mx-auto -mt-4 max-w-7xl pb-24 md:pb-32">
+    <section className="section-pad relative z-10 mx-auto -mt-4 max-w-7xl pb-24 md:pb-32" id="portais">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {portals.map((item, i) => (
           <Reveal key={item.title} delay={i * 0.04} y={24}>

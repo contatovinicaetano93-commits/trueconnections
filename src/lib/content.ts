@@ -26,6 +26,30 @@ export const hero = {
   body: "Aqui conectamos pessoas que não se amoldam aos padrões deste mundo, dispostas a se transformar e servir. Porque onde todos servem, não falta para ninguém. Onde houver dois ou mais, lá Ele está.",
 } as const;
 
+export const boot = {
+  line: "Abrindo o refúgio",
+  brand: "True Connection",
+  since: "desde 2024",
+} as const;
+
+export const marqueeItems = [
+  "Na Mesa",
+  "Clube de Leitura",
+  "Associados",
+  "Seja o Milagre",
+  "True Action",
+  "Método Ruach",
+  "Comunhão",
+  "Pertencimento",
+] as const;
+
+export const journey = [
+  { label: "Quem somos", href: "#manifesto" },
+  { label: "Encontros", href: "#encontros" },
+  { label: "Impacto", href: "#impacto" },
+  { label: "Pertencer", href: "#contato" },
+] as const;
+
 export const portals = [
   {
     href: "#manifesto",

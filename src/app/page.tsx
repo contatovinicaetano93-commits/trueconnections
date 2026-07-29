@@ -1,4 +1,7 @@
 import { Header } from "@/components/layout/Header";
+import { BootIntro } from "@/components/ui/BootIntro";
+import { Marquee } from "@/components/ui/Marquee";
+import { PathTimeline } from "@/components/ui/PathTimeline";
 import { Hero } from "@/components/sections/Hero";
 import { Portals } from "@/components/sections/Portals";
 import { Manifesto } from "@/components/sections/Manifesto";
@@ -15,10 +18,13 @@ import { CTA, Footer } from "@/components/sections/CTA";
 export default function Home() {
   return (
     <>
+      <BootIntro />
       <Header />
       <main>
         <Hero />
+        <Marquee />
         <Portals />
+        <PathTimeline />
         <Manifesto />
         <Associados />
         <Encontros />

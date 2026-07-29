@@ -150,6 +150,16 @@ export function Hero() {
             </span>
           </MagneticButton>
         </div>
+
+        <a
+          href="#portais"
+          className="hero-cta mt-14 inline-flex flex-col items-center gap-2 text-[0.65rem] tracking-[0.24em] text-mute/55 uppercase md:items-start"
+        >
+          Scroll
+          <span className="animate-nudge text-gold" aria-hidden>
+            ↓
+          </span>
+        </a>
       </div>
     </section>
   );
