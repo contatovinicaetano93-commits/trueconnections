@@ -28,14 +28,14 @@ export function BootIntro() {
         window.clearInterval(type);
         setPhase("hold");
       }
-    }, 42);
+    }, 70);
 
     return () => window.clearInterval(type);
   }, []);
 
   useEffect(() => {
     if (phase !== "hold") return;
-    const t = window.setTimeout(() => setPhase("exit"), 700);
+    const t = window.setTimeout(() => setPhase("exit"), 3200);
     return () => window.clearTimeout(t);
   }, [phase]);
 
@@ -44,7 +44,7 @@ export function BootIntro() {
     const t = window.setTimeout(() => {
       sessionStorage.setItem("true-boot", "1");
       setPhase("done");
-    }, 650);
+    }, 900);
     return () => window.clearTimeout(t);
   }, [phase]);
 
