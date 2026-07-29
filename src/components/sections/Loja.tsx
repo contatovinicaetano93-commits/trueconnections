@@ -21,7 +21,7 @@ export function Loja() {
           {loja.products.map((product, i) => (
             <Reveal key={product.name} delay={i * 0.07} y={32}>
               <TiltCard className="h-full">
-                <article className="group flex h-full flex-col border border-line bg-smoke/50">
+                <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card">
                   <div className="relative aspect-square overflow-hidden bg-ash">
                     <Image
                       src={product.image}
@@ -34,8 +34,8 @@ export function Loja() {
                   <div className="flex flex-1 flex-col p-6">
                     <h3 className="display text-xl text-parchment">{product.name}</h3>
                     <div className="mt-auto flex items-end justify-between pt-6">
-                      <p className="display text-2xl text-gold-soft">{product.price}</p>
-                      <p className="text-xs text-mute">{product.stock}</p>
+                      <p className="display text-2xl text-gold">{product.price}</p>
+                      <p className="text-xs text-mute/70">{product.stock}</p>
                     </div>
                   </div>
                 </article>
@@ -63,7 +63,7 @@ export function Loja() {
 
 export function QGs() {
   return (
-    <section className="section-pad border-t border-line bg-smoke/30 py-24 md:py-28">
+    <section className="section-pad border-t border-line bg-smoke/40 py-24 md:py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="eyebrow mb-5">Presença</p>
@@ -75,7 +75,7 @@ export function QGs() {
         <div className="mt-12 grid gap-8 md:grid-cols-2">
           {qgs.items.map((item, i) => (
             <Reveal key={item.name} delay={i * 0.08}>
-              <article className="overflow-hidden border border-line">
+              <article className="overflow-hidden rounded-2xl border border-line bg-card">
                 <div className="relative aspect-[16/10]">
                   <Image
                     src={item.image}
@@ -85,10 +85,10 @@ export function QGs() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
-                <div className="bg-ink/80 p-7">
+                <div className="bg-ink/90 p-7">
                   <h3 className="display text-2xl text-parchment">{item.name}</h3>
-                  <p className="mt-2 text-sm text-mute">{item.address}</p>
-                  <p className="mt-4 text-sm text-gold/80">{item.note}</p>
+                  <p className="mt-2 text-sm text-mute/75">{item.address}</p>
+                  <p className="mt-4 text-sm text-gold">{item.note}</p>
                 </div>
               </article>
             </Reveal>

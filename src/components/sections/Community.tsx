@@ -4,27 +4,27 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Encontros() {
   return (
-    <section id="encontros" className="section-pad border-t border-line bg-smoke/40 py-24 md:py-32">
+    <section id="encontros" className="section-pad border-t border-line bg-smoke/50 py-24 md:py-32">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="eyebrow mb-5">Comunidade</p>
           <h2 className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment">
             {encontros.title}
           </h2>
-          <p className="mt-4 max-w-2xl text-mute">{encontros.subtitle}</p>
+          <p className="mt-4 max-w-2xl text-mute/80">{encontros.subtitle}</p>
         </Reveal>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-2">
           {encontros.items.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.08} y={40}>
-              <article className="flex h-full flex-col border border-line bg-ink/50 p-8 md:p-10">
+              <article className="flex h-full flex-col rounded-2xl border border-line bg-card p-8 md:p-10">
                 <p className="eyebrow mb-4">{item.tag}</p>
                 <h3 className="display text-3xl text-parchment md:text-4xl">{item.title}</h3>
-                <p className="mt-5 flex-1 text-base leading-relaxed text-mute">{item.body}</p>
+                <p className="mt-5 flex-1 text-base leading-relaxed text-mute/80">{item.body}</p>
                 {"books" in item && item.books ? (
                   <ul className="mt-6 space-y-2 border-t border-line pt-6">
                     {item.books.map((book) => (
-                      <li key={book} className="text-sm text-parchment/75">
+                      <li key={book} className="text-sm text-parchment/70">
                         {book}
                       </li>
                     ))}
@@ -107,7 +107,7 @@ export function Associados() {
 
 export function TrueAction() {
   return (
-    <section id="true-action" className="section-pad border-t border-line bg-smoke/30 py-24 md:py-28">
+    <section id="true-action" className="section-pad border-t border-line bg-smoke/40 py-24 md:py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="eyebrow mb-5">Rede</p>

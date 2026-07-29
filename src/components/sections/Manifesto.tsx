@@ -36,7 +36,7 @@ export function Manifesto() {
         </div>
 
         <Reveal y={48} className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden bg-ash">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ash">
             <Image
               src={site.foundersImage}
               alt="Gabriella, Beta e Aline — fundadoras da True Connection"
@@ -44,8 +44,8 @@ export function Manifesto() {
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 42vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
-            <p className="absolute inset-x-0 bottom-0 p-6 text-sm leading-relaxed text-parchment/90">
+            <div className="absolute inset-0 bg-gradient-to-t from-deep/75 via-transparent to-transparent" />
+            <p className="absolute inset-x-0 bottom-0 p-6 text-sm leading-relaxed text-ink">
               {manifesto.foundersLabel}
             </p>
           </div>
@@ -56,7 +56,7 @@ export function Manifesto() {
         {manifesto.founders.map((founder, i) => (
           <Reveal key={founder.name} delay={i * 0.06}>
             <article>
-              <h3 className="display text-2xl text-gold-soft">{founder.name}</h3>
+              <h3 className="display text-2xl text-gold">{founder.name}</h3>
               <p className="mt-3 text-sm leading-relaxed text-mute">{founder.bio}</p>
             </article>
           </Reveal>
@@ -70,7 +70,7 @@ export function Manifesto() {
         <MagneticButton
           href={site.whatsapp}
           external
-          className="mt-8 rounded-full border border-gold/40 px-6 py-3 text-[0.7rem] tracking-[0.18em] uppercase text-gold-soft hover:bg-gold/10"
+          className="mt-8 rounded-full border border-gold/50 px-6 py-3 text-[0.7rem] tracking-[0.18em] uppercase text-gold hover:bg-gold/10"
         >
           Fazer parte
         </MagneticButton>

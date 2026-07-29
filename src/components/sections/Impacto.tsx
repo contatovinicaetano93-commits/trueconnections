@@ -18,7 +18,7 @@ export function Impacto() {
         <div className="mt-14 grid gap-6 border-y border-line py-10 sm:grid-cols-3">
           {impacto.stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.06}>
-              <p className="display text-5xl text-gold-soft md:text-6xl">
+              <p className="display text-5xl text-gold md:text-6xl">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </p>
               <p className="mt-2 text-sm tracking-[0.12em] text-mute uppercase">
@@ -31,7 +31,7 @@ export function Impacto() {
         <div className="mt-16 grid gap-10 lg:grid-cols-2">
           {impacto.projects.map((project, i) => (
             <Reveal key={project.title} delay={i * 0.08} y={40}>
-              <article className="flex h-full flex-col overflow-hidden border border-line bg-smoke/40">
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card">
                 {"image" in project && project.image ? (
                   <div className="relative aspect-[16/10]">
                     <Image
@@ -43,8 +43,8 @@ export function Impacto() {
                     />
                   </div>
                 ) : (
-                  <div className="flex aspect-[16/10] items-end bg-gradient-to-br from-ash to-ink p-8">
-                    <span className="display text-4xl text-gold/40">02</span>
+                  <div className="flex aspect-[16/10] items-end bg-gradient-to-br from-smoke to-ash p-8">
+                    <span className="display text-4xl text-gold/50">02</span>
                   </div>
                 )}
                 <div className="flex flex-1 flex-col p-8">

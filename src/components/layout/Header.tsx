@@ -19,7 +19,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-[background,border-color,backdrop-filter] duration-500 ${
         scrolled
-          ? "border-b border-line bg-ink/80 backdrop-blur-md"
+          ? "border-b border-line bg-ink/90 backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -33,7 +33,7 @@ export function Header() {
             className="h-9 w-9 object-contain opacity-90 transition-opacity group-hover:opacity-100 md:h-10 md:w-10"
             priority
           />
-          <span className="hidden text-[0.7rem] font-medium tracking-[0.22em] uppercase text-parchment/90 sm:block">
+          <span className="hidden text-[0.7rem] font-medium tracking-[0.22em] uppercase text-parchment/85 sm:block">
             True Connection
           </span>
         </a>
@@ -43,7 +43,7 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="focus-ring text-[0.68rem] tracking-[0.22em] uppercase text-mute transition-colors hover:text-gold"
+              className="focus-ring text-[0.68rem] tracking-[0.22em] uppercase text-mute/60 transition-colors hover:text-parchment"
             >
               {item.label}
             </a>
@@ -53,7 +53,7 @@ export function Header() {
         <MagneticButton
           href={site.whatsapp}
           external
-          className="rounded-full border border-gold/35 bg-gold/10 px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-gold-soft hover:border-gold/60 hover:bg-gold/15"
+          className="rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-gold hover:border-gold/70 hover:bg-gold/15"
         >
           Contato
         </MagneticButton>

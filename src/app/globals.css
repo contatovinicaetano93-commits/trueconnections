@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0e0c0a;
-  --smoke: #1a1612;
-  --ash: #2a241e;
-  --parchment: #e8e0d4;
-  --mute: #9a9188;
-  --gold: #b8956a;
-  --gold-soft: #d4b896;
-  --ember: #6e4a32;
-  --line: rgba(232, 224, 212, 0.12);
+  /* Original True Connection palette */
+  --ink: #ede7de;
+  --smoke: #e5ddd2;
+  --ash: #d8d0c4;
+  --parchment: #221e1b;
+  --mute: #5e5550;
+  --gold: #b69554;
+  --gold-soft: #c9ae6e;
+  --ember: #8f7750;
+  --deep: #221e1b;
+  --line: rgba(207, 199, 191, 0.55);
+  --card: rgba(255, 255, 255, 0.42);
   --background: var(--ink);
   --foreground: var(--parchment);
 }
@@ -25,7 +28,9 @@
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
   --color-ember: var(--ember);
+  --color-deep: var(--deep);
   --color-line: var(--line);
+  --color-card: var(--card);
   --font-display: var(--font-display);
   --font-sans: var(--font-body);
 }
@@ -55,8 +60,8 @@ body {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--gold) 45%, transparent);
-  color: var(--ink);
+  background: color-mix(in srgb, var(--gold) 40%, transparent);
+  color: var(--deep);
 }
 
 a {
@@ -69,8 +74,8 @@ a {
   position: fixed;
   inset: 0;
   z-index: 50;
-  opacity: 0.055;
-  mix-blend-mode: overlay;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -78,10 +83,10 @@ a {
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(ellipse 50% 40% at 20% 30%, rgba(184, 149, 106, 0.22), transparent 55%),
-    radial-gradient(ellipse 45% 35% at 78% 20%, rgba(110, 74, 50, 0.35), transparent 50%),
-    radial-gradient(ellipse 60% 50% at 50% 80%, rgba(26, 22, 18, 0.9), transparent 60%),
-    radial-gradient(ellipse 40% 30% at 60% 50%, rgba(184, 149, 106, 0.08), transparent 55%);
+    radial-gradient(ellipse 55% 45% at 18% 28%, rgba(182, 149, 84, 0.14), transparent 58%),
+    radial-gradient(ellipse 48% 38% at 82% 18%, rgba(207, 199, 191, 0.35), transparent 52%),
+    radial-gradient(ellipse 60% 50% at 50% 85%, rgba(255, 255, 255, 0.45), transparent 62%),
+    radial-gradient(ellipse 40% 30% at 58% 48%, rgba(182, 149, 84, 0.06), transparent 55%);
   animation: mesh-breathe 14s ease-in-out infinite alternate;
   will-change: transform, opacity;
 }
@@ -92,7 +97,7 @@ a {
     opacity: 0.85;
   }
   to {
-    transform: scale(1.08) translate(-2%, 1%);
+    transform: scale(1.06) translate(-1.5%, 1%);
     opacity: 1;
   }
 }

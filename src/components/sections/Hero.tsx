@@ -86,33 +86,33 @@ export function Hero() {
     >
       <div className="mesh" aria-hidden />
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,var(--ink)_75%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--ink)_80%)]"
         aria-hidden
       />
 
       <div
         ref={mark}
-        className="hero-mark pointer-events-none absolute top-[12%] left-1/2 w-[min(52vw,420px)] -translate-x-1/2 opacity-25 md:top-[8%] md:opacity-30"
+        className="hero-mark pointer-events-none absolute top-[10%] left-1/2 w-[min(48vw,380px)] -translate-x-1/2 opacity-40 md:top-[6%] md:opacity-50"
       >
         <Image
           src={site.mark}
           alt=""
           width={840}
           height={840}
-          className="h-auto w-full object-contain mix-blend-screen"
+          className="h-auto w-full object-contain"
           priority
         />
       </div>
 
-      <div className="section-pad relative z-10 mx-auto w-full max-w-5xl">
+      <div className="section-pad relative z-10 mx-auto w-full max-w-5xl text-center md:text-left">
         <p className="hero-eyebrow eyebrow mb-6">{hero.eyebrow}</p>
-        <h1 className="display max-w-4xl text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.95] text-parchment">
-          <span className="hero-before block font-light text-parchment/85">
+        <h1 className="display mx-auto max-w-4xl text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.95] text-parchment md:mx-0">
+          <span className="hero-before block font-light text-parchment/90">
             {hero.headlineBefore}
           </span>
           <span
             ref={accent}
-            className="mt-1 inline-flex flex-wrap font-medium text-gold-soft"
+            className="mt-1 inline-flex flex-wrap justify-center font-medium text-gold md:justify-start"
             aria-label={hero.headlineAccent}
           >
             {accentLetters.map((char, i) => (
@@ -128,21 +128,21 @@ export function Hero() {
           </span>
         </h1>
 
-        <p className="hero-body mt-8 max-w-xl text-base leading-relaxed text-mute md:text-lg">
+        <p className="hero-body mx-auto mt-8 max-w-xl text-base leading-relaxed text-mute/80 md:mx-0 md:text-lg">
           {hero.body}
         </p>
 
-        <div className="hero-cta mt-10 flex flex-wrap items-center gap-4">
+        <div className="hero-cta mt-10 flex flex-wrap items-center justify-center gap-4 md:justify-start">
           <MagneticButton
             href="#manifesto"
-            className="rounded-full bg-parchment px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
+            className="rounded-full bg-parchment px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-deep"
           >
             Quem somos
           </MagneticButton>
           <MagneticButton
             href={site.whatsapp}
             external
-            className="group rounded-full border border-parchment/20 px-7 py-3.5 text-[0.72rem] tracking-[0.16em] uppercase text-parchment/90 hover:border-gold/50 hover:text-gold-soft"
+            className="group rounded-full border border-parchment/15 px-7 py-3.5 text-[0.72rem] tracking-[0.16em] uppercase text-parchment/80 hover:border-gold/50 hover:text-gold"
           >
             Fale conosco
             <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
