@@ -25,7 +25,7 @@ export function CTA() {
           <MagneticButton
             href={site.whatsapp}
             external
-            className="mt-10 rounded-full bg-parchment px-8 py-4 text-[0.75rem] font-medium tracking-[0.18em] uppercase text-ink hover:bg-deep"
+            className="mt-10 rounded-full bg-gold px-8 py-4 text-[0.75rem] font-medium tracking-[0.18em] uppercase text-ink hover:bg-gold-soft"
           >
             Falar com a True
           </MagneticButton>
