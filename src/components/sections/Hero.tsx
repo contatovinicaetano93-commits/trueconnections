@@ -1,18 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { hero, site } from "@/lib/content";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
   const root = useRef<HTMLElement>(null);
   const accent = useRef<HTMLSpanElement>(null);
-  const mark = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = root.current;
@@ -53,19 +48,7 @@ export function Hero() {
           "-=0.55",
         )
         .from(".hero-body", { opacity: 0, y: 24, duration: 0.9 }, "-=0.45")
-        .from(".hero-cta", { opacity: 0, y: 18, duration: 0.7 }, "-=0.55")
-        .from(".hero-mark", { opacity: 0, scale: 0.92, duration: 1.2 }, 0.2);
-
-      gsap.to(mark.current, {
-        yPercent: 12,
-        ease: "none",
-        scrollTrigger: {
-          trigger: el,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+        .from(".hero-cta", { opacity: 0, y: 18, duration: 0.7 }, "-=0.55");
     }, el);
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -89,20 +72,6 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--ink)_80%)]"
         aria-hidden
       />
-
-      <div
-        ref={mark}
-        className="hero-mark pointer-events-none absolute top-[10%] left-1/2 w-[min(48vw,380px)] -translate-x-1/2 opacity-40 md:top-[6%] md:opacity-50"
-      >
-        <Image
-          src={site.mark}
-          alt=""
-          width={840}
-          height={840}
-          className="h-auto w-full object-contain"
-          priority
-        />
-      </div>
 
       <div className="section-pad relative z-10 mx-auto w-full max-w-5xl text-center md:text-left">
         <p className="hero-eyebrow eyebrow mb-6">{hero.eyebrow}</p>
