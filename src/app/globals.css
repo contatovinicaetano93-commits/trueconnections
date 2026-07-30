@@ -217,12 +217,45 @@ a {
   font-size: 0.7rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 500;
+  color: var(--ember);
+  font-weight: 600;
 }
 
 .section-pad {
   padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 200;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--ink);
+  padding: 0.65rem 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+html.boot-active main,
+html.boot-active header {
+  opacity: 0;
+}
+
+html.boot-active main {
+  pointer-events: none;
+}
+
+main,
+header {
+  transition: opacity 0.7s ease;
 }
 
 .focus-ring:focus-visible {

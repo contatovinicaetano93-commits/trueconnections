@@ -1,11 +1,11 @@
-import Image from "next/image";
+import { SoftImage } from "@/components/ui/SoftImage";
 import { impacto } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { Counter } from "@/components/ui/Counter";
 
 export function Impacto() {
   return (
-    <section id="impacto" className="section-pad border-t border-line py-24 md:py-32">
+    <section id="impacto" className="section-pad border-t border-line py-20 md:py-32">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="eyebrow mb-5">Missão</p>
@@ -34,7 +34,7 @@ export function Impacto() {
               <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card">
                 {"image" in project && project.image ? (
                   <div className="relative aspect-[16/10]">
-                    <Image
+                    <SoftImage
                       src={project.image}
                       alt={project.title}
                       fill

@@ -1,11 +1,10 @@
-import Image from "next/image";
 import { manifesto, site } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
-import { MagneticButton } from "@/components/ui/MagneticButton";
+import { SoftImage } from "@/components/ui/SoftImage";
 
 export function Manifesto() {
   return (
-    <section id="manifesto" className="section-pad border-t border-line py-24 md:py-32">
+    <section id="manifesto" className="section-pad border-t border-line py-20 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
         <div>
           <Reveal>
@@ -37,7 +36,7 @@ export function Manifesto() {
 
         <Reveal y={48} className="relative">
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ash">
-            <Image
+            <SoftImage
               src={site.foundersImage}
               alt="Gabriella, Beta e Aline — fundadoras da True Connection"
               fill
@@ -52,7 +51,7 @@ export function Manifesto() {
         </Reveal>
       </div>
 
-      <div className="mx-auto mt-16 grid max-w-7xl gap-8 border-t border-line pt-14 md:grid-cols-3">
+      <div className="mx-auto mt-14 grid max-w-7xl gap-8 border-t border-line pt-12 md:grid-cols-3 md:pt-14">
         {manifesto.founders.map((founder, i) => (
           <Reveal key={founder.name} delay={i * 0.06}>
             <article>
@@ -63,17 +62,18 @@ export function Manifesto() {
         ))}
       </div>
 
-      <Reveal className="mx-auto mt-16 max-w-7xl">
+      <Reveal className="mx-auto mt-14 max-w-7xl">
         <p className="display max-w-3xl text-3xl leading-snug text-parchment md:text-4xl">
           {manifesto.closing}
         </p>
-        <MagneticButton
+        <a
           href={site.whatsapp}
-          external
-          className="mt-8 rounded-full border border-gold/50 px-6 py-3 text-[0.7rem] tracking-[0.18em] uppercase text-gold hover:bg-gold/10"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="focus-ring mt-8 inline-flex text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
         >
-          Fazer parte
-        </MagneticButton>
+          Quero fazer parte →
+        </a>
       </Reveal>
     </section>
   );

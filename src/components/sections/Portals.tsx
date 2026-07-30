@@ -1,4 +1,4 @@
-import { portals } from "@/lib/content";
+import { journey, portals } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { Marquee } from "@/components/ui/Marquee";
 
@@ -6,7 +6,7 @@ export function Portals() {
   return (
     <section
       id="portais"
-      className="section-pad relative z-10 mx-auto max-w-7xl pb-24 pt-2 md:pb-32"
+      className="section-pad relative z-10 mx-auto max-w-7xl pb-16 pt-4 md:pb-24"
     >
       <div className="overflow-hidden rounded-2xl border border-line bg-card">
         <Marquee />
@@ -16,7 +16,7 @@ export function Portals() {
             <Reveal key={item.title} delay={i * 0.04} y={16} className="h-full bg-card">
               <a
                 href={item.href}
-                className="focus-ring group flex h-full min-h-[12rem] flex-col justify-between bg-card p-6 transition-colors duration-300 hover:bg-white/70 md:min-h-[13rem] md:p-7"
+                className="focus-ring group flex h-full min-h-[11.5rem] flex-col justify-between bg-card p-6 transition-colors duration-300 hover:bg-white/70 md:min-h-[12.5rem] md:p-7"
                 {...("external" in item && item.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
@@ -38,6 +38,27 @@ export function Portals() {
               </a>
             </Reveal>
           ))}
+        </div>
+
+        <div className="border-t border-line bg-smoke/30 px-5 py-5 md:px-8 md:py-6">
+          <p className="eyebrow mb-4">Caminho</p>
+          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+            {journey.map((step, i) => (
+              <li key={step.href}>
+                <a href={step.href} className="focus-ring group flex items-baseline gap-3">
+                  <span className="text-[0.65rem] tracking-[0.16em] text-gold">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="display text-xl text-parchment transition-colors group-hover:text-gold md:text-2xl">
+                    {step.label}
+                  </span>
+                  <span className="text-gold opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100">
+                    →
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
