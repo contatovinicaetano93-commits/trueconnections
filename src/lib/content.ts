@@ -46,13 +46,6 @@ export const marqueeItems = [
   "Pertencimento",
 ] as const;
 
-export const journey = [
-  { label: "Quem somos", href: "#manifesto" },
-  { label: "Encontros", href: "#encontros" },
-  { label: "Impacto", href: "#impacto" },
-  { label: "Pertencer", href: "#contato" },
-] as const;
-
 export const portals = [
   {
     href: "#manifesto",
