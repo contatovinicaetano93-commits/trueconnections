@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/lib/content";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -60,15 +59,7 @@ export function Header() {
     >
       <div className="section-pad mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 md:h-20">
         <a href="#topo" className="focus-ring group flex items-center gap-3" onClick={close}>
-          <Image
-            src={site.logo}
-            alt={site.name}
-            width={40}
-            height={40}
-            className="h-9 w-9 object-contain opacity-90 transition-opacity group-hover:opacity-100 md:h-10 md:w-10"
-            priority
-          />
-          <span className="hidden text-[0.7rem] font-medium tracking-[0.22em] uppercase text-parchment/85 sm:block">
+          <span className="text-[0.7rem] font-medium tracking-[0.22em] uppercase text-parchment/90">
             True Connection
           </span>
         </a>

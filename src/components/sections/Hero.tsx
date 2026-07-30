@@ -34,8 +34,7 @@ export function Hero() {
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.15 });
-      tl.from(".hero-mark-mini", { opacity: 0, scale: 0.9, duration: 0.9 })
-        .from(".hero-eyebrow", { opacity: 0, y: 16, duration: 0.7 }, "-=0.45")
+      tl.from(".hero-eyebrow", { opacity: 0, y: 16, duration: 0.7 })
         .from(".hero-before", { opacity: 0, y: 28, duration: 0.85 }, "-=0.35")
         .from(
           letters ?? [],
@@ -78,17 +77,6 @@ export function Hero() {
 
       <div className="section-pad relative z-10 mx-auto grid w-full max-w-7xl items-end gap-12 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="text-center md:text-left">
-          <div className="hero-mark-mini mb-6 flex justify-center md:justify-start">
-            <SoftImage
-              src={site.logo}
-              alt=""
-              width={56}
-              height={56}
-              className="h-12 w-12 object-contain opacity-80 md:h-14 md:w-14"
-              priority
-            />
-          </div>
-
           <p className="hero-eyebrow eyebrow mb-6">{hero.eyebrow}</p>
           <h1 className="display mx-auto max-w-4xl text-[clamp(2.6rem,7.5vw,5.8rem)] leading-[0.95] text-parchment md:mx-0">
             <span className="hero-before block font-light text-parchment/90">
