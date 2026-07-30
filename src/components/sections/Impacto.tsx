@@ -15,13 +15,13 @@ export function Impacto() {
           <p className="mt-4 max-w-2xl text-mute">{impacto.subtitle}</p>
         </Reveal>
 
-        <div className="mt-14 grid gap-6 border-y border-line py-10 sm:grid-cols-3">
+        <div className="mt-14 grid gap-8 border-y border-line bg-card/40 py-12 sm:grid-cols-3 md:py-16">
           {impacto.stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.06}>
-              <p className="display text-5xl text-gold md:text-6xl">
+              <p className="display text-[clamp(3.5rem,8vw,6.5rem)] leading-none tracking-[-0.04em] text-gold">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </p>
-              <p className="mt-2 text-sm tracking-[0.12em] text-mute uppercase">
+              <p className="mt-4 text-sm tracking-[0.16em] text-mute uppercase">
                 {stat.label}
               </p>
             </Reveal>

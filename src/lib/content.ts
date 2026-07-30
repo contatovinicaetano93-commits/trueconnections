@@ -252,3 +252,79 @@ export const associados = {
   body: "Um espaço de pertencimento para quem quer viver a True de perto — encontros, conteúdo e conexões com propósito.",
   cta: "Quero fazer parte",
 } as const;
+
+export const heroSlides = [
+  {
+    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
+    caption: "Gabriella, Beta e Aline — o chamado por trás da True",
+  },
+  {
+    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/d93f68212_IMG_1202.jpg",
+    caption: "Amém Café — o primeiro café é por nossa conta",
+  },
+  {
+    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/89d0b7f4c_IMG_1203.jpg",
+    caption: "Praça Pôr do Sol — presença em Pinheiros",
+  },
+  {
+    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e73801d83_IMG_1136.jpeg",
+    caption: "Instituto Seja o Milagre — transformar vidas",
+  },
+] as const;
+
+export const quote = {
+  text: "Mais do que eventos, a True nasceu para ser um lugar de pertencimento.",
+  attribution: "Fundadoras — Gabriella, Beta e Aline",
+} as const;
+
+export const presence = {
+  title: "Presença",
+  subtitle: "Onde a comunidade se encontra de verdade.",
+  items: [
+    {
+      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
+      label: "Fundadoras",
+    },
+    {
+      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/d93f68212_IMG_1202.jpg",
+      label: "Amém Café",
+    },
+    {
+      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/89d0b7f4c_IMG_1203.jpg",
+      label: "Pôr do Sol",
+    },
+    {
+      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e73801d83_IMG_1136.jpeg",
+      label: "Seja o Milagre",
+    },
+    {
+      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/9a183623f_IMG_1197.png",
+      label: "Identidade",
+    },
+  ],
+} as const;
+
+export const fullBleed = {
+  eyebrow: "Na Mesa",
+  title: "Mulheres reunidas em volta da mesa, buscando mais de Deus.",
+  body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão que transforma o caminhar.",
+  image:
+    "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/d93f68212_IMG_1202.jpg",
+  cta: "Conhecer os encontros",
+  href: "#encontros",
+} as const;
+
+export const faq = [
+  {
+    q: "A True é só para mulheres?",
+    a: "Os encontros Na Mesa nascem do coração feminino da comunidade, mas a True é um movimento de pertencimento cristão — eventos, impacto e rede abrem espaço para quem compartilha do mesmo chamado.",
+  },
+  {
+    q: "Como faço para participar?",
+    a: "Fale conosco no WhatsApp. Contamos sobre os próximos encontros, a área de associados e como se aproximar da comunidade.",
+  },
+  {
+    q: "Os encontros são pagos?",
+    a: "Na Mesa e o Clube de Leitura são abertos e sem custo — só presença. Eventos especiais e a área de associados têm condições próprias, sempre comunicadas com clareza.",
+  },
+] as const;
