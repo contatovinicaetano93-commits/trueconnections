@@ -1,4 +1,4 @@
-import { journey, portals } from "@/lib/content";
+import { portals } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { Marquee } from "@/components/ui/Marquee";
 
@@ -38,27 +38,6 @@ export function Portals() {
               </a>
             </Reveal>
           ))}
-        </div>
-
-        <div className="border-t border-line bg-smoke/30 px-5 py-5 md:px-8 md:py-6">
-          <p className="eyebrow mb-4">Caminho</p>
-          <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {journey.map((step, i) => (
-              <li key={step.href}>
-                <a href={step.href} className="focus-ring group flex items-baseline gap-3">
-                  <span className="text-[0.65rem] tracking-[0.16em] text-gold">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="display text-xl text-parchment transition-colors group-hover:text-gold md:text-2xl">
-                    {step.label}
-                  </span>
-                  <span className="text-gold opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100">
-                    →
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ol>
         </div>
       </div>
     </section>
