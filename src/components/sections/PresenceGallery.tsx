@@ -18,11 +18,11 @@ export function PresenceGallery() {
 
         <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-4">
           {presence.items.map((item, i) => {
-            const wide = i === 0 || i === 3;
+            const wide = i % 5 === 0 || i % 5 === 3;
             return (
               <Reveal
                 key={item.label}
-                delay={i * 0.05}
+                delay={Math.min(i * 0.04, 0.28)}
                 y={28}
                 className={wide ? "col-span-2 md:col-span-3" : "md:col-span-2"}
               >

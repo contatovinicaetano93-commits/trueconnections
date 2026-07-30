@@ -254,6 +254,22 @@ export const heroSlides = [
     caption: "Aline e Gabriella — o chamado por trás da True",
   },
   {
+    src: "/images/retrato.jpg",
+    caption: "Presença que inspira — no palco e na fé",
+  },
+  {
+    src: "/images/meditacao.jpg",
+    caption: "Silêncio, corpo e espírito em um só tempo",
+  },
+  {
+    src: "/images/oracao.jpg",
+    caption: "Olhar para cima — onde a luz encontra o coração",
+  },
+  {
+    src: "/images/devocao.jpg",
+    caption: "Devoção em movimento, fé em cada respiração",
+  },
+  {
     src: "/images/alongamento.png",
     caption: "Corpo, presença e fé — Método Ruach",
   },
@@ -285,6 +301,22 @@ export const presence = {
       label: "Fundadoras",
     },
     {
+      src: "/images/retrato.jpg",
+      label: "Palco",
+    },
+    {
+      src: "/images/meditacao.jpg",
+      label: "Meditação",
+    },
+    {
+      src: "/images/oracao.jpg",
+      label: "Oração",
+    },
+    {
+      src: "/images/devocao.jpg",
+      label: "Devoção",
+    },
+    {
       src: "/images/alongamento.png",
       label: "Método Ruach",
     },
@@ -307,7 +339,7 @@ export const fullBleed = {
   eyebrow: "Na Mesa",
   title: "Mulheres reunidas em volta da mesa, buscando mais de Deus.",
   body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão que transforma o caminhar.",
-  image: "/images/movimento.png",
+  image: "/images/meditacao.jpg",
   cta: "Conhecer os encontros",
   href: "#encontros",
 } as const;
