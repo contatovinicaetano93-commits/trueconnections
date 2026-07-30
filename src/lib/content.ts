@@ -8,8 +8,7 @@ export const site = {
   instagram: "https://instagram.com/",
   logo: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/ba212491c_D665219E-A89E-42DC-8E50-9F916E0C088B.png",
   mark: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg",
-  foundersImage:
-    "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
+  foundersImage: "/images/fundadoras.png",
   url: "https://trueconnections.vercel.app",
 } as const;
 
@@ -97,15 +96,11 @@ export const manifesto = {
   missionTitle: "Nossa Missão",
   mission:
     "Servir ao Senhor e levar Sua palavra aos quatro cantos do Brasil através da comunhão, dos encontros, das experiências e das conexões que estamos construindo. Acreditamos que Deus está formando uma grande rede de pessoas unidas por um mesmo propósito: glorificá-Lo.",
-  foundersLabel: "Por trás da True estão três mulheres conectadas pelo mesmo chamado",
+  foundersLabel: "Por trás da True estão duas mulheres conectadas pelo mesmo chamado",
   founders: [
     {
       name: "Gabriella Grecco",
       bio: "Apaixonada por comunicação, conexões e por criar ambientes que aproximam pessoas de Deus e umas das outras.",
-    },
-    {
-      name: "Beta Neves",
-      bio: "Dentista, apaixonada por fé, família e conexões genuínas, trazendo acolhimento e profundidade para a comunidade.",
     },
     {
       name: "Aline Jabur",
@@ -255,26 +250,30 @@ export const associados = {
 
 export const heroSlides = [
   {
-    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
-    caption: "Gabriella, Beta e Aline — o chamado por trás da True",
+    src: "/images/fundadoras.png",
+    caption: "Aline e Gabriella — o chamado por trás da True",
   },
   {
-    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/d93f68212_IMG_1202.jpg",
-    caption: "Amém Café — o primeiro café é por nossa conta",
+    src: "/images/alongamento.png",
+    caption: "Corpo, presença e fé — Método Ruach",
   },
   {
-    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/89d0b7f4c_IMG_1203.jpg",
-    caption: "Praça Pôr do Sol — presença em Pinheiros",
+    src: "/images/equilibrio.png",
+    caption: "Equilíbrio que nasce do centro",
   },
   {
-    src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e73801d83_IMG_1136.jpeg",
-    caption: "Instituto Seja o Milagre — transformar vidas",
+    src: "/images/movimento.png",
+    caption: "Movimento em comunhão",
+  },
+  {
+    src: "/images/presenca.png",
+    caption: "Presença que transforma o caminhar",
   },
 ] as const;
 
 export const quote = {
   text: "Mais do que eventos, a True nasceu para ser um lugar de pertencimento.",
-  attribution: "Fundadoras — Gabriella, Beta e Aline",
+  attribution: "Fundadoras — Aline e Gabriella",
 } as const;
 
 export const presence = {
@@ -282,24 +281,24 @@ export const presence = {
   subtitle: "Onde a comunidade se encontra de verdade.",
   items: [
     {
-      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
+      src: "/images/fundadoras.png",
       label: "Fundadoras",
     },
     {
-      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/d93f68212_IMG_1202.jpg",
-      label: "Amém Café",
+      src: "/images/alongamento.png",
+      label: "Método Ruach",
     },
     {
-      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/89d0b7f4c_IMG_1203.jpg",
-      label: "Pôr do Sol",
+      src: "/images/equilibrio.png",
+      label: "Equilíbrio",
     },
     {
-      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e73801d83_IMG_1136.jpeg",
-      label: "Seja o Milagre",
+      src: "/images/movimento.png",
+      label: "Movimento",
     },
     {
-      src: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/9a183623f_IMG_1197.png",
-      label: "Identidade",
+      src: "/images/presenca.png",
+      label: "Presença",
     },
   ],
 } as const;
@@ -308,8 +307,7 @@ export const fullBleed = {
   eyebrow: "Na Mesa",
   title: "Mulheres reunidas em volta da mesa, buscando mais de Deus.",
   body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão que transforma o caminhar.",
-  image:
-    "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/d93f68212_IMG_1202.jpg",
+  image: "/images/movimento.png",
   cta: "Conhecer os encontros",
   href: "#encontros",
 } as const;

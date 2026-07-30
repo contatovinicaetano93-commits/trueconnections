@@ -38,7 +38,7 @@ export function Manifesto() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ash">
             <SoftImage
               src={site.foundersImage}
-              alt="Gabriella, Beta e Aline — fundadoras da True Connection"
+              alt="Aline e Gabriella — fundadoras da True Connection"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 42vw"
@@ -51,7 +51,7 @@ export function Manifesto() {
         </Reveal>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-7xl gap-8 border-t border-line pt-12 md:grid-cols-3 md:pt-14">
+      <div className="mx-auto mt-14 grid max-w-7xl gap-8 border-t border-line pt-12 md:grid-cols-2 md:pt-14">
         {manifesto.founders.map((founder, i) => (
           <Reveal key={founder.name} delay={i * 0.06}>
             <article>
