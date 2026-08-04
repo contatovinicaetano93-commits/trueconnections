@@ -1,79 +1,179 @@
 import Link from "next/link";
-import { MembersShell } from "@/components/members/MembersShell";
-import { createMember } from "@/app/actions/members";
-import { requireAdmin } from "@/lib/session";
+import { desc, eq, sql } from "drizzle-orm";
+import { ArrowRight, BookOpen, Ticket, Video } from "lucide-react";
+import { CollapsibleCard } from "@/components/admin/CollapsibleCard";
+import { PageIntro } from "@/components/admin/ui";
+import { getDb } from "@/db";
+import { bibleStudies, partnerCoupons, ruachVideos } from "@/db/schema";
 
 export const metadata = {
   title: "Admin",
 };
 
-const links = [
-  { href: "/admin/cupons", label: "Gerenciar cupons" },
-  { href: "/admin/ruach", label: "Gerenciar Ruach" },
-  { href: "/admin/estudos", label: "Gerenciar estudos" },
-];
-
 export default async function AdminPage() {
-  const session = await requireAdmin();
+  const db = getDb();
+  const [[couponCount], [videoCount], [studyCount], recentCoupons, recentVideos] =
+    await Promise.all([
+      db
+        .select({ n: sql<number>`count(*)::int` })
+        .from(partnerCoupons)
+        .where(eq(partnerCoupons.active, true)),
+      db
+        .select({ n: sql<number>`count(*)::int` })
+        .from(ruachVideos)
+        .where(eq(ruachVideos.published, true)),
+      db
+        .select({ n: sql<number>`count(*)::int` })
+        .from(bibleStudies)
+        .where(eq(bibleStudies.published, true)),
+      db
+        .select()
+        .from(partnerCoupons)
+        .orderBy(desc(partnerCoupons.createdAt))
+        .limit(3),
+      db
+        .select()
+        .from(ruachVideos)
+        .orderBy(desc(ruachVideos.createdAt))
+        .limit(3),
+    ]);
+
+  const modules = [
+    {
+      href: "/admin/cupons",
+      icon: Ticket,
+      label: "Cupons",
+      count: couponCount?.n ?? 0,
+      unit: "ativos",
+      guide: "Cadastre códigos de parceiros para os associados usarem.",
+    },
+    {
+      href: "/admin/ruach",
+      icon: Video,
+      label: "Ruach",
+      count: videoCount?.n ?? 0,
+      unit: "publicados",
+      guide: "Publique aulas em vídeo (YouTube ou Vimeo).",
+    },
+    {
+      href: "/admin/estudos",
+      icon: BookOpen,
+      label: "Estudos",
+      count: studyCount?.n ?? 0,
+      unit: "publicados",
+      guide: "Escreva textos bíblicos em formato de leitura.",
+    },
+  ];
 
   return (
-    <MembersShell name={session.user.name} role={session.user.role}>
-      <p className="eyebrow mb-3">Painel</p>
-      <h1 className="display text-[clamp(2rem,4vw,3rem)] text-parchment">
-        Administração
-      </h1>
-      <p className="mt-3 max-w-2xl text-mute">
-        Publique cupons, vídeos Ruach e estudos para os associados.
-      </p>
+    <>
+      <PageIntro
+        eyebrow="Painel"
+        title="O que os associados vão encontrar"
+        description="Publique cupons, aulas Ruach e estudos. O conteúdo ativo aparece na área de membros. Usuários e login avançado entram no próximo ciclo."
+      />
 
-      <div className="mt-8 grid gap-4 md:grid-cols-3">
-        {links.map((link) => (
+      <div className="grid gap-4 md:grid-cols-3">
+        {modules.map(({ href, icon: Icon, label, count, unit, guide }) => (
           <Link
-            key={link.href}
-            href={link.href}
-            className="rounded-2xl border border-line bg-card p-5 transition hover:border-gold/50"
+            key={href}
+            href={href}
+            className="group rounded-2xl border border-line bg-card/90 p-5 transition hover:border-gold/45"
           >
-            {link.label}
+            <div className="flex items-center justify-between gap-3">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
+                <Icon size={18} />
+              </span>
+              <ArrowRight
+                size={16}
+                className="text-mute transition group-hover:translate-x-0.5 group-hover:text-gold"
+              />
+            </div>
+            <p className="display mt-4 text-2xl text-parchment">{label}</p>
+            <p className="mt-1 text-sm text-gold">
+              {count} {unit}
+            </p>
+            <p className="mt-3 text-sm text-mute">{guide}</p>
           </Link>
         ))}
       </div>
 
-      <section className="mt-12 max-w-xl rounded-2xl border border-line bg-card p-6">
-        <h2 className="display text-2xl text-parchment">Novo associado</h2>
-        <form action={createMember} className="mt-5 space-y-4">
-          <input
-            name="name"
-            placeholder="Nome"
-            required
-            className="w-full rounded-xl border border-line bg-ink/40 px-4 py-3 outline-none"
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="E-mail"
-            required
-            className="w-full rounded-xl border border-line bg-ink/40 px-4 py-3 outline-none"
-          />
-          <input
-            name="password"
-            type="password"
-            placeholder="Senha (mín. 8)"
-            required
-            minLength={8}
-            className="w-full rounded-xl border border-line bg-ink/40 px-4 py-3 outline-none"
-          />
-          <label className="flex items-center gap-2 text-sm text-mute">
-            <input name="role" type="checkbox" value="admin" />
-            Criar como admin
-          </label>
-          <button
-            type="submit"
-            className="rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-deep"
-          >
-            Criar acesso
-          </button>
-        </form>
-      </section>
-    </MembersShell>
+      <div className="mt-6 space-y-4">
+        <CollapsibleCard
+          eyebrow="Guia rápido"
+          title="Como publicar sem erro"
+          summary="3 passos: escolher módulo → preencher → marcar ativo/publicado"
+          defaultOpen
+        >
+          <ol className="space-y-3 text-sm text-mute">
+            <li>
+              <span className="font-medium text-parchment">1. Escolha o módulo</span>{" "}
+              na sidebar (Cupons, Ruach ou Estudos).
+            </li>
+            <li>
+              <span className="font-medium text-parchment">2. Abra o card</span>{" "}
+              “Novo …” e preencha os campos guiados.
+            </li>
+            <li>
+              <span className="font-medium text-parchment">3. Marque ativo/publicado</span>{" "}
+              e salve — o associado vê na hora na área de membros.
+            </li>
+          </ol>
+        </CollapsibleCard>
+
+        <CollapsibleCard
+          eyebrow="Recente"
+          title="Últimos conteúdos"
+          summary={
+            recentCoupons.length || recentVideos.length
+              ? `${recentCoupons.length} cupons · ${recentVideos.length} vídeos`
+              : "Nada publicado ainda — comece pelos cupons"
+          }
+          defaultOpen={false}
+        >
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <p className="text-[0.68rem] uppercase tracking-[0.16em] text-mute">
+                Cupons
+              </p>
+              <ul className="mt-3 space-y-2">
+                {recentCoupons.length === 0 ? (
+                  <li className="text-sm text-mute">Nenhum ainda.</li>
+                ) : (
+                  recentCoupons.map((c) => (
+                    <li
+                      key={c.id}
+                      className="rounded-xl border border-line bg-ink/25 px-3 py-2 text-sm"
+                    >
+                      <span className="text-parchment">{c.partnerName}</span>
+                      <span className="ml-2 font-mono text-gold">{c.code}</span>
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
+            <div>
+              <p className="text-[0.68rem] uppercase tracking-[0.16em] text-mute">
+                Ruach
+              </p>
+              <ul className="mt-3 space-y-2">
+                {recentVideos.length === 0 ? (
+                  <li className="text-sm text-mute">Nenhum ainda.</li>
+                ) : (
+                  recentVideos.map((v) => (
+                    <li
+                      key={v.id}
+                      className="rounded-xl border border-line bg-ink/25 px-3 py-2 text-sm text-parchment"
+                    >
+                      {v.title}
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
+          </div>
+        </CollapsibleCard>
+      </div>
+    </>
   );
 }
