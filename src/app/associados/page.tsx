@@ -38,6 +38,23 @@ export default async function AssociadosHomePage() {
         estudos.
       </p>
 
+      {session.user.role === "admin" ? (
+        <Link
+          href="/admin"
+          className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-gold/40 bg-gold/10 px-5 py-4 transition hover:border-gold/70"
+        >
+          <div>
+            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-gold">
+              Administração
+            </p>
+            <p className="mt-1 text-sm text-parchment">
+              Abrir o painel com sidebar para publicar cupons, Ruach e estudos.
+            </p>
+          </div>
+          <span className="text-sm font-medium text-gold">Ir para /admin →</span>
+        </Link>
+      ) : null}
+
       <div className="mt-10 grid gap-5 md:grid-cols-3">
         {products.map((item) => (
           <Link

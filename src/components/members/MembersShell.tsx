@@ -1,18 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { SignOutButton } from "@/components/members/SignOutButton";
 
 const memberLinks = [
-  { href: "/associados", label: "Início" },
+  { href: "/associados", label: "Início", exact: true },
   { href: "/associados/cupons", label: "Cupons" },
   { href: "/associados/ruach", label: "Ruach" },
   { href: "/associados/estudos", label: "Estudos" },
-];
-
-const adminLinks = [
-  { href: "/admin", label: "Admin" },
-  { href: "/admin/cupons", label: "Cupons" },
-  { href: "/admin/ruach", label: "Ruach" },
-  { href: "/admin/estudos", label: "Estudos" },
 ];
 
 export function MembersShell({
@@ -24,7 +20,8 @@ export function MembersShell({
   role?: string | null;
   children: React.ReactNode;
 }) {
-  const links = role === "admin" ? [...memberLinks, ...adminLinks] : memberLinks;
+  const pathname = usePathname();
+  const isAdmin = role === "admin";
 
   return (
     <div className="min-h-screen bg-ink text-parchment">
@@ -35,15 +32,30 @@ export function MembersShell({
             <p className="display text-xl text-parchment">Olá, {name}</p>
           </div>
           <nav className="flex flex-wrap items-center gap-4 text-sm">
-            {links.map((link) => (
+            {memberLinks.map((link) => {
+              const active = link.exact
+                ? pathname === link.href
+                : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`transition ${
+                    active ? "text-gold" : "text-mute hover:text-gold"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            {isAdmin ? (
               <Link
-                key={link.href}
-                href={link.href}
-                className="text-mute transition hover:text-gold"
+                href="/admin"
+                className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-gold transition hover:border-gold/70"
               >
-                {link.label}
+                Painel admin
               </Link>
-            ))}
+            ) : null}
             <SignOutButton />
           </nav>
         </div>
