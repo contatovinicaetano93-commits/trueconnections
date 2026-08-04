@@ -89,9 +89,15 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <MagneticButton
+            href="/associados/login"
+            className="hidden rounded-full border border-line px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-parchment/80 hover:border-gold/50 hover:text-gold sm:inline-flex"
+          >
+            Entrar
+          </MagneticButton>
+          <MagneticButton
             href={site.whatsapp}
             external
-            className="hidden rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-gold hover:border-gold/70 hover:bg-gold/15 sm:inline-flex"
+            className="hidden rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-gold hover:border-gold/70 hover:bg-gold/15 md:inline-flex"
           >
             Contato
           </MagneticButton>
@@ -148,11 +154,18 @@ export function Header() {
             </a>
           ))}
           <a
+            href="/associados/login"
+            onClick={close}
+            className="focus-ring mt-3 rounded-full border border-gold/40 px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-gold"
+          >
+            Área de associados
+          </a>
+          <a
             href={site.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="focus-ring mt-3 rounded-full bg-gold px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink"
+            className="focus-ring mt-2 rounded-full bg-gold px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink"
           >
             Falar no WhatsApp
           </a>
