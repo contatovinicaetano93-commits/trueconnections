@@ -28,6 +28,16 @@ function embedUrl(url: string) {
   return null;
 }
 
+function isDirectVideo(url: string) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("blob.vercel-storage.com")) return true;
+    return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(parsed.pathname);
+  } catch {
+    return false;
+  }
+}
+
 export default async function RuachPage() {
   const session = await requireMember();
   const videos = await getDb()
@@ -52,6 +62,7 @@ export default async function RuachPage() {
         ) : (
           videos.map((video) => {
             const embed = embedUrl(video.videoUrl);
+            const direct = isDirectVideo(video.videoUrl);
             return (
               <article
                 key={video.id}
@@ -66,6 +77,17 @@ export default async function RuachPage() {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
+                  ) : direct ? (
+                    <video
+                      src={video.videoUrl}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      poster={video.thumbnailUrl || undefined}
+                      className="h-full w-full bg-deep object-contain"
+                    >
+                      Seu navegador não reproduz este vídeo.
+                    </video>
                   ) : (
                     <a
                       href={video.videoUrl}

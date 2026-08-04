@@ -1,5 +1,6 @@
 "use server";
 
+import { del } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
@@ -147,7 +148,23 @@ export async function deleteVideo(formData: FormData) {
   await requireAdmin();
   const id = String(formData.get("id") || "");
   if (!id) return;
-  await getDb().delete(ruachVideos).where(eq(ruachVideos.id, id));
+
+  const db = getDb();
+  const [existing] = await db
+    .select()
+    .from(ruachVideos)
+    .where(eq(ruachVideos.id, id))
+    .limit(1);
+
+  if (existing?.videoUrl?.includes("blob.vercel-storage.com")) {
+    try {
+      await del(existing.videoUrl);
+    } catch {
+      // Continua a remoção do registro mesmo se o blob já não existir
+    }
+  }
+
+  await db.delete(ruachVideos).where(eq(ruachVideos.id, id));
   revalidatePath("/admin/ruach");
   revalidatePath("/associados/ruach");
 }

@@ -1,13 +1,11 @@
 import { asc } from "drizzle-orm";
-import { deleteVideo, saveVideo } from "@/app/actions/members";
+import { deleteVideo } from "@/app/actions/members";
 import { CollapsibleCard } from "@/components/admin/CollapsibleCard";
+import { RuachVideoForm } from "@/components/admin/RuachVideoForm";
 import {
   EmptyGuide,
-  Field,
   PageIntro,
   adminGhostBtnClass,
-  adminInputClass,
-  adminPrimaryBtnClass,
 } from "@/components/admin/ui";
 import { getDb } from "@/db";
 import { ruachVideos } from "@/db/schema";
@@ -29,68 +27,18 @@ export default async function AdminRuachPage() {
       <PageIntro
         eyebrow="Aulas"
         title="Biblioteca Ruach"
-        description="Cole a URL do YouTube ou Vimeo. Itens publicados aparecem em /associados/ruach para os membros assistirem."
+        description="Faça upload do arquivo (MP4/WebM/MOV) ou cole um link do YouTube/Vimeo. Publicados aparecem em /associados/ruach."
       />
 
       <div className="space-y-4">
         <CollapsibleCard
           eyebrow="Publicar"
           title="Novo vídeo"
-          subtitle="Título claro + link. Ordem controla a sequência na lista do associado."
+          subtitle="Prefira upload direto do arquivo. Link externo continua disponível."
           summary="Abrir para adicionar uma aula"
           defaultOpen={videos.length === 0}
         >
-          <form action={saveVideo} className="grid max-w-2xl gap-4">
-            <Field label="Título">
-              <input
-                name="title"
-                required
-                placeholder="Aula 01 — Introdução"
-                className={adminInputClass}
-              />
-            </Field>
-            <Field
-              label="URL do vídeo"
-              hint="YouTube ou Vimeo — o player embute automaticamente."
-            >
-              <input
-                name="videoUrl"
-                required
-                placeholder="https://www.youtube.com/watch?v=…"
-                className={adminInputClass}
-              />
-            </Field>
-            <Field label="Thumbnail (opcional)">
-              <input
-                name="thumbnailUrl"
-                placeholder="https://…"
-                className={adminInputClass}
-              />
-            </Field>
-            <Field label="Descrição">
-              <textarea
-                name="description"
-                rows={3}
-                placeholder="Resumo da aula para o associado"
-                className={adminInputClass}
-              />
-            </Field>
-            <Field label="Ordem" hint="Menor número aparece primeiro.">
-              <input
-                name="sortOrder"
-                type="number"
-                defaultValue={0}
-                className={adminInputClass}
-              />
-            </Field>
-            <label className="flex items-center gap-2 text-sm text-mute">
-              <input name="published" type="checkbox" defaultChecked />
-              Publicado para associados
-            </label>
-            <button type="submit" className={adminPrimaryBtnClass}>
-              Publicar vídeo
-            </button>
-          </form>
+          <RuachVideoForm />
         </CollapsibleCard>
 
         <CollapsibleCard
