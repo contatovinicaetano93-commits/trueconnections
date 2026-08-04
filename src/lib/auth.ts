@@ -3,6 +3,7 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { getDb } from "@/db";
 import * as schema from "@/db/schema";
+import { sendPasswordResetEmail } from "@/lib/email";
 
 const trustedOrigins = [
   "http://localhost:3000",
@@ -25,8 +26,14 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
-    // Sem página pública de cadastro; criação só via /admin
     disableSignUp: false,
+    sendResetPassword: async ({ user, url }) => {
+      await sendPasswordResetEmail({
+        to: user.email,
+        name: user.name,
+        url,
+      });
+    },
   },
   user: {
     additionalFields: {

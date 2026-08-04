@@ -95,6 +95,12 @@ export function Header() {
             Entrar
           </MagneticButton>
           <MagneticButton
+            href="/associados/cadastro"
+            className="hidden rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-gold hover:border-gold/70 hover:bg-gold/15 md:inline-flex"
+          >
+            Cadastrar
+          </MagneticButton>
+          <MagneticButton
             href={site.whatsapp}
             external
             className="hidden rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-gold hover:border-gold/70 hover:bg-gold/15 md:inline-flex"
@@ -135,7 +141,7 @@ export function Header() {
       <div
         id="mobile-nav"
         className={`overflow-hidden border-t border-line bg-ink transition-[max-height,opacity] duration-300 lg:hidden ${
-          open ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
+          open ? "max-h-[36rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <nav className="section-pad mx-auto flex max-w-7xl flex-col gap-1 py-5" aria-label="Mobile">
@@ -158,14 +164,21 @@ export function Header() {
             onClick={close}
             className="focus-ring mt-3 rounded-full border border-gold/40 px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-gold"
           >
-            Área de associados
+            Entrar
+          </a>
+          <a
+            href="/associados/cadastro"
+            onClick={close}
+            className="focus-ring mt-2 rounded-full bg-gold px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink"
+          >
+            Criar cadastro
           </a>
           <a
             href={site.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="focus-ring mt-2 rounded-full bg-gold px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink"
+            className="focus-ring mt-2 rounded-full border border-line px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-parchment/85"
           >
             Falar no WhatsApp
           </a>

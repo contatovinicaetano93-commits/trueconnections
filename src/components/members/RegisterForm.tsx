@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
@@ -10,7 +9,7 @@ import {
   authInputClass,
 } from "@/components/members/PasswordInput";
 
-export function LoginForm() {
+export function RegisterForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -21,18 +20,37 @@ export function LoginForm() {
     setError(null);
 
     const form = new FormData(event.currentTarget);
-    const email = String(form.get("email") || "");
+    const name = String(form.get("name") || "").trim();
+    const email = String(form.get("email") || "").trim().toLowerCase();
     const password = String(form.get("password") || "");
+    const confirm = String(form.get("confirm") || "");
 
-    const { error: signInError } = await authClient.signIn.email({
+    if (password !== confirm) {
+      setError("As senhas não coincidem.");
+      setLoading(false);
+      return;
+    }
+
+    if (password.length < 8) {
+      setError("A senha precisa ter pelo menos 8 caracteres.");
+      setLoading(false);
+      return;
+    }
+
+    const { error: signUpError } = await authClient.signUp.email({
+      name,
       email,
       password,
     });
 
     setLoading(false);
 
-    if (signInError) {
-      setError("E-mail ou senha inválidos.");
+    if (signUpError) {
+      setError(
+        signUpError.message?.includes("exist")
+          ? "Este e-mail já está cadastrado. Faça login."
+          : "Não foi possível criar a conta. Tente novamente.",
+      );
       return;
     }
 
@@ -42,6 +60,16 @@ export function LoginForm() {
 
   return (
     <form onSubmit={onSubmit} className="mx-auto w-full space-y-5">
+      <AuthField label="Nome">
+        <input
+          name="name"
+          type="text"
+          required
+          autoComplete="name"
+          placeholder="Seu nome"
+          className={authInputClass}
+        />
+      </AuthField>
       <AuthField label="E-mail">
         <input
           name="email"
@@ -51,18 +79,17 @@ export function LoginForm() {
           className={authInputClass}
         />
       </AuthField>
-
-      <div className="space-y-2">
-        <PasswordInput name="password" label="Senha" autoComplete="current-password" />
-        <div className="text-right">
-          <Link
-            href="/associados/esqueci-senha"
-            className="text-xs text-mute transition hover:text-gold"
-          >
-            Esqueci a minha senha
-          </Link>
-        </div>
-      </div>
+      <PasswordInput
+        name="password"
+        label="Senha"
+        autoComplete="new-password"
+        placeholder="Mínimo 8 caracteres"
+      />
+      <PasswordInput
+        name="confirm"
+        label="Confirmar senha"
+        autoComplete="new-password"
+      />
 
       {error ? <p className="text-sm text-ember">{error}</p> : null}
 
@@ -71,7 +98,7 @@ export function LoginForm() {
         disabled={loading}
         className="w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-deep transition hover:bg-gold-soft disabled:opacity-60"
       >
-        {loading ? "Entrando…" : "Entrar"}
+        {loading ? "Criando conta…" : "Criar acesso"}
       </button>
     </form>
   );

@@ -1,22 +1,44 @@
+import Link from "next/link";
+import { AuthCard } from "@/components/members/AuthCard";
 import { LoginForm } from "@/components/members/LoginForm";
 
 export const metadata = {
   title: "Entrar | Associados",
 };
 
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ reset?: string }>;
+}) {
+  const params = await searchParams;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-ink px-5 py-16">
-      <div className="w-full max-w-lg rounded-3xl border border-line bg-smoke/50 p-8 md:p-10">
-        <p className="eyebrow mb-3">True Connection</p>
-        <h1 className="display text-3xl text-parchment md:text-4xl">
-          Área de associados
-        </h1>
-        <p className="mt-3 mb-8 text-sm text-mute">
-          Acesse cupons de parceiros, aulas Ruach e estudos bíblicos.
+    <AuthCard
+      title="Área de associados"
+      description="Entre com seu e-mail e senha para acessar cupons, aulas Ruach e estudos."
+      footer={
+        <>
+          <p>
+            Ainda não tem acesso?{" "}
+            <Link href="/associados/cadastro" className="text-gold hover:underline">
+              Criar cadastro
+            </Link>
+          </p>
+          <p>
+            <Link href="/" className="hover:text-gold">
+              Voltar ao site
+            </Link>
+          </p>
+        </>
+      }
+    >
+      {params.reset === "1" ? (
+        <p className="mb-5 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-parchment">
+          Senha atualizada. Faça login com a nova senha.
         </p>
-        <LoginForm />
-      </div>
-    </div>
+      ) : null}
+      <LoginForm />
+    </AuthCard>
   );
 }

@@ -1,19 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionCookie } from "better-auth/cookies";
 
+const publicAssociados = [
+  "/associados/login",
+  "/associados/cadastro",
+  "/associados/esqueci-senha",
+  "/associados/redefinir-senha",
+];
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const sessionCookie = getSessionCookie(request);
 
-  const isLogin = pathname.startsWith("/associados/login");
-  const isMembers = pathname.startsWith("/associados") && !isLogin;
+  const isPublicAuth = publicAssociados.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`),
+  );
+  const isMembers = pathname.startsWith("/associados") && !isPublicAuth;
   const isAdmin = pathname.startsWith("/admin");
 
   if ((isMembers || isAdmin) && !sessionCookie) {
     return NextResponse.redirect(new URL("/associados/login", request.url));
   }
 
-  if (isLogin && sessionCookie) {
+  if (isPublicAuth && sessionCookie && pathname !== "/associados/redefinir-senha") {
     return NextResponse.redirect(new URL("/associados", request.url));
   }
 
