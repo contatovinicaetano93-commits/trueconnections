@@ -1,5 +1,5 @@
 import { manifesto, site } from "@/lib/content";
-import { Reveal } from "@/components/ui/Reveal";
+import { Reveal, RevealText } from "@/components/ui/Reveal";
 import { SoftImage } from "@/components/ui/SoftImage";
 
 export function Manifesto() {
@@ -9,16 +9,20 @@ export function Manifesto() {
         <div>
           <Reveal>
             <p className="eyebrow mb-5">Manifesto</p>
-            <h2 className="display text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.05] text-parchment">
-              {manifesto.title}
-            </h2>
           </Reveal>
-          <Reveal delay={0.08}>
+          <RevealText
+            as="h2"
+            className="display text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.05] text-parchment"
+            delay={0.05}
+          >
+            {manifesto.title}
+          </RevealText>
+          <Reveal delay={0.1}>
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-parchment/85">
               {manifesto.lead}
             </p>
           </Reveal>
-          <Reveal delay={0.12}>
+          <Reveal delay={0.14}>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-mute">
               {manifesto.body}
             </p>
@@ -38,7 +42,7 @@ export function Manifesto() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ash">
             <SoftImage
               src={site.foundersImage}
-              alt="Aline e Gabriella — fundadoras da True Connection"
+              alt="Aline e Gabriella — fundadoras da True Connections"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 42vw"

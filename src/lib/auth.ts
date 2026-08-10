@@ -24,9 +24,17 @@ export const auth = betterAuth({
       verification: schema.verification,
     },
   }),
+  // Extra in-process guard (Neon rate limit also wraps /api/auth)
+  rateLimit: {
+    enabled: true,
+    window: 60,
+    max: 100,
+    storage: "memory",
+  },
   emailAndPassword: {
     enabled: true,
-    disableSignUp: false,
+    // Public self-signup is closed — admins create members in /admin/usuarios
+    disableSignUp: true,
     sendResetPassword: async ({ user, url }) => {
       await sendPasswordResetEmail({
         to: user.email,
@@ -41,6 +49,12 @@ export const auth = betterAuth({
         type: "string",
         required: false,
         defaultValue: "member",
+        input: false,
+      },
+      active: {
+        type: "boolean",
+        required: false,
+        defaultValue: true,
         input: false,
       },
     },

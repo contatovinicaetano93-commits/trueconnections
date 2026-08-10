@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 const fieldClass =
-  "w-full rounded-xl border border-line bg-card px-4 py-3 text-parchment outline-none ring-gold/40 focus:ring-2";
+  "w-full rounded-xl border border-line bg-ink/30 px-4 py-3.5 text-parchment outline-none transition placeholder:text-mute/50 focus:border-gold/50 focus:ring-2 focus:ring-gold/25";
 
 export function PasswordInput({
   name = "password",

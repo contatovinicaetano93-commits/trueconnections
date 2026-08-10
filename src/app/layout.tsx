@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Fraunces } from "next/font/google";
+import { Fraunces, Source_Serif_4 } from "next/font/google";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { site } from "@/lib/content";
 import "./globals.css";
@@ -10,7 +10,7 @@ const display = Fraunces({
   axes: ["SOFT", "WONK", "opsz"],
 });
 
-const body = Archivo({
+const body = Source_Serif_4({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -19,32 +19,32 @@ const body = Archivo({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "True Connection",
-    template: "%s | True Connection",
+    default: site.name,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   icons: {
-    icon: site.logo,
-    apple: site.logo,
+    icon: site.mark,
+    apple: site.mark,
   },
   openGraph: {
-    title: "True Connection",
+    title: site.name,
     description: site.tagline,
     type: "website",
     url: site.url,
-    siteName: "True Connection",
+    siteName: site.name,
     images: [
       {
         url: site.logo,
-        width: 1200,
-        height: 630,
-        alt: "True Connection",
+        width: 1024,
+        height: 1024,
+        alt: site.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "True Connection",
+    title: site.name,
     description: site.tagline,
     images: [site.logo],
   },

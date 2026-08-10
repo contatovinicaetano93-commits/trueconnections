@@ -9,32 +9,40 @@ export const metadata = {
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ reset?: string }>;
+  searchParams: Promise<{ reset?: string; disabled?: string }>;
 }) {
   const params = await searchParams;
 
   return (
     <AuthCard
-      title="Área de associados"
-      description="Entre com seu e-mail e senha para acessar cupons, aulas Ruach e estudos."
+      title="Bem-vindo de volta"
+      description="Entre com seu e-mail e senha para acessar cupons, aulas Ruach e estudos bíblicos."
       footer={
         <>
           <p>
             Ainda não tem acesso?{" "}
-            <Link href="/associados/cadastro" className="text-gold hover:underline">
-              Criar cadastro
+            <Link
+              href="/associados/cadastro"
+              className="font-medium text-gold hover:underline"
+            >
+              Como obter acesso
             </Link>
           </p>
           <p>
-            <Link href="/" className="hover:text-gold">
+            <Link href="/" className="transition hover:text-gold">
               Voltar ao site
             </Link>
           </p>
         </>
       }
     >
+      {params.disabled === "1" ? (
+        <p className="mb-5 border border-ember/40 bg-ember/10 px-4 py-3 text-sm leading-relaxed text-parchment">
+          Sua conta está desativada. Fale com a administração True Connections.
+        </p>
+      ) : null}
       {params.reset === "1" ? (
-        <p className="mb-5 rounded-xl border border-gold/30 bg-gold/10 px-4 py-3 text-sm text-parchment">
+        <p className="mb-5 border border-gold/30 bg-gold/10 px-4 py-3 text-sm leading-relaxed text-parchment">
           Senha atualizada. Faça login com a nova senha.
         </p>
       ) : null}

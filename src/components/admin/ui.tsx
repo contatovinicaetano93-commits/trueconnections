@@ -27,6 +27,9 @@ export const adminPrimaryBtnClass =
 export const adminGhostBtnClass =
   "text-sm text-mute transition hover:text-ember";
 
+export const adminEditBtnClass =
+  "text-sm text-gold transition hover:text-gold-soft";
+
 export function EmptyGuide({
   title,
   body,

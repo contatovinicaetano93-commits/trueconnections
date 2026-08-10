@@ -75,9 +75,12 @@ export function FullBleed() {
           </p>
           <a
             href={fullBleed.href}
-            className="focus-ring mt-8 inline-flex rounded-full border border-ink/30 bg-ink/10 px-6 py-3 text-[0.72rem] tracking-[0.16em] text-ink uppercase backdrop-blur-sm transition-colors hover:bg-ink/20"
+            className="focus-ring link-arrow mt-8 inline-flex rounded-full border border-ink/30 bg-ink/10 px-6 py-3 text-[0.72rem] tracking-[0.16em] text-ink uppercase backdrop-blur-sm transition-colors hover:bg-ink/20"
           >
-            {fullBleed.cta} →
+            {fullBleed.cta}
+            <span className="link-arrow__glyph" aria-hidden>
+              →
+            </span>
           </a>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { hero, heroSlides, site } from "@/lib/content";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SoftImage } from "@/components/ui/SoftImage";
 
@@ -105,8 +106,8 @@ export function Hero() {
 
       <div className="section-pad relative z-10 mx-auto grid w-full max-w-7xl items-end gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div className="text-center md:text-left">
-          <div className="hero-ornament mb-5 flex justify-center md:justify-start" aria-hidden>
-            <span className="ornament-knot" />
+          <div className="hero-ornament mb-1 flex flex-col items-center gap-0 md:items-start">
+            <BrandLogo variant="mark" size="xl" priority className="-mb-1" />
           </div>
           <p className="hero-eyebrow eyebrow mb-6">{hero.eyebrow}</p>
           <h1 className="display mx-auto max-w-4xl text-[clamp(3rem,9vw,7rem)] leading-[0.92] tracking-[-0.04em] text-parchment md:mx-0">

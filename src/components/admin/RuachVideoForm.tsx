@@ -10,11 +10,40 @@ import {
   adminPrimaryBtnClass,
 } from "@/components/admin/ui";
 
-type SourceMode = "upload" | "link";
+type SourceMode = "upload" | "link" | "keep";
 
-export function RuachVideoForm() {
+export type VideoFormValues = {
+  id?: string;
+  title: string;
+  description: string | null;
+  videoUrl: string;
+  thumbnailUrl: string | null;
+  sortOrder: number;
+  published: boolean;
+};
+
+function defaultMode(initial?: VideoFormValues): SourceMode {
+  if (!initial?.id) return "upload";
+  if (
+    initial.videoUrl.includes("youtube.com") ||
+    initial.videoUrl.includes("youtu.be") ||
+    initial.videoUrl.includes("vimeo.com")
+  ) {
+    return "link";
+  }
+  return "keep";
+}
+
+export function RuachVideoForm({
+  initial,
+  onSaved,
+}: {
+  initial?: VideoFormValues;
+  onSaved?: () => void;
+}) {
   const router = useRouter();
-  const [mode, setMode] = useState<SourceMode>("upload");
+  const isEdit = Boolean(initial?.id);
+  const [mode, setMode] = useState<SourceMode>(() => defaultMode(initial));
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -38,7 +67,14 @@ export function RuachVideoForm() {
     try {
       let videoUrl = String(data.get("videoUrl") || "").trim();
 
-      if (mode === "upload") {
+      if (mode === "keep") {
+        videoUrl = initial?.videoUrl || "";
+        if (!videoUrl) {
+          setError("Vídeo atual não encontrado. Envie um novo arquivo ou link.");
+          setBusy(false);
+          return;
+        }
+      } else if (mode === "upload") {
         const fileInput = form.elements.namedItem("file") as HTMLInputElement;
         const file = fileInput?.files?.[0];
         if (!file) {
@@ -62,9 +98,14 @@ export function RuachVideoForm() {
         setError("Cole a URL do YouTube ou Vimeo.");
         setBusy(false);
         return;
+      } else {
+        setStatus("Salvando na biblioteca…");
       }
 
       const payload = new FormData();
+      if (initial?.id) {
+        payload.set("id", initial.id);
+      }
       payload.set("title", title);
       payload.set("videoUrl", videoUrl);
       payload.set("description", String(data.get("description") || ""));
@@ -75,8 +116,11 @@ export function RuachVideoForm() {
       }
 
       await saveVideo(payload);
-      form.reset();
-      setStatus("Vídeo publicado.");
+      if (!isEdit) {
+        form.reset();
+      }
+      setStatus(isEdit ? "Alterações salvas." : "Vídeo publicado.");
+      onSaved?.();
       router.refresh();
     } catch (err) {
       setError(
@@ -89,15 +133,23 @@ export function RuachVideoForm() {
     }
   }
 
+  const modeOptions = (
+    isEdit
+      ? ([
+          ["keep", "Manter vídeo atual"],
+          ["upload", "Trocar por arquivo"],
+          ["link", "Trocar por link"],
+        ] as const)
+      : ([
+          ["upload", "Upload de arquivo"],
+          ["link", "Link YouTube / Vimeo"],
+        ] as const)
+  );
+
   return (
     <form onSubmit={onSubmit} className="grid max-w-2xl gap-4">
       <div className="flex flex-wrap gap-2">
-        {(
-          [
-            ["upload", "Upload de arquivo"],
-            ["link", "Link YouTube / Vimeo"],
-          ] as const
-        ).map(([value, label]) => (
+        {modeOptions.map(([value, label]) => (
           <button
             key={value}
             type="button"
@@ -117,10 +169,20 @@ export function RuachVideoForm() {
         <input
           name="title"
           required
+          defaultValue={initial?.title ?? ""}
           placeholder="Aula 01 — Introdução"
           className={adminInputClass}
         />
       </Field>
+
+      {mode === "keep" && initial?.videoUrl ? (
+        <div className="rounded-xl border border-line bg-ink/20 px-4 py-3 text-sm text-mute">
+          <p className="text-[0.65rem] uppercase tracking-[0.14em] text-gold">
+            Vídeo atual
+          </p>
+          <p className="mt-2 break-all">{initial.videoUrl}</p>
+        </div>
+      ) : null}
 
       {mode === "upload" ? (
         <Field
@@ -135,22 +197,33 @@ export function RuachVideoForm() {
             className={`${adminInputClass} file:mr-4 file:rounded-full file:border-0 file:bg-gold/20 file:px-3 file:py-1.5 file:text-sm file:text-deep`}
           />
         </Field>
-      ) : (
+      ) : null}
+
+      {mode === "link" ? (
         <Field
           label="URL do vídeo"
           hint="YouTube ou Vimeo — o player embute automaticamente."
         >
           <input
             name="videoUrl"
+            defaultValue={
+              isEdit &&
+              (initial?.videoUrl.includes("youtube") ||
+                initial?.videoUrl.includes("youtu.be") ||
+                initial?.videoUrl.includes("vimeo"))
+                ? initial.videoUrl
+                : ""
+            }
             placeholder="https://www.youtube.com/watch?v=…"
             className={adminInputClass}
           />
         </Field>
-      )}
+      ) : null}
 
       <Field label="Thumbnail (opcional)">
         <input
           name="thumbnailUrl"
+          defaultValue={initial?.thumbnailUrl ?? ""}
           placeholder="https://…"
           className={adminInputClass}
         />
@@ -159,6 +232,7 @@ export function RuachVideoForm() {
         <textarea
           name="description"
           rows={3}
+          defaultValue={initial?.description ?? ""}
           placeholder="Resumo da aula para o associado"
           className={adminInputClass}
         />
@@ -167,12 +241,16 @@ export function RuachVideoForm() {
         <input
           name="sortOrder"
           type="number"
-          defaultValue={0}
+          defaultValue={initial?.sortOrder ?? 0}
           className={adminInputClass}
         />
       </Field>
       <label className="flex items-center gap-2 text-sm text-mute">
-        <input name="published" type="checkbox" defaultChecked />
+        <input
+          name="published"
+          type="checkbox"
+          defaultChecked={initial?.published ?? true}
+        />
         Publicado para associados
       </label>
 
@@ -184,7 +262,11 @@ export function RuachVideoForm() {
         disabled={busy}
         className={`${adminPrimaryBtnClass} disabled:opacity-60`}
       >
-        {busy ? "Processando…" : "Publicar vídeo"}
+        {busy
+          ? "Processando…"
+          : isEdit
+            ? "Salvar alterações"
+            : "Publicar vídeo"}
       </button>
     </form>
   );

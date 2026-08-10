@@ -1,28 +1,28 @@
 export const site = {
-  name: "True Connection",
+  name: "True Connections",
   tagline: "Mais do que uma plataforma. Um movimento.",
   description:
     "Comunidade cristã editorial para conectar, crescer e prosperar através de experiências curadas, bem-estar com fé e networking com propósito.",
-  whatsapp: "https://wa.me/5511990267044?text=Ol%C3%A1%2C+True+Connection%21",
-  email: "mailto:contato@trueconnection.com.br",
+  whatsapp: "https://wa.me/5511990267044?text=Ol%C3%A1%2C+True+Connections%21",
+  email: "mailto:contato@trueconnections.com.br",
   instagram: "https://instagram.com/",
-  logo: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/ba212491c_D665219E-A89E-42DC-8E50-9F916E0C088B.png",
-  mark: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg",
+  logo: "/images/logo-transparent.png",
+  mark: "/images/logo-mark-transparent.png",
   foundersImage: "/images/fundadoras.png",
   url: "https://trueconnections.vercel.app",
 } as const;
 
 export const nav = [
-  { href: "#eventos", label: "Eventos" },
+  { href: "#manifesto", label: "Quem Somos" },
   { href: "#associados", label: "Associados" },
+  { href: "#encontros", label: "Encontros" },
+  { href: "#eventos", label: "Eventos" },
   { href: "#impacto", label: "Impacto" },
-  { href: "#loja", label: "Loja" },
-  { href: "#manifesto", label: "Manifesto" },
-  { href: "#contato", label: "Contato" },
+  { href: "#contato", label: "Fale Conosco" },
 ] as const;
 
 export const hero = {
-  eyebrow: "True Connection",
+  eyebrow: "True Connections",
   headlineBefore: "Bem-vindo ao seu",
   headlineAccent: "refúgio",
   body: "Aqui conectamos pessoas que não se amoldam aos padrões deste mundo, dispostas a se transformar e servir. Porque onde todos servem, não falta para ninguém. Onde houver dois ou mais, lá Ele está.",
@@ -30,7 +30,7 @@ export const hero = {
 
 export const boot = {
   line: "Abrindo o refúgio",
-  brand: "True Connection",
+  brand: "True Connections",
   since: "desde 2024",
 } as const;
 
@@ -59,7 +59,7 @@ export const portals = [
   {
     href: "#encontros",
     title: "Encontros",
-    subtitle: "Na Mesa & Estudo Bíblico",
+    subtitle: "Na Mesa & Clube de Leitura",
   },
   {
     href: "#eventos",
@@ -74,7 +74,7 @@ export const portals = [
   {
     href: "#true-action",
     title: "True Action",
-    subtitle: "Rede curada de profissionais",
+    subtitle: "Conhecer os profissionais",
   },
   {
     href: "#loja",
@@ -182,20 +182,25 @@ export const impacto = {
       body: "Em um dos bairros com o maior índice de prostituição do Brasil, em Campinas, a visão é construir uma base missionária segura — proteção para crianças e futuro longe da exploração. A missão também alcança a Ilha de Marajó.",
       address: "Itatinga — Campinas, SP · Ilha de Marajó, PA",
       contact: "Thiago Baeta — Líder da missão",
+      reportUrl: "/docs/relatorio-missional-itatinga.pdf",
+      reportLabel: "Relatório missional — março a maio",
     },
   ],
 } as const;
 
 export const trueAction = {
   title: "True Action",
-  subtitle: "Rede curada de profissionais da comunidade",
+  subtitle: "Conhecer os profissionais",
   body: "Conecte-se com talentos que compartilham dos mesmos valores. Encontre o profissional certo para o seu projeto, dentro de uma rede de confiança.",
+  cta: "Ver os profissionais",
+  whatsapp:
+    "https://wa.me/5511990267044?text=Ol%C3%A1%21%20Quero%20conhecer%20os%20profissionais%20da%20True%20Action.",
 } as const;
 
 export const loja = {
   title: "Loja",
   subtitle: "Produtos exclusivos da comunidade",
-  body: "Itens com a nossa identidade, feitos com carinho para você levar o True Connection para o seu dia a dia.",
+  body: "Itens com a nossa identidade, feitos com carinho para você levar o True Connections para o seu dia a dia.",
   products: [
     {
       name: "Boné Coleção 'Fé e Surto'",
@@ -246,6 +251,8 @@ export const associados = {
   subtitle: "Área premium do clube",
   body: "Um espaço de pertencimento para quem quer viver a True de perto — encontros, conteúdo e conexões com propósito.",
   cta: "Quero fazer parte",
+  membersCta: "Área de membros",
+  membersHref: "/associados/login",
 } as const;
 
 export const heroSlides = [

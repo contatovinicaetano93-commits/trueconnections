@@ -1,7 +1,6 @@
 import { SoftImage } from "@/components/ui/SoftImage";
 import { impacto } from "@/lib/content";
-import { Reveal } from "@/components/ui/Reveal";
-import { Counter } from "@/components/ui/Counter";
+import { Reveal, RevealText } from "@/components/ui/Reveal";
 
 export function Impacto() {
   return (
@@ -9,56 +8,49 @@ export function Impacto() {
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <p className="eyebrow mb-5">Missão</p>
-          <h2 className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment">
-            {impacto.title}
-          </h2>
-          <p className="mt-4 max-w-2xl text-mute">{impacto.subtitle}</p>
+        </Reveal>
+        <RevealText
+          as="h2"
+          className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment"
+          delay={0.04}
+        >
+          {impacto.title}
+        </RevealText>
+        <Reveal delay={0.1}>
+          <p className="body-prose mt-4 max-w-2xl text-mute">{impacto.subtitle}</p>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 border-y border-line bg-card/40 py-12 sm:grid-cols-3 md:py-16">
-          {impacto.stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 0.06}>
-              <p className="display text-[clamp(3.5rem,8vw,6.5rem)] leading-none tracking-[-0.04em] text-gold">
-                <Counter value={stat.value} suffix={stat.suffix} />
-              </p>
-              <p className="mt-4 text-sm tracking-[0.16em] text-mute uppercase">
-                {stat.label}
-              </p>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="mt-16 grid gap-10 lg:grid-cols-2">
+        <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-10">
           {impacto.projects.map((project, i) => (
-            <Reveal key={project.title} delay={i * 0.08} y={40}>
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card">
+            <Reveal key={project.title} delay={i * 0.08}>
+              <article className="group flex h-full flex-col">
                 {"image" in project && project.image ? (
-                  <div className="relative aspect-[16/10]">
+                  <div className="relative mb-7 aspect-[16/10] overflow-hidden">
                     <SoftImage
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
                 ) : (
-                  <div className="flex aspect-[16/10] items-end bg-gradient-to-br from-smoke to-ash p-8">
+                  <div className="mb-7 flex aspect-[16/10] items-end bg-gradient-to-br from-smoke to-ash p-8">
                     <span className="display text-4xl text-gold/50">02</span>
                   </div>
                 )}
-                <div className="flex flex-1 flex-col p-8">
+                <div className="surface-editorial flex flex-1 flex-col">
                   <p className="eyebrow mb-3">{project.tag}</p>
                   <h3 className="display text-3xl text-parchment">{project.title}</h3>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-mute">
+                  <p className="body-prose mt-4 flex-1 text-[0.98rem] text-mute">
                     {project.body}
                   </p>
                   {"frentes" in project && project.frentes ? (
-                    <ul className="mt-6 flex flex-wrap gap-2">
+                    <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
                       {project.frentes.map((frente) => (
                         <li
                           key={frente}
-                          className="border border-line px-3 py-1 text-[0.65rem] tracking-[0.14em] text-mute uppercase"
+                          className="text-[0.65rem] tracking-[0.14em] text-mute/80 uppercase"
                         >
                           {frente}
                         </li>
@@ -67,6 +59,19 @@ export function Impacto() {
                   ) : null}
                   <p className="mt-6 text-xs text-gold/80">{project.address}</p>
                   <p className="mt-2 text-xs text-mute">{project.contact}</p>
+                  {"reportUrl" in project && project.reportUrl ? (
+                    <a
+                      href={project.reportUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="focus-ring link-arrow mt-5 inline-flex text-[0.7rem] tracking-[0.14em] text-gold uppercase transition-colors hover:text-gold-soft"
+                    >
+                      {project.reportLabel ?? "Ver relatório"}
+                      <span className="link-arrow__glyph" aria-hidden>
+                        →
+                      </span>
+                    </a>
+                  ) : null}
                 </div>
               </article>
             </Reveal>

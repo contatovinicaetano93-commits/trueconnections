@@ -1,12 +1,8 @@
 import { asc } from "drizzle-orm";
-import { deleteVideo } from "@/app/actions/members";
 import { CollapsibleCard } from "@/components/admin/CollapsibleCard";
 import { RuachVideoForm } from "@/components/admin/RuachVideoForm";
-import {
-  EmptyGuide,
-  PageIntro,
-  adminGhostBtnClass,
-} from "@/components/admin/ui";
+import { VideoListItem } from "@/components/admin/VideoListItem";
+import { EmptyGuide, PageIntro } from "@/components/admin/ui";
 import { getDb } from "@/db";
 import { ruachVideos } from "@/db/schema";
 
@@ -59,29 +55,18 @@ export default async function AdminRuachPage() {
           ) : (
             <div className="space-y-3">
               {videos.map((video) => (
-                <div
+                <VideoListItem
                   key={video.id}
-                  className="flex flex-wrap items-start justify-between gap-4 rounded-2xl border border-line bg-ink/25 p-4"
-                >
-                  <div className="min-w-0">
-                    <p className="display text-xl text-parchment">
-                      {video.title}
-                    </p>
-                    <p className="mt-1 break-all text-sm text-mute">
-                      {video.videoUrl}
-                    </p>
-                    <p className="mt-2 text-xs uppercase tracking-[0.14em] text-mute">
-                      {video.published ? "Publicado" : "Rascunho"} · ordem{" "}
-                      {video.sortOrder}
-                    </p>
-                  </div>
-                  <form action={deleteVideo}>
-                    <input type="hidden" name="id" value={video.id} />
-                    <button type="submit" className={adminGhostBtnClass}>
-                      Remover
-                    </button>
-                  </form>
-                </div>
+                  video={{
+                    id: video.id,
+                    title: video.title,
+                    description: video.description,
+                    videoUrl: video.videoUrl,
+                    thumbnailUrl: video.thumbnailUrl,
+                    sortOrder: video.sortOrder,
+                    published: video.published,
+                  }}
+                />
               ))}
             </div>
           )}

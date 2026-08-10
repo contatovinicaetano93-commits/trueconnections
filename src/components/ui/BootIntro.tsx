@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { boot } from "@/lib/content";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 export function BootIntro() {
   const [phase, setPhase] = useState<"typing" | "hold" | "exit" | "done">(
@@ -63,8 +64,9 @@ export function BootIntro() {
       aria-live="polite"
       aria-label={`${boot.brand}. ${boot.line}`}
     >
-      <div className="section-pad w-full max-w-3xl">
-        <p className="mb-6 text-[0.7rem] font-medium tracking-[0.28em] text-ember uppercase">
+      <div className="section-pad flex w-full max-w-3xl flex-col items-center text-center md:items-start md:text-left">
+        <BrandLogo variant="mark" size="xl" priority className="-mb-1" />
+        <p className="mb-6 mt-0 text-[0.7rem] font-medium tracking-[0.28em] text-ember uppercase">
           {boot.brand}
           <span className="mx-2 text-mute/50">·</span>
           {boot.since}

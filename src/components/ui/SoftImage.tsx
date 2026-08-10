@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 type SoftImageProps = {
   src: string;
@@ -45,11 +46,10 @@ export function SoftImage({
   if (fill) {
     return (
       <>
-        <div
-          className={`absolute inset-0 bg-ash/80 transition-opacity duration-500 ${
-            loaded ? "opacity-0" : "animate-pulse opacity-100"
+        <Skeleton
+          className={`absolute inset-0 transition-opacity duration-500 ${
+            loaded ? "opacity-0" : "opacity-100"
           }`}
-          aria-hidden
         />
         {image}
       </>
@@ -58,11 +58,10 @@ export function SoftImage({
 
   return (
     <span className="relative inline-block">
-      <span
-        className={`absolute inset-0 bg-ash/80 transition-opacity duration-500 ${
-          loaded ? "opacity-0" : "animate-pulse opacity-100"
+      <Skeleton
+        className={`absolute inset-0 transition-opacity duration-500 ${
+          loaded ? "opacity-0" : "opacity-100"
         }`}
-        aria-hidden
       />
       {image}
     </span>

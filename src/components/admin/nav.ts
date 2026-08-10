@@ -47,7 +47,7 @@ export const adminSecondaryNav: AdminNavItem[] = [
     href: "/admin/usuarios",
     label: "Usuários",
     icon: Users,
-    hint: "Próximo ciclo",
+    hint: "Acessos e papéis",
   },
   {
     href: "/associados",

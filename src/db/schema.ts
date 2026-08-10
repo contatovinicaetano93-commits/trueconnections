@@ -16,6 +16,15 @@ export const user = pgTable("user", {
   createdAt: timestamp("createdAt", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updatedAt", { withTimezone: true }).notNull().defaultNow(),
   role: text("role").notNull().default("member"),
+  active: boolean("active").notNull().default(true),
+  phone: text("phone"),
+  billingDay: integer("billing_day"),
+  subscriptionStatus: text("subscription_status").notNull().default("none"),
+  lastPaidAt: timestamp("last_paid_at", { withTimezone: true }),
+  nextDueAt: timestamp("next_due_at", { withTimezone: true }),
+  monthlyAmountCents: integer("monthly_amount_cents"),
+  profileNotes: text("profile_notes"),
+  mustSetPassword: boolean("must_set_password").notNull().default(false),
 });
 
 export const session = pgTable("session", {
@@ -84,12 +93,19 @@ export const ruachVideos = pgTable("ruach_videos", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });
 
+export const rateLimit = pgTable("rate_limit", {
+  key: text("key").primaryKey(),
+  count: integer("count").notNull().default(0),
+  resetAt: timestamp("reset_at", { withTimezone: true }).notNull(),
+});
+
 export const bibleStudies = pgTable("bible_studies", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: text("title").notNull(),
   slug: text("slug").notNull().unique(),
   excerpt: text("excerpt"),
   body: text("body").notNull(),
+  audioUrl: text("audio_url"),
   published: boolean("published").notNull().default(false),
   publishedAt: timestamp("published_at", { withTimezone: true }),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),

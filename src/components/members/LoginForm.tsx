@@ -36,7 +36,8 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/associados");
+    // Server decide: admin → /admin, associado → /associados
+    router.push("/associados/destino");
     router.refresh();
   }
 

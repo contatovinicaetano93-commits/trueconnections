@@ -6,6 +6,7 @@ const publicAssociados = [
   "/associados/cadastro",
   "/associados/esqueci-senha",
   "/associados/redefinir-senha",
+  "/associados/criar-senha",
 ];
 
 export async function middleware(request: NextRequest) {
@@ -23,7 +24,8 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isPublicAuth && sessionCookie && pathname !== "/associados/redefinir-senha") {
-    return NextResponse.redirect(new URL("/associados", request.url));
+    // Role is checked server-side — admin → /admin, member → /associados
+    return NextResponse.redirect(new URL("/associados/destino", request.url));
   }
 
   return NextResponse.next();

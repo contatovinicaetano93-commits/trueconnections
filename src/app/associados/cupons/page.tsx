@@ -1,5 +1,10 @@
 import { desc, eq } from "drizzle-orm";
+import { CopyCodeButton } from "@/components/members/CopyCodeButton";
+import { MemberEmptyState } from "@/components/members/MemberEmptyState";
+import { MemberPageIntro } from "@/components/members/MemberPageIntro";
+import { MemberSectionLinks } from "@/components/members/MemberSectionLinks";
 import { MembersShell } from "@/components/members/MembersShell";
+import { Stagger } from "@/components/motion/Stagger";
 import { getDb } from "@/db";
 import { partnerCoupons } from "@/db/schema";
 import { requireMember } from "@/lib/session";
@@ -18,36 +23,72 @@ export default async function CuponsPage() {
 
   return (
     <MembersShell name={session.user.name} role={session.user.role}>
-      <p className="eyebrow mb-3">Parceiros</p>
-      <h1 className="display text-[clamp(2rem,4vw,3rem)] text-parchment">
-        Cupons conveniados
-      </h1>
-      <p className="mt-3 max-w-2xl text-mute">
-        Use estes códigos com os parceiros da comunidade.
-      </p>
+      <MemberPageIntro
+        eyebrow="Parceiros"
+        title="Cupons conveniados"
+        description="Copie o código e apresente no parceiro. Benefício exclusivo para associados True Connections."
+        backHref="/associados"
+        backLabel="Voltar ao início"
+        meta={
+          coupons.length > 0 ? (
+            <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-gold uppercase">
+              {coupons.length}{" "}
+              {coupons.length === 1 ? "benefício ativo" : "benefícios ativos"}
+            </p>
+          ) : null
+        }
+      />
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
+      <div className="mt-10">
         {coupons.length === 0 ? (
-          <p className="text-sm text-mute">Nenhum cupom publicado ainda.</p>
+          <MemberEmptyState
+            title="Nenhum cupom no momento"
+            body="Quando a equipe publicar benefícios de parceiros, eles aparecem aqui com código para copiar."
+            actionHref="/associados"
+            actionLabel="Voltar ao início"
+          />
         ) : (
-          coupons.map((coupon) => (
-            <article
-              key={coupon.id}
-              className="rounded-2xl border border-line bg-card p-6"
-            >
-              <h2 className="display text-2xl text-parchment">
-                {coupon.partnerName}
-              </h2>
-              {coupon.description ? (
-                <p className="mt-2 text-sm text-mute">{coupon.description}</p>
-              ) : null}
-              <p className="mt-5 inline-block rounded-full bg-gold/20 px-4 py-2 font-mono text-sm tracking-wide text-deep">
-                {coupon.code}
-              </p>
-            </article>
-          ))
+          <Stagger className="grid gap-4 md:grid-cols-2">
+            {coupons.map((coupon) => (
+              <article key={coupon.id} className="members-coupon">
+                <div>
+                  <p className="text-[0.65rem] font-semibold tracking-[0.18em] text-gold uppercase">
+                    Parceiro
+                  </p>
+                  <h2 className="display mt-2 text-2xl text-parchment">
+                    {coupon.partnerName}
+                  </h2>
+                  {coupon.description ? (
+                    <p className="mt-2 text-sm leading-relaxed text-mute">
+                      {coupon.description}
+                    </p>
+                  ) : null}
+                </div>
+
+                <div>
+                  <p className="mb-2 text-[0.65rem] font-semibold tracking-[0.16em] text-mute uppercase">
+                    Seu código
+                  </p>
+                  <CopyCodeButton code={coupon.code} />
+                </div>
+
+                <div className="border-t border-line pt-4 text-sm text-mute">
+                  <p className="text-[0.65rem] font-semibold tracking-[0.16em] text-gold uppercase">
+                    Como usar
+                  </p>
+                  <ol className="mt-2 list-decimal space-y-1.5 pl-4 leading-relaxed">
+                    <li>Copie o código acima.</li>
+                    <li>Mostre no {coupon.partnerName} (caixa ou atendimento).</li>
+                    <li>Informe que é benefício True Connections.</li>
+                  </ol>
+                </div>
+              </article>
+            ))}
+          </Stagger>
         )}
       </div>
+
+      <MemberSectionLinks current="cupons" />
     </MembersShell>
   );
 }

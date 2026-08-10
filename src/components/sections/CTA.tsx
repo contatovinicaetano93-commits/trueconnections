@@ -1,6 +1,7 @@
 import { nav, qgs, site } from "@/lib/content";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { Reveal } from "@/components/ui/Reveal";
+import { Reveal, RevealText } from "@/components/ui/Reveal";
 
 export function CTA() {
   return (
@@ -16,9 +17,15 @@ export function CTA() {
             <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse-glow rounded-full bg-gold align-middle" />
             Pertencimento
           </p>
-          <h2 className="display text-[clamp(2.6rem,7vw,5rem)] leading-[1.02] text-parchment">
-            {site.tagline}
-          </h2>
+        </Reveal>
+        <RevealText
+          as="h2"
+          className="display text-[clamp(2.6rem,7vw,5rem)] leading-[1.02] text-parchment"
+          delay={0.05}
+        >
+          {site.tagline}
+        </RevealText>
+        <Reveal delay={0.12}>
           <p className="mx-auto mt-6 max-w-xl text-mute">
             Abra a porta. Sente à mesa. Encontre o seu lugar nesta rede.
           </p>
@@ -32,9 +39,12 @@ export function CTA() {
             </MagneticButton>
             <a
               href="#associados"
-              className="focus-ring text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
+              className="focus-ring link-arrow text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
             >
-              Conhecer associados →
+              Conhecer associados
+              <span className="link-arrow__glyph" aria-hidden>
+                →
+              </span>
             </a>
           </div>
         </Reveal>
@@ -48,9 +58,12 @@ export function Footer() {
     <footer className="section-pad border-t border-line bg-smoke/25 py-14 md:py-16">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
-          <p className="text-[0.7rem] tracking-[0.22em] text-gold uppercase">
-            True Connection
-          </p>
+          <div className="flex flex-col items-start gap-0 leading-none">
+            <BrandLogo variant="mark" size="xl" className="-mb-1" />
+            <p className="relative z-[1] text-[0.7rem] tracking-[0.22em] text-gold uppercase">
+              {site.name}
+            </p>
+          </div>
           <p className="display mt-4 max-w-sm text-2xl text-parchment md:text-3xl">
             {site.tagline}
           </p>
@@ -58,9 +71,12 @@ export function Footer() {
             href={site.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="focus-ring mt-6 inline-flex text-sm text-mute transition-colors hover:text-gold"
+            className="focus-ring link-arrow mt-6 inline-flex text-sm text-mute transition-colors hover:text-gold"
           >
-            WhatsApp →
+            WhatsApp
+            <span className="link-arrow__glyph" aria-hidden>
+              →
+            </span>
           </a>
         </div>
 
@@ -98,7 +114,7 @@ export function Footer() {
 
       <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-3 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
         <p className="text-[0.65rem] tracking-[0.18em] text-mute/70 uppercase">
-          © {new Date().getFullYear()} True Connection
+          © {new Date().getFullYear()} {site.name}
         </p>
         <p className="text-xs text-mute/60">Feito com presença e propósito.</p>
       </div>

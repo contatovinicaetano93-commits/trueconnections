@@ -1,41 +1,79 @@
-import { associados, encontros, eventos, site, trueAction } from "@/lib/content";
+import { associados, eventos, site, trueAction } from "@/lib/content";
 import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
-export function Encontros() {
+/** Clube (Associados) + rede (True Action) — um capítulo, duas colunas. */
+export function ClubeERede() {
   return (
-    <section id="encontros" className="section-pad border-t border-line bg-smoke/50 py-16 md:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section className="section-pad border-t border-line py-16 md:py-24">
+      <div className="mx-auto max-w-6xl">
         <Reveal>
-          <p className="eyebrow mb-5">Comunidade</p>
-          <h2 className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment">
-            {encontros.title}
+          <p className="eyebrow mb-4">Pertencer</p>
+          <h2 className="display text-[clamp(2.2rem,4.5vw,3.6rem)] text-parchment">
+            Clube e rede
           </h2>
-          <p className="mt-4 max-w-2xl text-mute/80">{encontros.subtitle}</p>
+          <p className="body-prose mt-4 max-w-xl text-mute">
+            Dois jeitos de viver a True de perto — como associado e na rede de
+            profissionais.
+          </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:gap-8">
-          {encontros.items.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.08} y={40}>
-              <article className="flex h-full flex-col rounded-2xl border border-line bg-card p-8 md:p-10">
-                <p className="eyebrow mb-4">{item.tag}</p>
-                <h3 className="display text-3xl text-parchment md:text-4xl">{item.title}</h3>
-                <p className="mt-5 flex-1 text-base leading-relaxed text-mute/80">{item.body}</p>
-                {"books" in item && item.books ? (
-                  <ul className="mt-6 space-y-2 border-t border-line pt-6">
-                    {item.books.map((book) => (
-                      <li key={book} className="text-sm text-parchment/70">
-                        {book}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-                <p className="mt-6 text-xs tracking-[0.12em] text-gold uppercase">
-                  {item.meta}
-                </p>
-              </article>
+        <div className="mt-12 grid gap-12 border-t border-line pt-12 lg:grid-cols-2 lg:gap-0">
+          <article
+            id="associados"
+            className="scroll-mt-28 lg:border-r lg:border-line lg:pr-12"
+          >
+            <Reveal>
+              <p className="eyebrow mb-4">Clube</p>
+              <h3 className="display text-[clamp(1.85rem,3vw,2.75rem)] text-parchment">
+                {associados.title}
+              </h3>
+              <p className="mt-2 text-sm tracking-wide text-gold/90">
+                {associados.subtitle}
+              </p>
+              <p className="body-prose mt-5 text-mute">{associados.body}</p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <MagneticButton
+                  href={associados.membersHref}
+                  className="w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
+                >
+                  {associados.membersCta}
+                </MagneticButton>
+                <MagneticButton
+                  href={site.whatsapp}
+                  external
+                  className="w-fit rounded-full border border-line px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-parchment/80 hover:border-gold/50 hover:text-gold"
+                >
+                  {associados.cta}
+                </MagneticButton>
+              </div>
             </Reveal>
-          ))}
+          </article>
+
+          <article
+            id="true-action"
+            className="scroll-mt-28 lg:pl-12"
+          >
+            <Reveal delay={0.06}>
+              <p className="eyebrow mb-4">Rede</p>
+              <h3 className="display text-[clamp(1.85rem,3vw,2.75rem)] text-parchment">
+                {trueAction.title}
+              </h3>
+              <p className="mt-2 text-sm tracking-wide text-gold/90">
+                {trueAction.subtitle}
+              </p>
+              <p className="body-prose mt-5 text-mute">{trueAction.body}</p>
+              <div className="mt-8">
+                <MagneticButton
+                  href={trueAction.whatsapp}
+                  external
+                  className="w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
+                >
+                  {trueAction.cta}
+                </MagneticButton>
+              </div>
+            </Reveal>
+          </article>
         </div>
       </div>
     </section>
@@ -44,102 +82,51 @@ export function Encontros() {
 
 export function Eventos() {
   return (
-    <section id="eventos" className="section-pad border-t border-line py-20 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <p className="eyebrow mb-5">Agenda</p>
-          <h2 className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment">
-            {eventos.title}
-          </h2>
-          <p className="mt-4 max-w-2xl text-mute">{eventos.subtitle}</p>
-        </Reveal>
+    <section id="eventos" className="section-pad border-t border-line py-16 md:py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <Reveal>
+            <p className="eyebrow mb-4">Agenda</p>
+            <h2 className="display text-[clamp(2.2rem,4vw,3.4rem)] text-parchment">
+              {eventos.title}
+            </h2>
+            <p className="body-prose mt-4 text-mute">{eventos.subtitle}</p>
+          </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {eventos.items.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.06} y={28}>
-              <article className="group flex h-full flex-col justify-between rounded-2xl border border-line bg-card p-7 transition-colors hover:border-gold/35 md:p-8">
-                <div>
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-[0.65rem] tracking-[0.22em] text-gold uppercase">
-                      {item.status}
-                    </p>
-                    <span className="rounded-full border border-line px-3 py-1 text-[0.6rem] tracking-[0.14em] text-mute uppercase">
-                      Data em breve
-                    </span>
+          <div className="divide-y divide-line border-y border-line">
+            {eventos.items.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.05}>
+                <div className="group flex flex-col gap-3 py-7 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+                  <div>
+                    <div className="mb-2 flex flex-wrap items-center gap-3">
+                      <p className="text-[0.65rem] tracking-[0.22em] text-gold uppercase">
+                        {item.status}
+                      </p>
+                      <span className="text-[0.65rem] tracking-[0.14em] text-mute/70 uppercase">
+                        Data em breve
+                      </span>
+                    </div>
+                    <h3 className="display text-xl text-parchment md:text-2xl">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-mute">{item.place}</p>
                   </div>
-                  <h3 className="display mt-4 text-2xl text-parchment md:text-3xl">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm text-mute">{item.place}</p>
+                  <a
+                    href={site.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring link-arrow shrink-0 text-[0.68rem] tracking-[0.16em] text-mute uppercase transition-colors group-hover:text-gold sm:pt-1"
+                  >
+                    Quero ser avisado
+                    <span className="link-arrow__glyph" aria-hidden>
+                      →
+                    </span>
+                  </a>
                 </div>
-                <a
-                  href={site.whatsapp}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="focus-ring mt-8 inline-flex text-[0.68rem] tracking-[0.16em] text-mute uppercase transition-colors group-hover:text-gold"
-                >
-                  Quero ser avisado →
-                </a>
-              </article>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-export function ClubStrip() {
-  return (
-    <section
-      id="associados"
-      className="section-pad border-t border-line py-16 md:py-20"
-    >
-      <div className="mx-auto grid max-w-7xl gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
-        <Reveal className="bg-card">
-          <div className="flex h-full flex-col justify-between p-8 md:p-10">
-            <div>
-              <p className="eyebrow mb-4">Clube</p>
-              <h2 className="display text-3xl text-parchment md:text-4xl">
-                {associados.title}
-              </h2>
-              <p className="mt-2 text-gold/80">{associados.subtitle}</p>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-mute">
-                {associados.body}
-              </p>
-            </div>
-            <MagneticButton
-              href={site.whatsapp}
-              external
-              className="mt-8 w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
-            >
-              {associados.cta}
-            </MagneticButton>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.08} className="bg-smoke/60" y={24}>
-          <div id="true-action" className="flex h-full flex-col justify-between p-8 md:p-10">
-            <div>
-              <p className="eyebrow mb-4">Rede</p>
-              <h2 className="display text-3xl text-parchment md:text-4xl">
-                {trueAction.title}
-              </h2>
-              <p className="mt-2 text-gold/80">{trueAction.subtitle}</p>
-              <p className="mt-5 max-w-md text-base leading-relaxed text-mute">
-                {trueAction.body}
-              </p>
-            </div>
-            <a
-              href={site.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="focus-ring mt-8 inline-flex text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
-            >
-              Indicar um profissional →
-            </a>
-          </div>
-        </Reveal>
       </div>
     </section>
   );

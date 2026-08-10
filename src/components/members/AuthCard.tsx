@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { FadeIn } from "@/components/motion/FadeIn";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { BrandLogo } from "@/components/ui/BrandLogo";
 
 export function AuthCard({
   title,
@@ -12,24 +17,39 @@ export function AuthCard({
   footer?: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-ink px-5 py-16">
-      <div className="pointer-events-none fixed inset-0 opacity-60">
-        <div className="mesh" aria-hidden />
+    <MotionProvider>
+      <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-ink px-5 py-16">
+        <div className="pointer-events-none fixed inset-0" aria-hidden>
+          <div className="mesh mesh--strong opacity-80" />
+        </div>
+
+        <FadeIn className="relative w-full max-w-[28rem]" y={18}>
+          <div className="auth-panel relative rounded-[1.75rem] px-7 py-9 md:px-10 md:py-11">
+            <Link
+              href="/"
+              className="mb-8 inline-flex transition hover:opacity-90"
+              aria-label="True Connections — voltar ao site"
+            >
+              <BrandLogo variant="lockup" size="lg" priority />
+            </Link>
+
+            <h1 className="display text-[clamp(1.9rem,4vw,2.65rem)] leading-[1.08] text-parchment">
+              {title}
+            </h1>
+            <p className="mt-3 mb-8 max-w-md text-[0.95rem] leading-relaxed text-mute">
+              {description}
+            </p>
+
+            {children}
+
+            {footer ? (
+              <div className="mt-9 space-y-2.5 border-t border-line pt-6 text-sm text-mute">
+                {footer}
+              </div>
+            ) : null}
+          </div>
+        </FadeIn>
       </div>
-      <div className="relative w-full max-w-lg rounded-3xl border border-line bg-smoke/55 p-8 shadow-[0_20px_60px_rgba(34,30,27,0.08)] backdrop-blur-sm md:p-10">
-        <Link
-          href="/"
-          className="eyebrow mb-3 inline-block text-gold transition hover:text-gold-soft"
-        >
-          True Connection
-        </Link>
-        <h1 className="display text-3xl text-parchment md:text-4xl">{title}</h1>
-        <p className="mt-3 mb-8 text-sm leading-relaxed text-mute">
-          {description}
-        </p>
-        {children}
-        {footer ? <div className="mt-8 space-y-2 text-sm text-mute">{footer}</div> : null}
-      </div>
-    </div>
+    </MotionProvider>
   );
 }
