@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemePageShell } from "@/components/layout/ThemePageShell";
-import { ManifestoStory } from "@/components/sections/ManifestoStory";
+import { Manifesto } from "@/components/sections/Manifesto";
 import { Quote } from "@/components/sections/Quote";
 import { PresenceGallery } from "@/components/sections/PresenceGallery";
 import { Faq } from "@/components/sections/Faq";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function QuemSomosPage() {
   return (
     <ThemePageShell title="Quem Somos">
-      <ManifestoStory />
+      <Manifesto />
       <Quote />
       <PresenceGallery />
       <Faq />

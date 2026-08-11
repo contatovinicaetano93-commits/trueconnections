@@ -2,17 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { hero, heroSlides } from "@/lib/content";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { SoftImage } from "@/components/ui/SoftImage";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export function Hero() {
   const root = useRef<HTMLElement>(null);
   const accent = useRef<HTMLSpanElement>(null);
-  const visual = useRef<HTMLDivElement>(null);
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
@@ -29,22 +25,6 @@ export function Hero() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const letters = accent.current?.querySelectorAll(".letter");
-    let lastY = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const velocity = gsap.utils.clamp(-22, 22, (y - lastY) * 0.4);
-      lastY = y;
-      if (letters) {
-        gsap.to(letters, {
-          y: velocity,
-          skewX: velocity * 0.18,
-          duration: 0.35,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-      }
-    };
-
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.15 });
       tl.from(".hero-ornament", { opacity: 0, scale: 0.8, duration: 0.8 })
@@ -64,27 +44,9 @@ export function Hero() {
         )
         .from(".hero-body", { opacity: 0, y: 24, duration: 0.9 }, "-=0.45")
         .from(".hero-visual", { opacity: 0, y: 36, duration: 1.1 }, "-=0.9");
-
-      if (visual.current) {
-        gsap.to(visual.current, {
-          yPercent: 14,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
     }, el);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   const accentLetters = hero.headlineAccent.split("");
@@ -133,14 +95,10 @@ export function Hero() {
           <p className="hero-body mx-auto mt-8 max-w-xl text-base leading-relaxed text-mute/80 md:mx-0 md:text-lg">
             {hero.body}
           </p>
-
         </div>
 
         <div className="hero-visual relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
-          <div
-            ref={visual}
-            className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-ash shadow-[0_30px_80px_-40px_rgba(34,30,27,0.45)]"
-          >
+          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line bg-ash shadow-[0_30px_80px_-40px_rgba(34,30,27,0.45)]">
             {heroSlides.map((item, i) => (
               <div
                 key={item.src}

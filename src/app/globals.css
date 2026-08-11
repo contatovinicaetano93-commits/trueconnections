@@ -524,9 +524,9 @@ header {
   outline-offset: 3px;
 }
 
-/* Hidden until GSAP Reveal / RevealText plays — avoids flash before scroll */
+/* Legacy reveal class — content is always visible now */
 .reveal-pending {
-  opacity: 0;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {

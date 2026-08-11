@@ -1,11 +1,4 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { quote } from "@/lib/content";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ACCENT_WORD = "pertencimento";
 
@@ -14,85 +7,10 @@ function isAccentToken(token: string) {
 }
 
 export function Quote() {
-  const rootRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
-
-    const words = root.querySelectorAll<HTMLElement>(".quote-word");
-    const attr = root.querySelector<HTMLElement>(".quote-attr");
-    const knot = root.querySelector<HTMLElement>(".quote-knot");
-    const rule = root.querySelector<HTMLElement>(".quote-rule");
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      gsap.set([words, attr, knot, rule], {
-        clearProps: "all",
-        opacity: 1,
-        filter: "none",
-        y: 0,
-        scale: 1,
-        scaleX: 1,
-      });
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.set(words, { opacity: 0.14, filter: "blur(5px)", y: 14 });
-      gsap.set(attr, { opacity: 0, y: 12 });
-      gsap.set(knot, { opacity: 0, scale: 0.55 });
-      gsap.set(rule, { scaleX: 0 });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start: "top 78%",
-          end: "center 42%",
-          scrub: 0.7,
-        },
-      });
-
-      tl.to(
-        knot,
-        { opacity: 1, scale: 1, duration: 0.45, ease: "power2.out" },
-        0,
-      );
-
-      words.forEach((word, i) => {
-        tl.to(
-          word,
-          {
-            opacity: 1,
-            filter: "blur(0px)",
-            y: 0,
-            duration: 0.4,
-            ease: "power2.out",
-          },
-          0.28 + i * 0.09,
-        );
-      });
-
-      tl.to(
-        rule,
-        { scaleX: 1, duration: 0.55, ease: "power2.inOut" },
-        "-=0.35",
-      );
-
-      tl.to(
-        attr,
-        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
-        "-=0.2",
-      );
-    }, root);
-
-    return () => ctx.revert();
-  }, []);
-
   const parts = quote.text.split(/(\s+)/);
 
   return (
     <section
-      ref={rootRef}
       className="quote-signature section-pad relative overflow-hidden border-y border-line bg-smoke/40"
       aria-label="Citação das fundadoras"
     >
@@ -110,10 +28,9 @@ export function Quote() {
             ) : (
               <span
                 key={i}
-                className={`quote-word inline-block${
+                className={`inline-block${
                   isAccentToken(part) ? " quote-word--accent" : ""
                 }`}
-                data-accent={isAccentToken(part) ? "true" : undefined}
               >
                 {part}
               </span>
@@ -125,11 +42,11 @@ export function Quote() {
         </blockquote>
 
         <div
-          className="quote-rule mx-auto mt-10 h-px w-24 origin-center bg-gradient-to-r from-transparent via-gold to-transparent"
+          className="mx-auto mt-10 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent"
           aria-hidden
         />
 
-        <p className="quote-attr mt-8 text-[0.7rem] tracking-[0.22em] text-ember uppercase">
+        <p className="mt-8 text-[0.7rem] tracking-[0.22em] text-ember uppercase">
           {quote.attribution}
         </p>
       </div>

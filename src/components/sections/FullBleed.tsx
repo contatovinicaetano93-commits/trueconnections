@@ -1,57 +1,10 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { fullBleed } from "@/lib/content";
 import { SoftImage } from "@/components/ui/SoftImage";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export function FullBleed() {
-  const root = useRef<HTMLElement>(null);
-  const img = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = root.current;
-    if (!el || !img.current) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        img.current,
-        { scale: 1.12, y: 0 },
-        {
-          scale: 1,
-          y: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        },
-      );
-      gsap.from(".fullbleed-copy", {
-        opacity: 0,
-        y: 40,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: el,
-          start: "top 65%",
-          once: true,
-        },
-      });
-    }, el);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={root} className="relative min-h-[70vh] overflow-hidden md:min-h-[85vh]">
-      <div ref={img} className="absolute inset-0 will-change-transform">
+    <section className="relative min-h-[70vh] overflow-hidden md:min-h-[85vh]">
+      <div className="absolute inset-0">
         <SoftImage
           src={fullBleed.image}
           alt=""
@@ -63,7 +16,7 @@ export function FullBleed() {
       </div>
 
       <div className="section-pad relative z-10 flex min-h-[70vh] items-end py-16 md:min-h-[85vh] md:py-24">
-        <div className="fullbleed-copy mx-auto w-full max-w-7xl text-ink">
+        <div className="mx-auto w-full max-w-7xl text-ink">
           <p className="text-[0.7rem] font-medium tracking-[0.28em] text-gold-soft uppercase">
             {fullBleed.eyebrow}
           </p>

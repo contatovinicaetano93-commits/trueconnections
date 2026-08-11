@@ -1,6 +1,3 @@
-"use client";
-
-import type { CSSProperties } from "react";
 import { impacto } from "@/lib/content";
 import { Counter } from "@/components/ui/Counter";
 
@@ -11,13 +8,8 @@ export function StatsStrip() {
       aria-label="Números True Connections"
     >
       <div className="section-pad mx-auto grid max-w-6xl gap-10 sm:grid-cols-3 sm:gap-8">
-        {impacto.stats.map((stat, i) => (
-          <div
-            key={stat.label}
-            data-reveal
-            style={{ "--reveal-delay": i * 70 } as CSSProperties}
-            className="text-center sm:text-left"
-          >
+        {impacto.stats.map((stat) => (
+          <div key={stat.label} className="text-center sm:text-left">
             <p className="display display--tight text-[clamp(3rem,8vw,4.75rem)] leading-none text-gold">
               <Counter value={stat.value} suffix={stat.suffix} />
             </p>
