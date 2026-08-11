@@ -352,7 +352,6 @@ export const presence = {
 
 export const fullBleed = {
   eyebrow: "Na Mesa",
-  title: "Mulheres reunidas em volta da mesa, buscando mais de Deus.",
   body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão que transforma o caminhar.",
   image: "/images/meditacao.jpg",
   cta: "Conhecer os encontros",

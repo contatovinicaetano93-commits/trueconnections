@@ -20,9 +20,6 @@ export function FullBleed() {
           <p className="text-[0.7rem] font-medium tracking-[0.28em] text-gold-soft uppercase">
             {fullBleed.eyebrow}
           </p>
-          <h2 className="display mt-4 max-w-3xl text-[clamp(2.4rem,6vw,5rem)] leading-[1.02] text-ink">
-            {fullBleed.title}
-          </h2>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-ink/80 md:text-lg">
             {fullBleed.body}
           </p>
