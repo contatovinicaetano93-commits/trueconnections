@@ -32,7 +32,8 @@ export function PortalSummary() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 max-w-xl md:mb-10">
           <h2 className="display text-[clamp(1.85rem,4vw,2.75rem)] text-parchment">
-            Onde a comunidade se encontra de verdade
+            Mais do que eventos, a True nasceu para ser um lugar de
+            pertencimento
           </h2>
         </div>
 
