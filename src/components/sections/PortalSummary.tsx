@@ -31,13 +31,9 @@ export function PortalSummary() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 max-w-xl md:mb-10">
-          <p className="eyebrow mb-3">Sumário</p>
           <h2 className="display text-[clamp(1.85rem,4vw,2.75rem)] text-parchment">
-            Escolha um tema
+            Onde a comunidade se encontra de verdade
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-mute md:text-base">
-            Cada card abre a página completa daquele tema.
-          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">

@@ -3,9 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { hero, heroSlides, site } from "@/lib/content";
+import { hero, heroSlides } from "@/lib/content";
 import { BrandLogo } from "@/components/ui/BrandLogo";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SoftImage } from "@/components/ui/SoftImage";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -64,7 +63,6 @@ export function Hero() {
           "-=0.55",
         )
         .from(".hero-body", { opacity: 0, y: 24, duration: 0.9 }, "-=0.45")
-        .from(".hero-cta", { opacity: 0, y: 18, duration: 0.7 }, "-=0.55")
         .from(".hero-visual", { opacity: 0, y: 36, duration: 1.1 }, "-=0.9");
 
       if (visual.current) {
@@ -136,34 +134,6 @@ export function Hero() {
             {hero.body}
           </p>
 
-          <div className="hero-cta mt-9 flex flex-wrap items-center justify-center gap-4 md:justify-start">
-            <MagneticButton
-              href="#sumario"
-              className="rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
-            >
-              Ver temas
-            </MagneticButton>
-            <MagneticButton
-              href={site.whatsapp}
-              external
-              className="group rounded-full border border-parchment/15 px-7 py-3.5 text-[0.72rem] tracking-[0.16em] uppercase text-parchment/70 hover:border-gold/45 hover:text-gold"
-            >
-              Fale conosco
-              <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </MagneticButton>
-          </div>
-
-          <a
-            href="#sumario"
-            className="hero-cta mt-12 inline-flex flex-col items-center gap-2 text-[0.65rem] tracking-[0.24em] text-mute/55 uppercase md:items-start"
-          >
-            Sumário
-            <span className="animate-nudge text-gold" aria-hidden>
-              ↓
-            </span>
-          </a>
         </div>
 
         <div className="hero-visual relative mx-auto w-full max-w-md lg:mx-0 lg:max-w-none">
