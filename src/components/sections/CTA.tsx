@@ -38,7 +38,7 @@ export function CTA() {
               Falar com a True
             </MagneticButton>
             <a
-              href="#associados"
+              href="/seja-associado"
               className="focus-ring link-arrow text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
             >
               Conhecer associados
@@ -85,12 +85,23 @@ export function Footer() {
           <ul className="space-y-2">
             {nav.map((item) => (
               <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="focus-ring text-sm text-mute transition-colors hover:text-parchment"
-                >
-                  {item.label}
-                </a>
+                {"external" in item && item.external ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="focus-ring text-sm text-mute transition-colors hover:text-parchment"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="focus-ring text-sm text-mute transition-colors hover:text-parchment"
+                  >
+                    {item.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

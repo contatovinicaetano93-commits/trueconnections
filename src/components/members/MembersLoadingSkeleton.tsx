@@ -10,12 +10,15 @@ export function MembersLoadingSkeleton() {
       </div>
 
       <header className="members-header">
-        <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8 md:py-4">
-          <BrandLogo variant="lockup" size="md" />
-          <Skeleton variant="line" className="h-4 w-28" />
+        <div className="members-header__inner">
+          <BrandLogo variant="lockup" size="xs" />
+          <Skeleton variant="line" className="h-4 w-20" />
         </div>
-        <nav className="relative border-t border-line/70" aria-hidden>
-          <div className="mx-auto flex max-w-6xl gap-8 px-5 py-3.5 md:px-8">
+        <nav
+          className="relative hidden border-t border-line/70 lg:block"
+          aria-hidden
+        >
+          <div className="mx-auto flex max-w-6xl gap-8 px-8 py-3.5">
             <Skeleton variant="line" className="h-3 w-14" />
             <Skeleton variant="line" className="h-3 w-16" />
             <Skeleton variant="line" className="h-3 w-14" />
@@ -24,7 +27,7 @@ export function MembersLoadingSkeleton() {
         </nav>
       </header>
 
-      <main className="relative z-[1] mx-auto max-w-6xl px-5 py-10 md:px-8 md:py-14">
+      <main className="members-main">
         <p className="sr-only">Carregando área de membros…</p>
         <div className="max-w-2xl">
           <Skeleton variant="circle" className="mb-4 h-8 w-8" />
@@ -44,6 +47,14 @@ export function MembersLoadingSkeleton() {
           ))}
         </div>
       </main>
+
+      <nav className="members-bottom-nav lg:hidden" aria-hidden>
+        <div className="mx-auto flex w-full max-w-lg justify-around py-3">
+          {[0, 1, 2, 3].map((i) => (
+            <Skeleton key={i} className="h-10 w-12" />
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }

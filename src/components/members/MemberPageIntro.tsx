@@ -23,12 +23,12 @@ export function MemberPageIntro({
           <MemberBackLink href={backHref} label={backLabel} />
         </div>
       ) : null}
-      <BrandLogo variant="mark" size="sm" className="mb-4" />
+      <BrandLogo variant="mark" size="xs" className="mb-3 md:mb-4 md:!h-14 md:!w-14" />
       <p className="eyebrow mb-3">{eyebrow}</p>
-      <h1 className="display text-[clamp(2.1rem,4.5vw,3.35rem)] leading-[1.05] text-parchment">
+      <h1 className="display text-[clamp(1.85rem,5.5vw,3.35rem)] leading-[1.08] text-parchment">
         {title}
       </h1>
-      <p className="mt-4 text-base leading-relaxed text-mute md:text-[1.05rem]">
+      <p className="mt-3 text-[0.95rem] leading-relaxed text-mute md:mt-4 md:text-[1.05rem]">
         {description}
       </p>
       {meta ? <div className="mt-5">{meta}</div> : null}

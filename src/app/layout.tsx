@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Source_Serif_4 } from "next/font/google";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { site } from "@/lib/content";
@@ -48,6 +48,13 @@ export const metadata: Metadata = {
     description: site.tagline,
     images: [site.logo],
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ede7de",
 };
 
 export default function RootLayout({

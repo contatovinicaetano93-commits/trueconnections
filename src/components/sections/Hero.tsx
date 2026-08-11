@@ -138,10 +138,10 @@ export function Hero() {
 
           <div className="hero-cta mt-9 flex flex-wrap items-center justify-center gap-4 md:justify-start">
             <MagneticButton
-              href="#manifesto"
+              href="#sumario"
               className="rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
             >
-              Quem somos
+              Ver temas
             </MagneticButton>
             <MagneticButton
               href={site.whatsapp}
@@ -156,10 +156,10 @@ export function Hero() {
           </div>
 
           <a
-            href="#portais"
+            href="#sumario"
             className="hero-cta mt-12 inline-flex flex-col items-center gap-2 text-[0.65rem] tracking-[0.24em] text-mute/55 uppercase md:items-start"
           >
-            Scroll
+            Sumário
             <span className="animate-nudge text-gold" aria-hidden>
               ↓
             </span>

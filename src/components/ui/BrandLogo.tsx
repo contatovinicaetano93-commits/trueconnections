@@ -6,10 +6,11 @@ type BrandLogoProps = {
   variant?: "mark" | "lockup";
   className?: string;
   priority?: boolean;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 };
 
 const sizes = {
+  xs: { box: "h-11 w-11", lockup: "h-12 w-[6.5rem]" },
   sm: { box: "h-14 w-14", lockup: "h-16 w-[7.5rem]" },
   md: { box: "h-[4.75rem] w-[4.75rem]", lockup: "h-[5.25rem] w-[10rem]" },
   lg: { box: "h-28 w-28", lockup: "h-32 w-[14rem]" },

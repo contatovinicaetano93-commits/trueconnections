@@ -877,7 +877,13 @@ header {
   }
 }
 
-/* Members area — editorial portal, not flat dashboard */
+.portal-card {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.portal-card:active {
+  transform: scale(0.985);
+}
 .members-shell {
   position: relative;
   min-height: 100svh;
@@ -897,9 +903,104 @@ header {
   top: 0;
   z-index: 40;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--ink) 88%, transparent);
+  background: color-mix(in srgb, var(--ink) 90%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+}
+
+.members-header__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  max-width: 72rem;
+  margin-inline: auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: calc(env(safe-area-inset-top, 0px) + 0.65rem) 1.25rem 0.65rem;
+}
+
+@media (min-width: 768px) {
+  .members-header__inner {
+    padding-inline: 2rem;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 0.85rem);
+    padding-bottom: 0.85rem;
+  }
+}
+
+.members-main {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: 1.5rem 1.25rem calc(5.25rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+  .members-main {
+    padding-inline: 2rem;
+    padding-top: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .members-main {
+    padding-top: 2.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+.members-footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  /* Keep footer above bottom nav clearance on phones */
+  padding-bottom: calc(0.25rem + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 1023px) {
+  .members-footer {
+    display: none;
+  }
+}
+
+.members-bottom-nav {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--ink) 94%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.members-bottom-nav__item {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  min-height: 3.5rem;
+  padding-block: 0.55rem;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.members-bottom-nav__item:active {
+  background: color-mix(in srgb, var(--smoke) 55%, transparent);
+}
+
+.members-bottom-nav__indicator {
+  position: absolute;
+  top: 0;
+  height: 2px;
+  width: 2.5rem;
+  border-radius: 999px;
+  background: var(--gold);
 }
 
 .members-nav-link {
@@ -935,12 +1036,13 @@ header {
 .members-benefit {
   position: relative;
   display: flex;
-  min-height: 14rem;
+  min-height: 11.5rem;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.6rem 1.5rem 1.45rem;
+  gap: 1.15rem;
+  padding: 1.15rem 1.15rem 1.1rem;
   border: 1px solid var(--line);
+  border-radius: 1rem;
   background:
     linear-gradient(
       160deg,
@@ -951,6 +1053,24 @@ header {
     border-color 0.35s var(--ease-out-expo),
     transform 0.35s var(--ease-out-expo),
     box-shadow 0.35s var(--ease-out-expo);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .members-benefit {
+    min-height: 14rem;
+    gap: 1.5rem;
+    padding: 1.6rem 1.5rem 1.45rem;
+  }
+}
+
+.members-benefit:active {
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in srgb, white 48%, transparent),
+      color-mix(in srgb, var(--smoke) 45%, transparent)
+    );
 }
 
 .members-benefit:hover,
@@ -973,15 +1093,24 @@ header {
 .members-coupon {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  padding: 1.5rem;
+  gap: 1.15rem;
+  padding: 1.15rem;
   border: 1px solid var(--line);
+  border-radius: 1rem;
   background: color-mix(in srgb, white 48%, transparent);
+}
+
+@media (min-width: 768px) {
+  .members-coupon {
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
 }
 
 .members-media {
   overflow: hidden;
   border: 1px solid var(--line);
+  border-radius: 1rem;
   background: color-mix(in srgb, white 42%, transparent);
 }
 

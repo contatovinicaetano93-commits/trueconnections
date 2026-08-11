@@ -13,12 +13,12 @@ export const site = {
 } as const;
 
 export const nav = [
-  { href: "#manifesto", label: "Quem Somos" },
-  { href: "#associados", label: "Associados" },
-  { href: "#encontros", label: "Encontros" },
-  { href: "#eventos", label: "Eventos" },
-  { href: "#impacto", label: "Impacto" },
-  { href: "#contato", label: "Fale Conosco" },
+  { href: "/quem-somos", label: "Quem Somos" },
+  { href: "/seja-associado", label: "Associados" },
+  { href: "/encontros", label: "Encontros" },
+  { href: "/eventos", label: "Eventos" },
+  { href: "/impacto", label: "Impacto" },
+  { href: site.whatsapp, label: "Fale Conosco", external: true },
 ] as const;
 
 export const hero = {
@@ -47,44 +47,52 @@ export const marqueeItems = [
 
 export const portals = [
   {
-    href: "#manifesto",
+    href: "/quem-somos",
     title: "Quem Somos",
     subtitle: "Nossa essência e legado",
+    icon: "book",
   },
   {
-    href: "#associados",
+    href: "/seja-associado",
     title: "Associados",
     subtitle: "Área premium do clube",
+    icon: "users",
   },
   {
-    href: "#encontros",
+    href: "/encontros",
     title: "Encontros",
     subtitle: "Na Mesa & Clube de Leitura",
+    icon: "gift",
   },
   {
-    href: "#eventos",
+    href: "/eventos",
     title: "Próximos Eventos",
     subtitle: "Agenda e ingressos",
+    icon: "calendar",
   },
   {
-    href: "#impacto",
+    href: "/impacto",
     title: "Impacto Social",
     subtitle: "Instituto Seja o Milagre",
+    icon: "heart",
   },
   {
-    href: "#true-action",
+    href: "/true-action",
     title: "True Action",
     subtitle: "Conhecer os profissionais",
+    icon: "briefcase",
   },
   {
-    href: "#loja",
+    href: "/loja",
     title: "Loja",
     subtitle: "Produtos exclusivos da comunidade",
+    icon: "bag",
   },
   {
     href: site.whatsapp,
     title: "Fale Conosco",
     subtitle: "Tire dúvidas no WhatsApp",
+    icon: "chat",
     external: true,
   },
 ] as const;
@@ -348,7 +356,7 @@ export const fullBleed = {
   body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão que transforma o caminhar.",
   image: "/images/meditacao.jpg",
   cta: "Conhecer os encontros",
-  href: "#encontros",
+  href: "/encontros",
 } as const;
 
 export const faq = [
