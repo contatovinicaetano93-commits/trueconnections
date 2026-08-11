@@ -1,4 +1,58 @@
 import { encontros } from "@/lib/content";
+import { SoftImage } from "@/components/ui/SoftImage";
+
+function PrivateEventsVideo({ src }: { src: string }) {
+  if (!src) {
+    return (
+      <div className="flex aspect-video w-full items-center justify-center bg-deep/10 text-center">
+        <p className="max-w-sm px-6 text-sm text-mute">
+          Vídeo em breve — envie o arquivo ou o link para publicarmos aqui.
+        </p>
+      </div>
+    );
+  }
+
+  const youtube =
+    src.match(
+      /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/,
+    )?.[1] ?? null;
+  const vimeo = src.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1] ?? null;
+
+  if (youtube) {
+    return (
+      <iframe
+        src={`https://www.youtube.com/embed/${youtube}`}
+        title={encontros.privateEvents.title}
+        className="aspect-video w-full"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    );
+  }
+
+  if (vimeo) {
+    return (
+      <iframe
+        src={`https://player.vimeo.com/video/${vimeo}`}
+        title={encontros.privateEvents.title}
+        className="aspect-video w-full"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+      />
+    );
+  }
+
+  return (
+    <video
+      src={src}
+      controls
+      playsInline
+      className="aspect-video w-full bg-deep/10 object-cover"
+    >
+      Seu navegador não reproduz este vídeo.
+    </video>
+  );
+}
 
 export function EncontrosStory() {
   return (
@@ -20,21 +74,48 @@ export function EncontrosStory() {
                 {item.title}
               </h2>
               <p className="body-prose mt-5 flex-1 text-mute/85">{item.body}</p>
-              {"books" in item && item.books ? (
-                <ul className="mt-8 space-y-2.5">
-                  {item.books.map((book) => (
-                    <li
-                      key={book}
-                      className="display--tight font-display text-[0.95rem] leading-snug text-parchment/75"
-                    >
-                      {book}
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
               <p className="surface-editorial__meta">{item.meta}</p>
             </article>
           ))}
+        </div>
+
+        <div className="mt-16 border-t border-line pt-12 md:mt-20 md:pt-16">
+          <p className="eyebrow mb-8 text-center md:mb-10">
+            {encontros.booksHeadline}
+          </p>
+          <div className="grid gap-6 sm:grid-cols-3 sm:gap-5">
+            {encontros.books.map((book) => (
+              <article key={book.title} className="text-center">
+                <div className="relative mx-auto aspect-[3/4] w-full max-w-[11rem] overflow-hidden rounded-xl bg-card shadow-[0_12px_40px_-18px_rgba(28,24,20,0.35)] sm:max-w-none">
+                  <SoftImage
+                    src={book.cover}
+                    alt={`Capa de ${book.title}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 44vw, 20vw"
+                  />
+                </div>
+                <h3 className="display mt-4 text-lg leading-snug text-parchment md:text-xl">
+                  {book.title}
+                </h3>
+                <p className="mt-1 text-sm text-mute">{book.author}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-16 border-t border-line pt-12 md:mt-20 md:pt-16">
+          <article className="surface-editorial max-w-4xl">
+            <h2 className="display text-3xl text-parchment md:text-[2.65rem]">
+              {encontros.privateEvents.title}
+            </h2>
+            <p className="body-prose mt-5 text-mute/85">
+              {encontros.privateEvents.subtitle}
+            </p>
+            <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-card/40">
+              <PrivateEventsVideo src={encontros.privateEvents.videoUrl} />
+            </div>
+          </article>
         </div>
       </div>
     </section>

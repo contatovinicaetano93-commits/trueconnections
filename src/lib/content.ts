@@ -119,8 +119,9 @@ export const manifesto = {
 } as const;
 
 export const encontros = {
-  title: "Encontros",
+  title: "Encontros gratuitos",
   subtitle: "Encontros abertos para toda a comunidade. Sem custo, só presença.",
+  booksHeadline: "Já lemos esses livros",
   items: [
     {
       tag: "Encontro de mulheres",
@@ -133,13 +134,32 @@ export const encontros = {
       title: "Clube de Leitura",
       body: "Espaço de crescimento intelectual e espiritual. Lemos obras que nos desafiam a caminhar mais perto de Cristo, compartilhando reflexões e aprendizados.",
       meta: "Toda última sexta-feira do mês · 8h30 às 10h30",
-      books: [
-        "O Agir Invisível de Deus — Luciano Subirá",
-        "Em Busca de Deus — A. W. Tozer",
-        "O Poder Secreto da Oração — Mahesh Chavda",
-      ],
     },
   ],
+  books: [
+    {
+      title: "O Agir Invisível de Deus",
+      author: "Luciano Subirá",
+      cover: "/images/books/agir-invisivel.jpg",
+    },
+    {
+      title: "Em Busca de Deus",
+      author: "A. W. Tozer",
+      cover: "/images/books/em-busca-de-deus.jpg",
+    },
+    {
+      title: "O Poder Secreto da Oração e do Jejum",
+      author: "Mahesh Chavda",
+      cover: "/images/books/poder-secreto-oracao.jpg",
+    },
+  ],
+  privateEvents: {
+    title: "Eventos privados",
+    subtitle:
+      "Experiências exclusivas da comunidade — em breve, o vídeo por aqui.",
+    // Cole a URL do vídeo (YouTube, Vimeo ou arquivo .mp4) quando enviar
+    videoUrl: "",
+  },
 } as const;
 
 export const eventos = {
