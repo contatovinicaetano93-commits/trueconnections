@@ -42,9 +42,9 @@ export function SiteNav() {
           <Image
             src={site.logo}
             alt="True Connection"
-            width={120}
-            height={120}
-            className="h-9 w-auto object-contain"
+            width={200}
+            height={63}
+            className="h-10 w-auto object-contain md:h-11"
             priority
           />
         </Link>

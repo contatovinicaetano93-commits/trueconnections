@@ -37,8 +37,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: site.logo,
-        width: 1024,
-        height: 1024,
+        width: 593,
+        height: 186,
         alt: "True Connection",
       },
     ],

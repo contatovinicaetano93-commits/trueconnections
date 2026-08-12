@@ -41,7 +41,7 @@ export function MembersShell({
               className="shrink-0 transition hover:opacity-90"
               aria-label="True Connections — início da área de membros"
             >
-              <BrandLogo variant="lockup" size="xs" priority />
+              <BrandLogo variant="lockup" size="sm" priority />
             </Link>
 
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
@@ -90,7 +90,7 @@ export function MembersShell({
 
         <footer className="members-footer">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 px-5 py-6 md:px-8 lg:py-8">
-            <BrandLogo variant="lockup" size="sm" />
+            <BrandLogo variant="lockup" size="md" />
             <p className="text-[0.65rem] tracking-[0.2em] text-mute uppercase">
               Área de membros
             </p>

@@ -13,8 +13,8 @@ export const site = {
   emailHref: "mailto:True2.connections@gmail.com",
   hours: "Seg a Sex, 9h às 18h",
   instagram: "https://instagram.com/",
-  logo: "/images/logo-lockup-hi.png",
-  mark: "/images/logo-mark-hi.png",
+  logo: "/images/logo-lockup-framed.png",
+  mark: "/images/logo-mark-framed.png",
   foundersImage:
     "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
   url: "https://www.trueconnections.com.br",

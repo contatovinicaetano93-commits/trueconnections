@@ -27,10 +27,10 @@ export function AuthCard({
           <div className="auth-panel relative rounded-[1.75rem] px-7 py-9 md:px-10 md:py-11">
             <Link
               href="/"
-              className="mb-8 inline-flex transition hover:opacity-90"
+              className="mb-8 flex justify-center transition hover:opacity-90"
               aria-label="True Connections — voltar ao site"
             >
-              <BrandLogo variant="lockup" size="lg" priority />
+              <BrandLogo variant="lockup" size="xl" priority />
             </Link>
 
             <h1 className="display text-[clamp(1.9rem,4vw,2.65rem)] leading-[1.08] text-parchment">

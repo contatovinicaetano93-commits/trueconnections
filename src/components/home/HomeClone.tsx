@@ -90,15 +90,15 @@ export function HomeClone() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="mb-10 flex flex-col items-center rounded-2xl bg-[hsl(38_28%_90%)] px-6 py-4"
+          className="mb-10 flex flex-col items-center px-4 py-2"
         >
           <Image
             src={site.logo}
             alt="True Connection"
-            width={340}
-            height={340}
+            width={593}
+            height={186}
             priority
-            className="w-[200px] object-contain md:w-[280px]"
+            className="h-auto w-[min(88vw,20rem)] object-contain drop-shadow-sm md:w-[26rem]"
           />
         </motion.div>
 

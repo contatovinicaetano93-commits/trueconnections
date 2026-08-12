@@ -5,15 +5,16 @@ import { associados } from "@/lib/content";
 
 export function AssociadosSection() {
   return (
-    <div className="px-2 py-16 text-center">
+    <div className="px-2 py-12 text-center md:py-16">
       <Image
         src={associados.mark}
         alt="True Connection"
-        width={56}
-        height={56}
-        className="mx-auto mb-4 h-14 w-14 object-contain"
+        width={575}
+        height={417}
+        className="mx-auto mb-6 h-auto w-28 object-contain drop-shadow-sm md:w-36"
+        priority
       />
-      <h1 className="mb-3 font-[family-name:var(--font-display)] text-2xl text-[hsl(24_12%_12%)]">
+      <h1 className="mb-3 font-[family-name:var(--font-display)] text-2xl text-[hsl(24_12%_12%)] md:text-3xl">
         {associados.exclusiveTitle}
       </h1>
       <p className="mx-auto mb-6 max-w-sm font-[family-name:var(--font-body)] text-sm text-[hsl(24_8%_34%)]">
@@ -38,14 +39,14 @@ export function AssociadosSection() {
       <div className="flex flex-col items-center gap-3">
         <Link
           href={associados.ctaHref}
-          className="inline-flex items-center gap-2 rounded-full bg-[hsl(24_14%_14%)] px-8 py-3.5 font-[family-name:var(--font-body)] text-sm font-medium text-[hsl(38_28%_92%)] transition-all hover:bg-[hsl(24_14%_14%)]/80"
+          className="inline-flex items-center gap-2.5 rounded-full bg-[hsl(24_14%_14%)] px-8 py-3.5 font-[family-name:var(--font-body)] text-sm font-medium text-[hsl(38_28%_92%)] transition-all hover:bg-[hsl(24_14%_14%)]/80"
         >
           <Image
             src={associados.mark}
             alt=""
-            width={20}
+            width={28}
             height={20}
-            className="h-5 w-5 object-contain"
+            className="h-6 w-auto object-contain"
           />
           {associados.cta}
         </Link>
