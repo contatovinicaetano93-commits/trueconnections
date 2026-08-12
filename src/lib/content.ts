@@ -109,6 +109,8 @@ export const manifesto = {
     "Servir ao Senhor e levar Sua palavra aos quatro cantos do Brasil através da comunhão, dos encontros, das experiências e das conexões que estamos construindo. Acreditamos que Deus está formando uma grande rede de pessoas unidas por um mesmo propósito: glorificá-Lo.",
   foundersLabel:
     "Por trás da True estão três mulheres conectadas pelo mesmo chamado",
+  foundersImage:
+    "/images/fundadoras-tres.jpg",
   founders: [
     {
       name: "Gabriella Grecco",
@@ -277,9 +279,9 @@ export const impacto = {
 
 export const trueAction = {
   title: "True Action",
-  subtitle: "Rede curada de profissionais",
+  subtitle: "Rede curada de profissionais da comunidade",
   body: "Conecte-se com talentos que compartilham dos mesmos valores. Encontre o profissional certo para o seu projeto, dentro de uma rede de confiança.",
-  cta: "Ver os profissionais",
+  cta: "Quero indicar ou me cadastrar",
   whatsapp:
     "https://wa.me/5511990267044?text=Ol%C3%A1%21%20Quero%20conhecer%20os%20profissionais%20da%20True%20Action.",
 } as const;
@@ -336,10 +338,18 @@ export const qgs = {
 export const associados = {
   title: "Associados",
   subtitle: "Área premium do clube",
-  body: "Um espaço de pertencimento para quem quer viver a True de perto — encontros, conteúdo e conexões com propósito.",
-  cta: "Quero fazer parte",
+  exclusiveTitle: "Área Exclusiva",
+  body: "Torne-se um Associado True Connection e acesse o diretório de membros, estudos bíblicos, Método Ruach e benefícios exclusivos.",
+  planLabel: "Plano Mensal",
+  planPrice: "R$ 49,90",
+  planPeriod: "/mês",
+  planNote: "O valor da mensalidade vira crédito para 1 evento pago por mês.",
+  cta: "Quero me Associar",
+  ctaHref: "/associados/cadastro",
+  cancelNote: "Cancele quando quiser.",
   membersCta: "Área de membros",
   membersHref: "/associados/login",
+  mark: "/images/tc-mark-small.png",
 } as const;
 
 export const contato = {

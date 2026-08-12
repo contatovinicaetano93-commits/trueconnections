@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemePageShell } from "@/components/layout/ThemePageShell";
-import { TrueActionSection } from "@/components/sections/AssociadosSection";
+import { TrueActionSection } from "@/components/sections/TrueActionSection";
 
 export const metadata: Metadata = {
   title: "True Action",

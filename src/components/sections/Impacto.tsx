@@ -1,10 +1,10 @@
-import { SoftImage } from "@/components/ui/SoftImage";
+import Image from "next/image";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { impacto } from "@/lib/content";
-import { Reveal, RevealText } from "@/components/ui/Reveal";
 
 function BodyParagraphs({ text }: { text: string }) {
   return (
-    <div className="body-prose mt-4 flex-1 space-y-4 text-[0.98rem] text-mute">
+    <div className="mb-6 space-y-3 text-sm leading-relaxed text-mute">
       {text.split("\n\n").map((paragraph) => (
         <p key={paragraph.slice(0, 48)}>{paragraph}</p>
       ))}
@@ -13,175 +13,197 @@ function BodyParagraphs({ text }: { text: string }) {
 }
 
 export function Impacto() {
+  const [projeto1, projeto2] = impacto.projects;
+
   return (
-    <section id="impacto" className="section-pad border-t border-line py-20 md:py-32">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <p className="eyebrow mb-5">Missão</p>
-        </Reveal>
-        <RevealText
-          as="h2"
-          className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment"
-          delay={0.04}
-        >
+    <div>
+      <div className="mb-8">
+        <h1 className="font-[family-name:var(--font-display)] text-2xl text-parchment">
           {impacto.title}
-        </RevealText>
-        <Reveal delay={0.1}>
-          <p className="body-prose mt-4 max-w-2xl text-mute">{impacto.subtitle}</p>
-        </Reveal>
+        </h1>
+        <p className="text-xs text-mute">{impacto.subtitle}</p>
+      </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-10">
-          {impacto.projects.map((project, i) => (
-            <Reveal key={project.title} delay={i * 0.08}>
-              <article className="group flex h-full flex-col">
-                {"image" in project && project.image ? (
-                  <div className="relative mb-7 aspect-[16/10] overflow-hidden">
-                    <SoftImage
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="mb-7 flex aspect-[16/10] items-end bg-gradient-to-br from-smoke to-ash p-8">
-                    <span className="display text-4xl text-gold/50">02</span>
-                  </div>
-                )}
-                <div className="surface-editorial flex flex-1 flex-col">
-                  <p className="eyebrow mb-3">{project.tag}</p>
-                  <h3 className="display text-3xl text-parchment">{project.title}</h3>
-                  <BodyParagraphs text={project.body} />
-                  {"frentes" in project && project.frentes ? (
-                    <div className="mt-6">
-                      {"frentesTitle" in project && project.frentesTitle ? (
-                        <p className="mb-3 text-[0.65rem] tracking-[0.16em] text-gold uppercase">
-                          {project.frentesTitle}
-                        </p>
-                      ) : null}
-                      <ul className="flex flex-wrap gap-x-4 gap-y-2">
-                        {project.frentes.map((frente) => (
-                          <li
-                            key={frente}
-                            className="text-[0.65rem] tracking-[0.14em] text-mute/80 uppercase"
-                          >
-                            {frente}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ) : null}
-                  {"invite" in project && project.invite ? (
-                    <p className="mt-6 text-sm leading-relaxed text-parchment/80">
-                      {project.invite}
-                    </p>
-                  ) : null}
-                  <p className="mt-6 text-xs text-gold/80">{project.address}</p>
-                  <p className="mt-2 text-xs text-mute">{project.contact}</p>
-                  {"phone" in project && project.phone ? (
-                    <a
-                      href={project.phoneHref}
-                      className="mt-2 block text-xs text-mute transition-colors hover:text-gold"
-                    >
-                      {project.phone}
-                    </a>
-                  ) : null}
-                  {"email" in project && project.email ? (
-                    <a
-                      href={project.emailHref}
-                      className="mt-1 block text-xs text-mute transition-colors hover:text-gold"
-                    >
-                      {project.email}
-                    </a>
-                  ) : null}
-                  {"instagram" in project && project.instagram ? (
-                    <a
-                      href={project.instagramHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 block text-xs text-mute transition-colors hover:text-gold"
-                    >
-                      {project.instagram}
-                    </a>
-                  ) : null}
-                  {"cnpj" in project && project.cnpj ? (
-                    <p className="mt-2 text-[0.65rem] text-mute/60">{project.cnpj}</p>
-                  ) : null}
-                  {"leaderCta" in project && project.leaderCta ? (
-                    <a
-                      href={project.leaderHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="focus-ring link-arrow mt-5 inline-flex text-[0.7rem] tracking-[0.14em] text-gold uppercase transition-colors hover:text-gold-soft"
-                    >
-                      {project.leaderCta}
-                      <span className="link-arrow__glyph" aria-hidden>
-                        →
-                      </span>
-                    </a>
-                  ) : null}
-                  {"reportUrl" in project && project.reportUrl ? (
-                    <a
-                      href={project.reportUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="focus-ring link-arrow mt-5 inline-flex text-[0.7rem] tracking-[0.14em] text-gold uppercase transition-colors hover:text-gold-soft"
-                    >
-                      {project.reportLabel ?? "Ver relatório"}
-                      <span className="link-arrow__glyph" aria-hidden>
-                        →
-                      </span>
-                    </a>
-                  ) : null}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal className="mt-20 border-t border-line pt-14">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="surface-editorial">
-              <p className="eyebrow mb-4">Doação</p>
-              <h3 className="display text-3xl text-parchment">
-                {impacto.donation.title}
+      <article className="mb-8 overflow-hidden rounded-2xl border border-line bg-card">
+        {"image" in projeto1 && projeto1.image ? (
+          <div className="relative aspect-[16/9] overflow-hidden bg-smoke">
+            <Image
+              src={projeto1.image}
+              alt={projeto1.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 640px"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/50 to-transparent" />
+          </div>
+        ) : null}
+        <div className="p-5 md:p-6">
+          <span className="mb-3 inline-flex rounded-full bg-gold/[0.08] px-3 py-1 text-[10px] font-medium tracking-wider text-gold uppercase">
+            {projeto1.tag}
+          </span>
+          <h2 className="mb-4 font-[family-name:var(--font-display)] text-xl text-parchment">
+            Instituto <span className="italic">Seja o Milagre</span>
+          </h2>
+          <BodyParagraphs text={projeto1.body} />
+          <p className="mb-6 flex items-center gap-2 text-xs text-mute">
+            <MapPin className="h-3.5 w-3.5 text-parchment" />
+            {projeto1.address}
+          </p>
+          {"frentes" in projeto1 && projeto1.frentes ? (
+            <>
+              <h3 className="mb-3 text-xs tracking-wider text-mute uppercase">
+                {"frentesTitle" in projeto1
+                  ? projeto1.frentesTitle
+                  : "Nossas frentes"}
               </h3>
-              <p className="body-prose mt-4 text-mute">{impacto.donation.body}</p>
-              <p className="mt-6 text-sm text-parchment">{impacto.donation.org}</p>
-              <p className="mt-1 text-xs text-mute">CNPJ {impacto.donation.cnpj}</p>
-              <a
-                href={impacto.donation.emailHref}
-                className="mt-2 block text-sm text-mute transition-colors hover:text-gold"
-              >
-                {impacto.donation.email}
-              </a>
-              <a
-                href={impacto.donation.ctaHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="focus-ring mt-8 inline-flex rounded-full bg-gold px-6 py-3 text-[0.72rem] tracking-[0.16em] text-ink uppercase transition-colors hover:bg-gold-soft"
-              >
-                {impacto.donation.cta}
-              </a>
-            </div>
-
-            <div>
-              <p className="eyebrow mb-4">{impacto.howToHelp.title}</p>
-              <ul className="space-y-6">
-                {impacto.howToHelp.items.map((item) => (
-                  <li key={item.title} className="border-l border-gold/40 pl-5">
-                    <p className="display text-xl text-parchment">{item.title}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-mute">
-                      {item.body}
-                    </p>
+              <ul className="mb-6 space-y-2">
+                {projeto1.frentes.map((frente) => (
+                  <li
+                    key={frente}
+                    className="rounded-xl border border-line bg-smoke/50 px-3 py-2 text-xs text-parchment"
+                  >
+                    {frente}
                   </li>
                 ))}
               </ul>
+            </>
+          ) : null}
+
+          {"invite" in projeto1 && projeto1.invite ? (
+            <div className="mb-5 rounded-2xl bg-smoke/80 p-5">
+              <h3 className="mb-1 font-[family-name:var(--font-display)] text-base text-parchment">
+                Seja o Milagre você também!
+              </h3>
+              <p className="mb-4 text-xs text-mute">
+                Entre em contato e faça parte dessa transformação.
+              </p>
+              <div className="space-y-2.5">
+                {"phone" in projeto1 && projeto1.phone ? (
+                  <a
+                    href={projeto1.phoneHref}
+                    className="flex items-center gap-3 rounded-xl border border-line bg-card p-3 transition-all hover:border-gold/20"
+                  >
+                    <Phone className="h-4 w-4 text-parchment" />
+                    <span>
+                      <span className="block text-sm text-parchment">
+                        {projeto1.phone}
+                      </span>
+                      <span className="block text-[10px] text-mute">
+                        {projeto1.contact}
+                      </span>
+                    </span>
+                  </a>
+                ) : null}
+                {"instagram" in projeto1 && projeto1.instagram ? (
+                  <a
+                    href={projeto1.instagramHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-xl border border-line bg-card p-3 transition-all hover:border-gold/20"
+                  >
+                    <span className="flex h-4 w-4 items-center justify-center text-[10px] font-medium text-parchment">
+                      IG
+                    </span>
+                    <span className="text-sm text-parchment">
+                      {projeto1.instagram}
+                    </span>
+                  </a>
+                ) : null}
+                {"email" in projeto1 && projeto1.email ? (
+                  <a
+                    href={projeto1.emailHref}
+                    className="flex items-center gap-3 rounded-xl border border-line bg-card p-3 transition-all hover:border-gold/20"
+                  >
+                    <Mail className="h-4 w-4 text-parchment" />
+                    <span className="text-sm text-parchment">{projeto1.email}</span>
+                  </a>
+                ) : null}
+              </div>
             </div>
-          </div>
-        </Reveal>
+          ) : null}
+          {"cnpj" in projeto1 && projeto1.cnpj ? (
+            <p className="text-center text-[10px] text-mute">{projeto1.cnpj}</p>
+          ) : null}
+        </div>
+      </article>
+
+      <article className="mb-8 overflow-hidden rounded-2xl border border-line bg-card">
+        <div className="flex aspect-[16/9] items-center justify-center bg-smoke">
+          <p className="font-[family-name:var(--font-display)] text-sm italic text-mute/40">
+            Base Missionária Itatinga
+          </p>
+        </div>
+        <div className="p-5 md:p-6">
+          <span className="mb-3 inline-flex rounded-full bg-gold/[0.08] px-3 py-1 text-[10px] font-medium tracking-wider text-gold uppercase">
+            {projeto2.tag}
+          </span>
+          <h2 className="mb-4 font-[family-name:var(--font-display)] text-xl text-parchment">
+            Itatinga
+          </h2>
+          <BodyParagraphs text={projeto2.body} />
+          <p className="mb-4 flex items-center gap-2 text-xs text-mute">
+            <MapPin className="h-3.5 w-3.5" />
+            {projeto2.address}
+          </p>
+          <p className="mb-4 text-xs text-mute">{projeto2.contact}</p>
+          {"leaderCta" in projeto2 && projeto2.leaderCta ? (
+            <a
+              href={projeto2.leaderHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-4 inline-flex rounded-full bg-parchment px-5 py-2.5 text-xs tracking-wide text-ink uppercase"
+            >
+              {projeto2.leaderCta}
+            </a>
+          ) : null}
+          {"reportUrl" in projeto2 && projeto2.reportUrl ? (
+            <a
+              href={projeto2.reportUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-xs text-gold"
+            >
+              {projeto2.reportLabel} →
+            </a>
+          ) : null}
+        </div>
+      </article>
+
+      <div className="mb-8 rounded-2xl border border-line bg-card p-5 md:p-6">
+        <h3 className="mb-2 font-[family-name:var(--font-display)] text-xl text-parchment">
+          {impacto.donation.title}
+        </h3>
+        <p className="mb-4 text-sm text-mute">{impacto.donation.body}</p>
+        <p className="text-sm text-parchment">{impacto.donation.org}</p>
+        <p className="text-xs text-mute">CNPJ {impacto.donation.cnpj}</p>
+        <a
+          href={impacto.donation.ctaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-5 inline-flex rounded-full bg-gold px-5 py-2.5 text-xs tracking-wide text-ink uppercase"
+        >
+          {impacto.donation.cta}
+        </a>
       </div>
-    </section>
+
+      <div>
+        <h3 className="mb-4 text-xs tracking-wider text-mute uppercase">
+          {impacto.howToHelp.title}
+        </h3>
+        <ul className="space-y-3">
+          {impacto.howToHelp.items.map((item) => (
+            <li
+              key={item.title}
+              className="rounded-2xl border border-line bg-card p-4"
+            >
+              <p className="font-[family-name:var(--font-display)] text-base text-parchment">
+                {item.title}
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-mute">{item.body}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }

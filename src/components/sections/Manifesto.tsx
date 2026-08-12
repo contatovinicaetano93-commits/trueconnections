@@ -1,90 +1,80 @@
-import { manifesto, site } from "@/lib/content";
-import { Reveal, RevealText } from "@/components/ui/Reveal";
-import { SoftImage } from "@/components/ui/SoftImage";
+import Image from "next/image";
+import Link from "next/link";
+import { manifesto } from "@/lib/content";
 
 export function Manifesto() {
   return (
-    <section id="manifesto" className="section-pad border-t border-line py-20 md:py-32">
-      <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-        <div>
-          <Reveal>
-            <p className="eyebrow mb-5">Manifesto</p>
-          </Reveal>
-          <RevealText
-            as="h2"
-            className="display text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.05] text-parchment"
-            delay={0.05}
-          >
-            {manifesto.title}
-          </RevealText>
-          <Reveal delay={0.1}>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-parchment/85">
-              {manifesto.lead}
-            </p>
-          </Reveal>
-          <Reveal delay={0.14}>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-mute">
-              {manifesto.body}
-            </p>
-          </Reveal>
+    <div className="text-center">
+      <h1 className="mb-3 font-[family-name:var(--font-display)] text-3xl text-parchment md:text-4xl">
+        {manifesto.title}
+      </h1>
+      <div className="mx-auto mb-6 h-px w-12 bg-gold" />
 
-          <Reveal delay={0.16}>
-            <div className="mt-12 border-l border-gold/40 pl-6">
-              <p className="eyebrow mb-3">{manifesto.missionTitle}</p>
-              <p className="max-w-lg text-base leading-relaxed text-parchment/80">
-                {manifesto.mission}
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal y={48} className="relative">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ash">
-            <SoftImage
-              src={site.foundersImage}
-              alt="Fundadoras da True Connections"
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 42vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-deep/75 via-transparent to-transparent" />
-            <p className="absolute inset-x-0 bottom-0 p-6 text-sm leading-relaxed text-ink">
-              {manifesto.foundersLabel}
-            </p>
-          </div>
-        </Reveal>
+      <div className="mb-8 rounded-2xl bg-smoke/80 p-6 text-left md:p-8">
+        <p className="mb-4 text-sm leading-relaxed text-parchment/70">
+          {manifesto.lead}
+        </p>
+        <p className="text-sm leading-relaxed text-parchment/70">
+          {manifesto.body}
+        </p>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-7xl gap-8 border-t border-line pt-12 md:grid-cols-3 md:pt-14">
-        {manifesto.founders.map((founder, i) => (
-          <Reveal key={founder.name} delay={i * 0.06}>
-            <article>
-              <h3 className="display text-2xl text-gold">{founder.name}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-mute">{founder.bio}</p>
-            </article>
-          </Reveal>
+      <div className="mb-8 rounded-2xl border border-line bg-card p-6 text-left md:p-8">
+        <h2 className="mb-4 font-[family-name:var(--font-display)] text-xl text-parchment">
+          {manifesto.missionTitle}
+        </h2>
+        <p className="text-sm leading-relaxed text-parchment/70">
+          {manifesto.mission}
+        </p>
+      </div>
+
+      <div className="mb-8 overflow-hidden rounded-2xl shadow-lg">
+        <Image
+          src={manifesto.foundersImage}
+          alt="Gabriella, Beta e Aline — fundadoras da True Connection"
+          width={768}
+          height={1024}
+          className="aspect-[4/3] w-full object-cover"
+          priority
+        />
+      </div>
+
+      <h2 className="mb-5 font-[family-name:var(--font-display)] text-xl text-parchment">
+        {manifesto.foundersLabel}
+      </h2>
+      <div className="mb-8 space-y-4 text-left">
+        {manifesto.founders.map((founder) => (
+          <article
+            key={founder.name}
+            className="rounded-2xl border border-line bg-card p-5"
+          >
+            <h3 className="mb-2 font-[family-name:var(--font-display)] text-base text-parchment">
+              {founder.name}
+            </h3>
+            <p className="text-xs leading-relaxed text-mute">{founder.bio}</p>
+          </article>
         ))}
       </div>
 
-      <Reveal className="mx-auto mt-14 max-w-7xl">
-        <p className="display max-w-3xl text-3xl leading-snug text-parchment md:text-4xl">
+      <div className="rounded-2xl bg-smoke/80 p-8 md:p-12">
+        <p className="mx-auto mb-6 max-w-md font-[family-name:var(--font-display)] text-lg italic leading-relaxed text-parchment/60">
           {manifesto.closing}
         </p>
-        <div className="mt-8 flex flex-wrap items-center gap-5">
-          <a
+        <div className="flex flex-col items-center justify-center gap-3 md:flex-row">
+          <Link
             href={manifesto.ctaPrimaryHref}
-            className="focus-ring inline-flex rounded-full bg-gold px-6 py-3 text-[0.72rem] tracking-[0.16em] text-ink uppercase transition-colors hover:bg-gold-soft"
+            className="inline-flex items-center gap-2 rounded-full bg-parchment px-6 py-3 text-sm font-medium text-ink transition-all hover:bg-parchment/80"
           >
-            {manifesto.ctaPrimary}
-          </a>
-          <a
+            {manifesto.ctaPrimary} →
+          </Link>
+          <Link
             href={manifesto.ctaSecondaryHref}
-            className="focus-ring text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-6 py-3 text-sm font-medium text-parchment transition-all hover:bg-smoke"
           >
-            {manifesto.ctaSecondary} →
-          </a>
+            {manifesto.ctaSecondary}
+          </Link>
         </div>
-      </Reveal>
-    </section>
+      </div>
+    </div>
   );
 }

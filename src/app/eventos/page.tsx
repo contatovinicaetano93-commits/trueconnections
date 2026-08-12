@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemePageShell } from "@/components/layout/ThemePageShell";
-import { Eventos } from "@/components/sections/Community";
+import { Eventos } from "@/components/sections/Eventos";
 
 export const metadata: Metadata = {
   title: "Próximos Eventos",

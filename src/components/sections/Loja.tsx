@@ -1,58 +1,58 @@
-import { loja, site } from "@/lib/content";
-import { Reveal } from "@/components/ui/Reveal";
+import { Package } from "lucide-react";
 import { SoftImage } from "@/components/ui/SoftImage";
+import { loja, site } from "@/lib/content";
 
 export function Loja() {
   return (
-    <section id="loja" className="section-pad border-t border-line py-16 md:py-28">
-      <div className="mx-auto max-w-7xl">
-        <Reveal>
-          <p className="eyebrow mb-5">Identidade</p>
-          <h2 className="display text-[clamp(2.4rem,5vw,4rem)] text-parchment">
-            {loja.title}
-          </h2>
-          <p className="mt-2 text-sm tracking-wide text-gold/90">{loja.subtitle}</p>
-          <p className="body-prose mt-4 max-w-2xl text-mute">{loja.body}</p>
-        </Reveal>
-
-        <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-          {loja.products.map((product, i) => (
-            <Reveal key={product.name} delay={i * 0.07}>
-              <article className="group flex h-full flex-col">
-                <div className="relative aspect-square overflow-hidden bg-ash">
-                  <SoftImage
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                </div>
-                <div className="surface-editorial mt-6 flex flex-1 flex-col">
-                  <h3 className="display display--tight text-xl text-parchment">
-                    {product.name}
-                  </h3>
-                  <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-                    <p className="display text-2xl text-gold">{product.price}</p>
-                    <p className="text-xs text-mute/70">{product.stock}</p>
-                  </div>
-                  <a
-                    href={site.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="focus-ring link-arrow mt-5 inline-flex text-[0.68rem] tracking-[0.16em] text-mute uppercase transition-colors group-hover:text-gold"
-                  >
-                    Pedir no WhatsApp
-                    <span className="link-arrow__glyph" aria-hidden>
-                      →
-                    </span>
-                  </a>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+    <div>
+      <div className="mb-6">
+        <h1 className="font-[family-name:var(--font-display)] text-2xl text-parchment">
+          {loja.title}
+        </h1>
+        <p className="text-xs text-mute">{loja.subtitle}</p>
+        <p className="mt-3 text-sm leading-relaxed text-mute/70">{loja.body}</p>
       </div>
-    </section>
+
+      <div className="grid grid-cols-2 gap-3">
+        {loja.products.map((product) => (
+          <article
+            key={product.name}
+            className="overflow-hidden rounded-2xl border border-line bg-card transition-all duration-500 hover:border-gold/15 hover:shadow-[0_4px_20px_rgba(0,0,0,0.04)]"
+          >
+            <div className="relative aspect-square overflow-hidden bg-smoke">
+              <SoftImage
+                src={product.image}
+                alt={product.name}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 240px"
+              />
+            </div>
+            <div className="p-3">
+              <p className="mb-1 line-clamp-2 text-xs font-medium text-parchment">
+                {product.name}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="font-[family-name:var(--font-display)] text-sm text-parchment">
+                  {product.price}
+                </span>
+                <span className="flex items-center gap-1 text-[10px] text-mute">
+                  <Package className="h-3 w-3" />
+                  {product.stock}
+                </span>
+              </div>
+              <a
+                href={site.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex text-[10px] tracking-wide text-gold uppercase"
+              >
+                Pedir no WhatsApp →
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
   );
 }
