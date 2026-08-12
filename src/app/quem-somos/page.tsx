@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function QuemSomosPage() {
   return (
-    <ThemePageShell title="Quem Somos">
+    <ThemePageShell title="Quem Somos" wide>
       <Manifesto />
       <Quote />
       <PresenceGallery />

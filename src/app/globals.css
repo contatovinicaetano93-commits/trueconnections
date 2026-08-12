@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* Original True Connection palette */
-  --ink: #ede7de;
-  --smoke: #e5ddd2;
-  --ash: #d8d0c4;
-  --parchment: #221e1b;
-  --mute: #5e5550;
-  --gold: #b69554;
-  --gold-soft: #c9ae6e;
-  --gold-bright: #d4b36a;
-  --ember: #8f7750;
-  --deep: #221e1b;
-  --line: rgba(207, 199, 191, 0.55);
+  /* Base44 True Connection palette */
+  --ink: #f5f0e6;
+  --smoke: #ede8e0;
+  --ash: #e5ddd2;
+  --parchment: hsl(24 12% 12%);
+  --mute: hsl(24 10% 40%);
+  --gold: hsl(40 40% 52%);
+  --gold-soft: hsl(40 35% 58%);
+  --gold-bright: hsl(40 42% 62%);
+  --ember: hsl(40 28% 42%);
+  --deep: hsl(24 12% 12%);
+  --line: rgba(36, 28, 22, 0.1);
   --card: rgba(255, 255, 255, 0.42);
-  --card-elevated: #f4efe8;
+  --card-elevated: #faf7f1;
   --background: var(--ink);
   --foreground: var(--parchment);
   --border: var(--line);

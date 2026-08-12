@@ -1,25 +1,35 @@
-import { Header } from "@/components/layout/Header";
-import { BackToHome } from "@/components/layout/BackToHome";
-import { Footer } from "@/components/sections/CTA";
+import Link from "next/link";
+import { SiteNav } from "@/components/layout/SiteNav";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 
 export function ThemePageShell({
   children,
   title,
+  wide = false,
 }: {
   children: React.ReactNode;
   title?: string;
+  wide?: boolean;
 }) {
   return (
-    <>
-      <Header />
-      <main className="pt-[6.25rem] md:pt-32">
-        <div className="section-pad mx-auto max-w-6xl pt-6 md:pt-8">
-          <BackToHome />
-          {title ? <span className="sr-only">{title}</span> : null}
-        </div>
+    <div className="min-h-screen bg-[#F5F0E6] text-[hsl(24_12%_12%)]">
+      <SiteNav />
+      <main
+        className={`mx-auto px-6 pb-16 pt-8 md:pt-10 ${
+          wide ? "max-w-6xl" : "max-w-xl"
+        }`}
+      >
+        <Link
+          href="/"
+          className="mb-8 inline-flex text-[11px] tracking-[0.16em] text-[hsl(24_12%_12%)]/45 uppercase transition-colors hover:text-[hsl(40_40%_52%)]"
+        >
+          ← Voltar ao início
+        </Link>
+        {title ? <span className="sr-only">{title}</span> : null}
         {children}
       </main>
-      <Footer />
-    </>
+      <SiteFooter />
+    </div>
   );
 }
+

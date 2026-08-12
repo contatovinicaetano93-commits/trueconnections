@@ -11,6 +11,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: "/manifesto", destination: "/quem-somos", permanent: false },
+      {
+        source: "/eventos-gratuitos",
+        destination: "/encontros",
+        permanent: false,
+      },
+      { source: "/concierge", destination: "/contato", permanent: false },
+    ];
+  },
 };
 
 export default withSentryConfig(nextConfig, {

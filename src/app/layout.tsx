@@ -1,26 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Source_Serif_4 } from "next/font/google";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { Lora, Playfair_Display } from "next/font/google";
 import { site } from "@/lib/content";
 import "./globals.css";
 
-const display = Fraunces({
+const display = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const body = Source_Serif_4({
+const body = Lora({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: site.name,
-    template: `%s | ${site.name}`,
+    default: "True Connection",
+    template: `%s | True Connection`,
   },
   description: site.description,
   icons: {
@@ -28,25 +29,25 @@ export const metadata: Metadata = {
     apple: site.mark,
   },
   openGraph: {
-    title: site.name,
+    title: "True Connection",
     description: site.tagline,
     type: "website",
     url: site.url,
-    siteName: site.name,
+    siteName: "True Connection",
     images: [
       {
-        url: site.logo,
-        width: 1024,
-        height: 1024,
-        alt: site.name,
+        url: "/images/logo-base44.jpeg",
+        width: 424,
+        height: 224,
+        alt: "True Connection",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: site.name,
+    title: "True Connection",
     description: site.tagline,
-    images: [site.logo],
+    images: ["/images/logo-base44.jpeg"],
   },
 };
 
@@ -54,7 +55,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#ede7de",
+  themeColor: "#F5F0E6",
 };
 
 export default function RootLayout({
@@ -67,12 +68,11 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-ink text-parchment">
+      <body className="min-h-full bg-[#F5F0E6] font-[family-name:var(--font-body)] text-[hsl(24_12%_12%)]">
         <a href="#topo" className="skip-link">
           Pular para o conteúdo
         </a>
-        <div className="grain" aria-hidden />
-        <SmoothScroll>{children}</SmoothScroll>
+        {children}
       </body>
     </html>
   );

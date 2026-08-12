@@ -4,7 +4,7 @@ import { SoftImage } from "@/components/ui/SoftImage";
 function PrivateEventsVideo({ src }: { src: string }) {
   if (!src) {
     return (
-      <div className="flex aspect-video w-full items-center justify-center bg-deep/10 text-center">
+      <div className="flex aspect-video w-full items-center justify-center bg-black/[0.03] text-center">
         <p className="max-w-sm px-6 text-sm text-mute">
           Vídeo em breve — envie o arquivo ou o link para publicarmos aqui.
         </p>
@@ -47,7 +47,7 @@ function PrivateEventsVideo({ src }: { src: string }) {
       src={src}
       controls
       playsInline
-      className="aspect-video w-full bg-deep/10 object-cover"
+      className="aspect-video w-full bg-black/[0.03] object-cover"
     >
       Seu navegador não reproduz este vídeo.
     </video>
@@ -56,7 +56,7 @@ function PrivateEventsVideo({ src }: { src: string }) {
 
 function BodyParagraphs({ text }: { text: string }) {
   return (
-    <div className="body-prose mt-5 flex-1 space-y-4 text-mute/85">
+    <div className="mt-4 space-y-3 text-sm leading-relaxed text-mute">
       {text.split("\n\n").map((paragraph) => (
         <p key={paragraph.slice(0, 48)}>{paragraph}</p>
       ))}
@@ -65,89 +65,102 @@ function BodyParagraphs({ text }: { text: string }) {
 }
 
 export function EncontrosStory() {
+  const [naMesa, clube] = encontros.items;
+
   return (
-    <section id="encontros" className="border-t border-line">
-      <div className="section-pad mx-auto max-w-6xl py-16 md:py-24">
-        <div className="max-w-2xl">
-          <p className="eyebrow mb-4">Comunidade</p>
-          <h1 className="display text-[clamp(2.4rem,5vw,4.25rem)] text-parchment">
-            {encontros.title}
-          </h1>
-          <p className="body-prose mt-5 max-w-xl text-mute">{encontros.subtitle}</p>
-        </div>
+    <div>
+      <div className="mb-8">
+        <h1 className="mb-2 font-[family-name:var(--font-display)] text-2xl text-parchment md:text-3xl">
+          Eventos Gratuitos
+        </h1>
+        <p className="text-sm text-mute">{encontros.subtitle}</p>
+      </div>
 
-        <div className="mt-12 grid gap-12 border-t border-line pt-12 lg:grid-cols-2 lg:gap-16 lg:pt-16">
-          {encontros.items.map((item) => (
-            <article key={item.title} className="surface-editorial">
-              <p className="eyebrow mb-4">{item.tag}</p>
-              <h2 className="display text-3xl text-parchment md:text-[2.65rem]">
-                {item.title}
-              </h2>
-              <BodyParagraphs text={item.body} />
-              <p className="surface-editorial__meta">{item.meta}</p>
-              {"cta" in item && item.cta && item.ctaHref ? (
-                <a
-                  href={item.ctaHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="focus-ring link-arrow mt-6 inline-flex text-[0.72rem] tracking-[0.14em] text-gold uppercase transition-colors hover:text-gold-soft"
-                >
-                  {item.cta}
-                  <span className="link-arrow__glyph" aria-hidden>
-                    →
-                  </span>
-                </a>
-              ) : null}
-            </article>
-          ))}
-        </div>
-
-        <div className="mt-16 border-t border-line pt-12 md:mt-20 md:pt-16">
-          <p className="eyebrow mb-8 text-center md:mb-10">
-            {encontros.booksHeadline}
-          </p>
-          <div className="grid gap-6 sm:grid-cols-3 sm:gap-5">
-            {encontros.books.map((book) => (
-              <article key={book.title} className="text-center">
-                <div className="relative mx-auto aspect-[3/4] w-full max-w-[11rem] overflow-hidden rounded-xl bg-card shadow-[0_12px_40px_-18px_rgba(28,24,20,0.35)] sm:max-w-none">
-                  <SoftImage
-                    src={book.cover}
-                    alt={`Capa de ${book.title}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 640px) 44vw, 20vw"
-                  />
-                </div>
-                <h3 className="display mt-4 text-lg leading-snug text-parchment md:text-xl">
-                  {book.title}
-                </h3>
-                <p className="mt-1 text-sm text-mute">{book.author}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="mx-auto mt-12 max-w-xl border-t border-line pt-10 text-center">
-            <p className="eyebrow mb-3 text-gold">{encontros.nextBook.title}</p>
-            <p className="text-base leading-relaxed text-mute">
-              {encontros.nextBook.body}
+      <div className="space-y-8">
+        <article className="overflow-hidden rounded-2xl border border-line bg-card shadow-sm">
+          <div className="p-6 md:p-8">
+            <p className="mb-3 text-[0.65rem] tracking-[0.18em] text-gold uppercase">
+              {naMesa.tag}
             </p>
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-parchment md:text-3xl">
+              {naMesa.title}
+            </h2>
+            <BodyParagraphs text={naMesa.body} />
+            <p className="mt-6 text-[0.7rem] tracking-[0.12em] text-gold uppercase">
+              {naMesa.meta}
+            </p>
+            {"cta" in naMesa && naMesa.cta && naMesa.ctaHref ? (
+              <a
+                href={naMesa.ctaHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex rounded-full bg-gold px-5 py-2.5 text-[0.7rem] tracking-[0.14em] text-ink uppercase transition-colors hover:bg-gold-soft"
+              >
+                {naMesa.cta}
+              </a>
+            ) : null}
           </div>
-        </div>
+        </article>
 
-        <div className="mt-16 border-t border-line pt-12 md:mt-20 md:pt-16">
-          <article className="surface-editorial max-w-4xl">
-            <h2 className="display text-3xl text-parchment md:text-[2.65rem]">
+        <article className="overflow-hidden rounded-2xl border border-line bg-card shadow-sm">
+          <div className="p-6 md:p-8">
+            <p className="mb-3 text-[0.65rem] tracking-[0.18em] text-gold uppercase">
+              {clube.tag}
+            </p>
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-parchment md:text-3xl">
+              {clube.title}
+            </h2>
+            <BodyParagraphs text={clube.body} />
+
+            <p className="mb-4 mt-8 text-[0.65rem] tracking-[0.18em] text-mute uppercase">
+              {encontros.booksHeadline}
+            </p>
+            <div className="grid grid-cols-3 gap-3">
+              {encontros.books.map((book) => (
+                <div key={book.title} className="text-center">
+                  <div className="relative mx-auto aspect-[2/3] overflow-hidden rounded-lg bg-smoke shadow-sm">
+                    <SoftImage
+                      src={book.cover}
+                      alt={`Capa de ${book.title}`}
+                      fill
+                      className="object-cover"
+                      sizes="120px"
+                    />
+                  </div>
+                  <p className="mt-2 font-[family-name:var(--font-display)] text-xs leading-snug text-parchment">
+                    {book.title}
+                  </p>
+                  <p className="mt-0.5 text-[10px] text-mute">{book.author}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-xl border border-line bg-ink/40 p-5">
+              <p className="text-[0.65rem] tracking-[0.16em] text-gold uppercase">
+                {encontros.nextBook.title}
+              </p>
+              <p className="mt-2 text-sm text-mute">{encontros.nextBook.body}</p>
+              <p className="mt-4 text-[0.7rem] tracking-[0.12em] text-gold uppercase">
+                {clube.meta}
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <article className="overflow-hidden rounded-2xl border border-line bg-card shadow-sm">
+          <div className="p-6 md:p-8">
+            <h2 className="font-[family-name:var(--font-display)] text-2xl text-parchment">
               {encontros.privateEvents.title}
             </h2>
-            <p className="body-prose mt-5 text-mute/85">
+            <p className="mt-3 text-sm text-mute">
               {encontros.privateEvents.subtitle}
             </p>
-            <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-card/40">
+            <div className="mt-6 overflow-hidden rounded-xl border border-line">
               <PrivateEventsVideo src={encontros.privateEvents.videoUrl} />
             </div>
-          </article>
-        </div>
+          </div>
+        </article>
       </div>
-    </section>
+    </div>
   );
 }
