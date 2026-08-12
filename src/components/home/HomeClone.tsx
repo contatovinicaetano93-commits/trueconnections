@@ -18,9 +18,6 @@ import {
 import { motion } from "framer-motion";
 import { qgs, site } from "@/lib/content";
 
-const LOGO =
-  "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg";
-
 const menuItems: {
   label: string;
   desc: string;
@@ -96,19 +93,12 @@ export function HomeClone() {
           className="mb-10 flex flex-col items-center rounded-2xl bg-[hsl(38_28%_90%)] px-6 py-4"
         >
           <Image
-            src={LOGO}
+            src={site.logo}
             alt="True Connection"
             width={340}
-            height={180}
+            height={340}
             priority
-            className="w-[240px] object-contain md:w-[340px]"
-            style={{
-              mixBlendMode: "multiply",
-              maskImage:
-                "radial-gradient(ellipse 80% 75% at 50% 50%, black 35%, transparent 85%)",
-              WebkitMaskImage:
-                "radial-gradient(ellipse 80% 75% at 50% 50%, black 35%, transparent 85%)",
-            }}
+            className="w-[200px] object-contain md:w-[280px]"
           />
         </motion.div>
 

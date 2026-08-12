@@ -13,8 +13,8 @@ export const site = {
   emailHref: "mailto:True2.connections@gmail.com",
   hours: "Seg a Sex, 9h às 18h",
   instagram: "https://instagram.com/",
-  logo: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg",
-  mark: "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/fb103fe77_D665219E-A89E-42DC-8E50-9F916E0C088B.png",
+  logo: "/images/logo-lockup-hi.png",
+  mark: "/images/logo-mark-hi.png",
   foundersImage:
     "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e54ea3c8a_IMG_0784.jpg",
   url: "https://www.trueconnections.com.br",
@@ -37,7 +37,9 @@ export const hero = {
 } as const;
 
 export const boot = {
-  line: "Abrindo o refúgio",
+  line: "Bem-vindo ao seu refúgio.",
+  lineBefore: "Bem-vindo ao seu ",
+  lineAccent: "refúgio",
   brand: "True Connection",
   since: "desde 2024",
 } as const;

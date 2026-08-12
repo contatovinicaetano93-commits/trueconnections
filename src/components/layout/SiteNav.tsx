@@ -6,8 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, User, X } from "lucide-react";
 
-const LOGO =
-  "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg";
+import { site } from "@/lib/content";
 
 const navItems = [
   { path: "/eventos", label: "Eventos" },
@@ -41,12 +40,11 @@ export function SiteNav() {
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
         <Link href="/" className="flex-shrink-0" onClick={() => setOpen(false)}>
           <Image
-            src={LOGO}
+            src={site.logo}
             alt="True Connection"
             width={120}
-            height={28}
-            className="h-7 w-auto object-contain"
-            style={{ mixBlendMode: "multiply" }}
+            height={120}
+            className="h-9 w-auto object-contain"
             priority
           />
         </Link>

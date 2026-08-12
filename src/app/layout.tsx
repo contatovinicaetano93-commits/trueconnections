@@ -36,9 +36,9 @@ export const metadata: Metadata = {
     siteName: "True Connection",
     images: [
       {
-        url: "/images/logo-base44.jpeg",
-        width: 424,
-        height: 224,
+        url: site.logo,
+        width: 1024,
+        height: 1024,
         alt: "True Connection",
       },
     ],
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "True Connection",
     description: site.tagline,
-    images: ["/images/logo-base44.jpeg"],
+    images: [site.logo],
   },
 };
 

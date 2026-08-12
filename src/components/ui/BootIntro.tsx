@@ -34,7 +34,7 @@ export function BootIntro() {
         window.clearInterval(type);
         setPhase("hold");
       }
-    }, 70);
+    }, 55);
 
     return () => {
       window.clearInterval(type);
@@ -44,7 +44,7 @@ export function BootIntro() {
 
   useEffect(() => {
     if (mode !== "play" || phase !== "hold") return;
-    const t = window.setTimeout(() => setPhase("exit"), 3200);
+    const t = window.setTimeout(() => setPhase("exit"), 2800);
     return () => window.clearTimeout(t);
   }, [mode, phase]);
 
@@ -60,27 +60,33 @@ export function BootIntro() {
 
   if (mode === "pending" || mode === "skip" || phase === "done") return null;
 
+  const typed = boot.line.slice(0, chars);
+  const beforeLen = boot.lineBefore.length;
+  const before = typed.slice(0, Math.min(chars, beforeLen));
+  const accent = typed.slice(beforeLen);
+
   return (
     <div
-      className={`boot-intro fixed inset-0 z-[100] flex items-center justify-center bg-ink ${
+      className={`boot-intro fixed inset-0 z-[100] flex items-center justify-center bg-[hsl(38_28%_90%)] ${
         phase === "exit" ? "boot-intro--exit" : ""
       }`}
       role="status"
       aria-live="polite"
       aria-label={`${boot.brand}. ${boot.line}`}
     >
-      <div className="section-pad flex w-full max-w-3xl flex-col items-center text-center md:items-start md:text-left">
-        <BrandLogo variant="mark" size="xl" priority className="-mb-1" />
-        <p className="mb-6 mt-0 text-[0.7rem] font-medium tracking-[0.28em] text-ember uppercase">
+      <div className="flex w-full max-w-xl flex-col items-center px-6 text-center">
+        <BrandLogo variant="lockup" size="xl" priority className="mb-8" />
+        <p className="mb-4 text-[0.7rem] font-medium tracking-[0.28em] text-[hsl(40_40%_52%)] uppercase">
           {boot.brand}
-          <span className="mx-2 text-mute/50">·</span>
+          <span className="mx-2 text-[hsl(24_8%_34%)]/40">·</span>
           {boot.since}
         </p>
-        <p className="display text-[clamp(1.8rem,5vw,3.2rem)] text-parchment">
-          <span className="text-gold">{"> "}</span>
-          {boot.line.slice(0, chars)}
-          <span className="boot-cursor ml-1 inline-block h-[0.9em] w-[0.45em] translate-y-[0.12em] bg-gold align-baseline" />
+        <p className="font-[family-name:var(--font-display)] text-[clamp(1.85rem,5vw,3rem)] font-medium tracking-tight text-[hsl(24_12%_12%)]">
+          {before}
+          <span className="text-[hsl(40_40%_52%)]">{accent}</span>
+          <span className="boot-cursor ml-1 inline-block h-[0.9em] w-[0.45em] translate-y-[0.12em] bg-[hsl(40_40%_52%)] align-baseline" />
         </p>
+        <div className="mt-8 h-px w-12 bg-[hsl(40_40%_52%)]/40" />
       </div>
     </div>
   );
