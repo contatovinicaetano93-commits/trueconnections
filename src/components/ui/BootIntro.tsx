@@ -75,7 +75,7 @@ export function BootIntro() {
       aria-label={`${boot.brand}. ${boot.line}`}
     >
       <div className="flex w-full max-w-xl flex-col items-center px-6 text-center">
-        <BrandLogo variant="lockup" size="xl" priority className="mb-8" />
+        <BrandLogo variant="lockup" size="xl" priority className="mb-8 !h-16 !w-[14rem] md:!h-[5.5rem] md:!w-[20rem]" />
         <p className="mb-4 text-[0.7rem] font-medium tracking-[0.28em] text-[hsl(40_40%_52%)] uppercase">
           {boot.brand}
           <span className="mx-2 text-[hsl(24_8%_34%)]/40">·</span>

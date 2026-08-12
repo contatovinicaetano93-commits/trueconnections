@@ -30,7 +30,14 @@ export function AuthCard({
               className="mb-8 flex justify-center transition hover:opacity-90"
               aria-label="True Connections — voltar ao site"
             >
-              <BrandLogo variant="lockup" size="xl" priority />
+              <span className="inline-flex items-center justify-center md:rounded-2xl md:bg-[hsl(38_28%_94%/0.45)] md:px-8 md:py-5 md:ring-1 md:ring-black/[0.04]">
+                <BrandLogo
+                  variant="lockup"
+                  size="xl"
+                  priority
+                  className="!h-16 !w-[14rem] md:!h-20 md:!w-[18rem]"
+                />
+              </span>
             </Link>
 
             <h1 className="display text-[clamp(1.9rem,4vw,2.65rem)] leading-[1.08] text-parchment">

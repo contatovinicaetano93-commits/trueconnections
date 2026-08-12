@@ -44,7 +44,7 @@ export function SiteNav() {
             alt="True Connection"
             width={200}
             height={63}
-            className="h-10 w-auto object-contain md:h-11"
+            className="h-10 w-auto object-contain md:h-12"
             priority
           />
         </Link>

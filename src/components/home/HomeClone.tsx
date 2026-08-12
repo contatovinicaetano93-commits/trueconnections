@@ -90,7 +90,7 @@ export function HomeClone() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="mb-10 flex flex-col items-center px-4 py-2"
+          className="mb-10 flex flex-col items-center px-4 py-2 md:mb-12 md:rounded-3xl md:bg-[hsl(38_28%_94%/0.55)] md:px-14 md:py-10 md:shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_28px_rgba(0,0,0,0.04)] md:ring-1 md:ring-black/[0.04]"
         >
           <Image
             src={site.logo}
@@ -98,7 +98,7 @@ export function HomeClone() {
             width={593}
             height={186}
             priority
-            className="h-auto w-[min(88vw,20rem)] object-contain drop-shadow-sm md:w-[26rem]"
+            className="h-auto w-[min(88vw,20rem)] object-contain drop-shadow-sm md:w-[22rem] lg:w-[24rem]"
           />
         </motion.div>
 

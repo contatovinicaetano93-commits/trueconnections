@@ -6,14 +6,16 @@ import { associados } from "@/lib/content";
 export function AssociadosSection() {
   return (
     <div className="px-2 py-12 text-center md:py-16">
-      <Image
-        src={associados.mark}
-        alt="True Connection"
-        width={575}
-        height={417}
-        className="mx-auto mb-6 h-auto w-28 object-contain drop-shadow-sm md:w-36"
-        priority
-      />
+      <div className="mx-auto mb-6 flex w-fit items-center justify-center md:mb-8 md:rounded-3xl md:bg-[hsl(38_28%_94%/0.55)] md:px-12 md:py-10 md:shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_28px_rgba(0,0,0,0.04)] md:ring-1 md:ring-black/[0.04]">
+        <Image
+          src={associados.mark}
+          alt="True Connection"
+          width={575}
+          height={417}
+          className="h-auto w-28 object-contain drop-shadow-sm md:w-40"
+          priority
+        />
+      </div>
       <h1 className="mb-3 font-[family-name:var(--font-display)] text-2xl text-[hsl(24_12%_12%)] md:text-3xl">
         {associados.exclusiveTitle}
       </h1>
