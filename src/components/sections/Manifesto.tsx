@@ -42,7 +42,7 @@ export function Manifesto() {
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ash">
             <SoftImage
               src={site.foundersImage}
-              alt="Aline e Gabriella — fundadoras da True Connections"
+              alt="Fundadoras da True Connections"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 42vw"
@@ -55,7 +55,7 @@ export function Manifesto() {
         </Reveal>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-7xl gap-8 border-t border-line pt-12 md:grid-cols-2 md:pt-14">
+      <div className="mx-auto mt-14 grid max-w-7xl gap-8 border-t border-line pt-12 md:grid-cols-3 md:pt-14">
         {manifesto.founders.map((founder, i) => (
           <Reveal key={founder.name} delay={i * 0.06}>
             <article>
@@ -70,14 +70,20 @@ export function Manifesto() {
         <p className="display max-w-3xl text-3xl leading-snug text-parchment md:text-4xl">
           {manifesto.closing}
         </p>
-        <a
-          href={site.whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="focus-ring mt-8 inline-flex text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
-        >
-          Quero fazer parte →
-        </a>
+        <div className="mt-8 flex flex-wrap items-center gap-5">
+          <a
+            href={manifesto.ctaPrimaryHref}
+            className="focus-ring inline-flex rounded-full bg-gold px-6 py-3 text-[0.72rem] tracking-[0.16em] text-ink uppercase transition-colors hover:bg-gold-soft"
+          >
+            {manifesto.ctaPrimary}
+          </a>
+          <a
+            href={manifesto.ctaSecondaryHref}
+            className="focus-ring text-[0.72rem] tracking-[0.16em] text-mute uppercase transition-colors hover:text-gold"
+          >
+            {manifesto.ctaSecondary} →
+          </a>
+        </div>
       </Reveal>
     </section>
   );

@@ -4,7 +4,11 @@ export const site = {
   description:
     "Comunidade cristã editorial para conectar, crescer e prosperar através de experiências curadas, bem-estar com fé e networking com propósito.",
   whatsapp: "https://wa.me/5511990267044?text=Ol%C3%A1%2C+True+Connections%21",
-  email: "mailto:contato@trueconnections.com.br",
+  phone: "(11) 99026-7044",
+  phoneHref: "tel:+5511990267044",
+  email: "True2.connections@gmail.com",
+  emailHref: "mailto:True2.connections@gmail.com",
+  hours: "Seg a Sex, 9h às 18h",
   instagram: "https://instagram.com/",
   logo: "/images/logo-transparent.png",
   mark: "/images/logo-mark-transparent.png",
@@ -18,7 +22,7 @@ export const nav = [
   { href: "/encontros", label: "Encontros" },
   { href: "/eventos", label: "Eventos" },
   { href: "/impacto", label: "Impacto" },
-  { href: site.whatsapp, label: "Fale Conosco", external: true },
+  { href: "/contato", label: "Fale Conosco" },
 ] as const;
 
 export const hero = {
@@ -61,7 +65,7 @@ export const portals = [
   {
     href: "/encontros",
     title: "Encontros",
-    subtitle: "Na Mesa & Clube de Leitura",
+    subtitle: "Na Mesa & Estudo Bíblico",
     icon: "gift",
   },
   {
@@ -79,7 +83,7 @@ export const portals = [
   {
     href: "/true-action",
     title: "True Action",
-    subtitle: "Conhecer os profissionais",
+    subtitle: "Rede curada de profissionais",
     icon: "briefcase",
   },
   {
@@ -89,11 +93,10 @@ export const portals = [
     icon: "bag",
   },
   {
-    href: site.whatsapp,
+    href: "/contato",
     title: "Fale Conosco",
     subtitle: "Tire dúvidas no WhatsApp",
     icon: "chat",
-    external: true,
   },
 ] as const;
 
@@ -104,11 +107,16 @@ export const manifesto = {
   missionTitle: "Nossa Missão",
   mission:
     "Servir ao Senhor e levar Sua palavra aos quatro cantos do Brasil através da comunhão, dos encontros, das experiências e das conexões que estamos construindo. Acreditamos que Deus está formando uma grande rede de pessoas unidas por um mesmo propósito: glorificá-Lo.",
-  foundersLabel: "Por trás da True estão duas mulheres conectadas pelo mesmo chamado",
+  foundersLabel:
+    "Por trás da True estão três mulheres conectadas pelo mesmo chamado",
   founders: [
     {
       name: "Gabriella Grecco",
       bio: "Apaixonada por comunicação, conexões e por criar ambientes que aproximam pessoas de Deus e umas das outras.",
+    },
+    {
+      name: "Beta Neves",
+      bio: "Dentista, apaixonada por fé, família e conexões genuínas, trazendo acolhimento e profundidade para a comunidade.",
     },
     {
       name: "Aline Jabur",
@@ -116,23 +124,30 @@ export const manifesto = {
     },
   ],
   closing: "Mais do que eventos, a True nasceu para ser um lugar de pertencimento.",
+  ctaPrimary: "Fazer parte",
+  ctaPrimaryHref: "/seja-associado",
+  ctaSecondary: "Fale conosco",
+  ctaSecondaryHref: "/contato",
 } as const;
 
 export const encontros = {
   title: "Encontros gratuitos",
   subtitle: "Encontros abertos para toda a comunidade. Sem custo, só presença.",
-  booksHeadline: "Já lemos esses livros",
+  booksHeadline: "Já lemos juntas",
   items: [
     {
       tag: "Encontro de mulheres",
       title: "Na Mesa",
-      body: "O \"Na Mesa\" nasceu em novembro de 2024 de forma muito simples e verdadeira: mulheres reunidas em volta da mesa buscando mais de Deus. Louvamos, compartilhamos a Palavra, oramos e dividimos uma refeição — buscando intimidade com Deus e transformação.",
-      meta: "Toda terceira quinta-feira do mês · 14h às 17h · Itinerante",
+      body: 'O "Na Mesa" nasceu em novembro de 2024 de forma muito simples e verdadeira: mulheres reunidas em volta da mesa buscando mais de Deus. Os encontros acontecem de forma itinerante, nas casas de mulheres que desejam abrir suas portas e viver essa comunhão com a gente. Fazemos isso para que todas se sintam pertencentes, acolhidas e parte da comunidade.\n\nNesses encontros, louvamos ao Senhor, compartilhamos a Palavra, oramos, conversamos e dividimos uma refeição juntas. Mas acima de tudo, buscamos intimidade com Deus e transformação. Acreditamos profundamente que esses encontros mudam o nosso caminhar. Dividindo lutas, alegrias, dores e testemunhos, ajudamos umas às outras a permanecer firmes na Palavra e sermos instruídas por mulheres que também vivem para Cristo.\n\nO Na Mesa é sobre comunhão, presença e crescimento espiritual verdadeiro.',
+      meta: "Toda terceira quinta-feira do mês · 14h às 17h · Itinerante — nas casas das mulheres da comunidade",
+      cta: "Quero abrir minha casa ou participar",
+      ctaHref:
+        "https://wa.me/5511990267044?text=Ol%C3%A1%21%20Quero%20abrir%20minha%20casa%20ou%20participar%20do%20Na%20Mesa.",
     },
     {
       tag: "Encontro mensal",
       title: "Clube de Leitura",
-      body: "Espaço de crescimento intelectual e espiritual. Lemos obras que nos desafiam a caminhar mais perto de Cristo, compartilhando reflexões e aprendizados.",
+      body: "Nosso espaço de crescimento intelectual e espiritual. Lemos obras que nos desafiam a caminhar mais perto de Cristo, compartilhando reflexões e aprendizados em encontros que nutrem nossa fé e comunhão.",
       meta: "Toda última sexta-feira do mês · 8h30 às 10h30",
     },
   ],
@@ -148,16 +163,19 @@ export const encontros = {
       cover: "/images/books/em-busca-de-deus.jpg",
     },
     {
-      title: "O Poder Secreto da Oração e do Jejum",
+      title: "O Poder Secreto da Oração",
       author: "Mahesh Chavda",
       cover: "/images/books/poder-secreto-oracao.jpg",
     },
   ],
+  nextBook: {
+    title: "Próximo livro",
+    body: "Em definição. Acompanhe nossas redes para votar na próxima obra!",
+  },
   privateEvents: {
     title: "Eventos privados",
     subtitle:
       "Experiências exclusivas da comunidade — em breve, o vídeo por aqui.",
-    // Cole a URL do vídeo (YouTube, Vimeo ou arquivo .mp4) quando enviar
     videoUrl: "",
   },
 } as const;
@@ -165,6 +183,7 @@ export const encontros = {
 export const eventos = {
   title: "Próximos Eventos",
   subtitle: "Experiências curadas para sua jornada.",
+  empty: "Nenhum evento agendado ainda.",
   items: [
     {
       title: "Pocket Show Michele Mister",
@@ -191,8 +210,9 @@ export const impacto = {
     {
       tag: "Projeto 01",
       title: "Instituto Seja o Milagre",
-      body: "Associação 100% voluntária que depende de doações para transformar realidades. Atua em comunidades com saúde, alimentos, higiene, recreação infantil, vínculos familiares e inclusão profissional via Projeto Conecta Jovem.",
+      body: "A Associação Seja o Milagre é um projeto 100% voluntário que depende exclusivamente de doações para transformar realidades. Atuamos em diversas comunidades promovendo ações de saúde, entrega de alimentos e itens de higiene, recreação infantil, fortalecimento de vínculos familiares e inclusão social e profissional através do Projeto Conecta Jovem.",
       address: "Rua Primeiro de Janeiro, 47 — Vila Clementino, São Paulo",
+      frentesTitle: "Nossas frentes de atuação",
       frentes: [
         "Conecta Jovem",
         "Inclusão — Mãos Dadas",
@@ -202,23 +222,62 @@ export const impacto = {
       ],
       image:
         "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e73801d83_IMG_1136.jpeg",
-      contact: "Viviane D'Agostino — (11) 9 8799-5050",
+      contact: "Viviane D'Agostino — Mentora e Coordenadora",
+      phone: "(11) 9 8799-5050",
+      phoneHref: "tel:+5511987995050",
+      email: "adm.sejaomilagre@gmail.com",
+      emailHref: "mailto:adm.sejaomilagre@gmail.com",
+      instagram: "@sejaomilagre",
+      instagramHref: "https://instagram.com/sejaomilagre",
+      cnpj: "CNPJ: 42.240.488/0001-74 · Associação Seja o Milagre",
+      invite: "Seja o Milagre você também! Entre em contato e faça parte dessa transformação.",
     },
     {
       tag: "Projeto 02",
       title: "Base Missionária Itatinga",
-      body: "Em um dos bairros com o maior índice de prostituição do Brasil, em Campinas, a visão é construir uma base missionária segura — proteção para crianças e futuro longe da exploração. A missão também alcança a Ilha de Marajó.",
+      body: "Em um dos bairros com o maior índice de prostituição do Brasil, em Campinas, vivemos uma realidade urgente. Mulheres, muitas vezes vítimas de tráfico humano, são forçadas a se prostituir ao lado de seus filhos, sem ter onde deixá-los.\n\nNossa visão é construir uma base missionária segura no coração dessa comunidade. O objetivo central é oferecer um ambiente de proteção para essas crianças, tirando-as da vulnerabilidade e proporcionando um futuro longe do ambiente de exploração.\n\nAlém da atuação em Itatinga, este braço missionário também estende sua missão à Ilha de Marajó, levando esperança e assistência às comunidades ribeirinhas do Pará.",
       address: "Itatinga — Campinas, SP · Ilha de Marajó, PA",
-      contact: "Thiago Baeta — Líder da missão",
+      contact: "Thiago Baeta — Líder da missão Itatinga e Marajó",
+      leaderCta: "Falar com Thiago Baeta",
+      leaderHref:
+        "https://wa.me/5511990267044?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20a%20miss%C3%A3o%20Itatinga.",
       reportUrl: "/docs/relatorio-missional-itatinga.pdf",
       reportLabel: "Relatório missional — março a maio",
     },
   ],
+  donation: {
+    title: "Faça uma doação",
+    body: "Contribua com qualquer valor via PIX. Sua doação transforma vidas.",
+    org: "Instituto Seja o Milagre",
+    cnpj: "42.240.488/0001-74",
+    email: "adm.sejaomilagre@gmail.com",
+    emailHref: "mailto:adm.sejaomilagre@gmail.com",
+    cta: "Pedir chave PIX",
+    ctaHref:
+      "https://wa.me/5511987995050?text=Ol%C3%A1%21%20Quero%20fazer%20uma%20doa%C3%A7%C3%A3o%20para%20o%20Instituto%20Seja%20o%20Milagre.",
+  },
+  howToHelp: {
+    title: "Como ajudar",
+    items: [
+      {
+        title: "Seja um associado",
+        body: "Contribua mensalmente com qualquer valor para a manutenção dos projetos.",
+      },
+      {
+        title: "Faça doações",
+        body: "Roupas, alimentos, produtos de higiene e outros itens fazem diferença imediata.",
+      },
+      {
+        title: "Seja voluntário",
+        body: "Doe tempo e talento — saúde, recreação, mentoria e presença.",
+      },
+    ],
+  },
 } as const;
 
 export const trueAction = {
   title: "True Action",
-  subtitle: "Conhecer os profissionais",
+  subtitle: "Rede curada de profissionais",
   body: "Conecte-se com talentos que compartilham dos mesmos valores. Encontre o profissional certo para o seu projeto, dentro de uma rede de confiança.",
   cta: "Ver os profissionais",
   whatsapp:
@@ -283,6 +342,31 @@ export const associados = {
   membersHref: "/associados/login",
 } as const;
 
+export const contato = {
+  title: "Fale com a gente",
+  subtitle: "Estamos aqui para ajudar. Escolha o canal de sua preferência.",
+  channels: [
+    {
+      label: "Telefone",
+      value: site.phone,
+      href: site.phoneHref,
+    },
+    {
+      label: "E-mail",
+      value: site.email,
+      href: site.emailHref,
+    },
+    {
+      label: "WhatsApp",
+      value: "Atendimento rápido",
+      href: site.whatsapp,
+      external: true,
+    },
+  ],
+  hoursLabel: "Horário de atendimento",
+  hours: site.hours,
+} as const;
+
 export const heroSlides = [
   {
     src: "/images/fundadoras.png",
@@ -324,7 +408,7 @@ export const heroSlides = [
 
 export const quote = {
   text: "Mais do que eventos, a True nasceu para ser um lugar de pertencimento.",
-  attribution: "Fundadoras — Aline e Gabriella",
+  attribution: "Fundadoras — Gabriella, Beta e Aline",
 } as const;
 
 export const presence = {
@@ -385,7 +469,7 @@ export const faq = [
   },
   {
     q: "Como faço para participar?",
-    a: "Fale conosco no WhatsApp. Contamos sobre os próximos encontros, a área de associados e como se aproximar da comunidade.",
+    a: "Fale conosco no WhatsApp ou pela página de Contato. Contamos sobre os próximos encontros, a área de associados e como se aproximar da comunidade.",
   },
   {
     q: "Os encontros são pagos?",

@@ -106,8 +106,7 @@ export function Header() {
             Área de membros
           </MagneticButton>
           <MagneticButton
-            href={site.whatsapp}
-            external
+            href="/contato"
             className="hidden rounded-full border border-line px-4 py-2 text-[0.68rem] tracking-[0.18em] uppercase text-parchment/80 hover:border-gold/50 hover:text-gold md:inline-flex"
           >
             Contato
@@ -194,15 +193,13 @@ export function Header() {
           >
             Área de membros
           </Link>
-          <a
-            href={site.whatsapp}
+          <Link
+            href="/contato"
             onClick={close}
-            target="_blank"
-            rel="noopener noreferrer"
             className="focus-ring mt-2 rounded-full border border-line px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-parchment"
           >
             Contato
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

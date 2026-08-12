@@ -54,6 +54,16 @@ function PrivateEventsVideo({ src }: { src: string }) {
   );
 }
 
+function BodyParagraphs({ text }: { text: string }) {
+  return (
+    <div className="body-prose mt-5 flex-1 space-y-4 text-mute/85">
+      {text.split("\n\n").map((paragraph) => (
+        <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+      ))}
+    </div>
+  );
+}
+
 export function EncontrosStory() {
   return (
     <section id="encontros" className="border-t border-line">
@@ -73,8 +83,21 @@ export function EncontrosStory() {
               <h2 className="display text-3xl text-parchment md:text-[2.65rem]">
                 {item.title}
               </h2>
-              <p className="body-prose mt-5 flex-1 text-mute/85">{item.body}</p>
+              <BodyParagraphs text={item.body} />
               <p className="surface-editorial__meta">{item.meta}</p>
+              {"cta" in item && item.cta && item.ctaHref ? (
+                <a
+                  href={item.ctaHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="focus-ring link-arrow mt-6 inline-flex text-[0.72rem] tracking-[0.14em] text-gold uppercase transition-colors hover:text-gold-soft"
+                >
+                  {item.cta}
+                  <span className="link-arrow__glyph" aria-hidden>
+                    →
+                  </span>
+                </a>
+              ) : null}
             </article>
           ))}
         </div>
@@ -101,6 +124,13 @@ export function EncontrosStory() {
                 <p className="mt-1 text-sm text-mute">{book.author}</p>
               </article>
             ))}
+          </div>
+
+          <div className="mx-auto mt-12 max-w-xl border-t border-line pt-10 text-center">
+            <p className="eyebrow mb-3 text-gold">{encontros.nextBook.title}</p>
+            <p className="text-base leading-relaxed text-mute">
+              {encontros.nextBook.body}
+            </p>
           </div>
         </div>
 
