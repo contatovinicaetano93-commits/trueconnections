@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ImpactoPage() {
   return (
-    <ThemePageShell title="Impacto Social">
+    <ThemePageShell title="Impacto Social" wide>
       <Impacto />
     </ThemePageShell>
   );

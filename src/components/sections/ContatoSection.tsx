@@ -5,13 +5,15 @@ const icons = [Phone, Mail, MessageCircle] as const;
 
 export function ContatoSection() {
   return (
-    <div>
+    <div className="py-2 md:py-6">
       <div className="mb-10">
-        <h1 className="mb-3 font-[family-name:var(--font-display)] text-3xl text-parchment md:text-4xl">
+        <h1 className="mb-3 font-[family-name:var(--font-display)] text-3xl text-[hsl(24_12%_12%)] md:text-4xl">
           {contato.title}
         </h1>
-        <div className="mb-6 h-px w-10 bg-gold" />
-        <p className="text-sm text-mute">{contato.subtitle}</p>
+        <div className="mb-6 h-px w-10 bg-[hsl(40_40%_52%)]" />
+        <p className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_8%_34%)]">
+          {contato.subtitle}
+        </p>
       </div>
 
       <ul className="space-y-4">
@@ -24,16 +26,19 @@ export function ContatoSection() {
                 {...("external" in channel && channel.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="group flex items-center gap-5 rounded-2xl border border-line bg-card p-5 transition-all hover:border-gold/15 hover:shadow-sm"
+                className="group flex items-center gap-5 rounded-2xl border border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_96%/0.15)] p-5 transition-all hover:border-[hsl(24_14%_14%)]/15 hover:shadow-sm"
               >
-                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-smoke transition-colors group-hover:bg-parchment/[0.04]">
-                  <Icon className="h-5 w-5 text-parchment" strokeWidth={1.5} />
+                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-[hsl(38_20%_91%/0.25)] transition-colors group-hover:bg-[hsl(24_14%_14%/0.04)]">
+                  <Icon
+                    className="h-5 w-5 text-[hsl(24_14%_14%)]"
+                    strokeWidth={1.5}
+                  />
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="block text-[10px] tracking-wider text-mute uppercase">
+                  <span className="mb-0.5 block font-[family-name:var(--font-display)] text-base text-[hsl(24_12%_12%)]">
                     {channel.label}
                   </span>
-                  <span className="mt-0.5 block text-sm text-parchment">
+                  <span className="block font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
                     {channel.value}
                   </span>
                 </span>
@@ -43,12 +48,8 @@ export function ContatoSection() {
         })}
       </ul>
 
-      <p className="mt-10 text-center text-xs text-mute">
-        <span className="tracking-[0.14em] text-gold uppercase">
-          {contato.hoursLabel}
-        </span>
-        <span className="mx-2 text-mute/40">·</span>
-        {contato.hours}
+      <p className="mt-10 text-center font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
+        {contato.hoursLabel}: {contato.hours}
       </p>
     </div>
   );

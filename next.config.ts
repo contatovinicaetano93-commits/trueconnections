@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "media.base44.com",
         pathname: "/images/**",
       },
+      {
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+        pathname: "/images/**",
+      },
     ],
   },
   async redirects() {

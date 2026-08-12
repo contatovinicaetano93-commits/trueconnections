@@ -18,7 +18,8 @@ import {
 import { motion } from "framer-motion";
 import { qgs, site } from "@/lib/content";
 
-const LOGO = "/images/logo-base44.jpeg";
+const LOGO =
+  "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg";
 
 const menuItems: {
   label: string;
@@ -86,13 +87,13 @@ const cardClass = `group flex h-full min-h-[105px] flex-col items-center justify
 
 export function HomeClone() {
   return (
-    <div className="flex min-h-screen flex-col bg-[#F5F0E6] text-[hsl(24_12%_12%)]">
-      <div className="flex w-full flex-1 flex-col items-center px-6 pb-8 pt-16">
+    <div className="flex min-h-screen flex-col bg-[hsl(38_28%_90%)] text-[hsl(24_12%_12%)]">
+      <div className="flex w-full flex-1 flex-col items-center px-6 pt-16 pb-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="mb-10 flex flex-col items-center rounded-2xl bg-[#F5F0E6] px-6 py-4"
+          className="mb-10 flex flex-col items-center rounded-2xl bg-[hsl(38_28%_90%)] px-6 py-4"
         >
           <Image
             src={LOGO}
@@ -184,8 +185,8 @@ export function HomeClone() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="mt-12 w-full max-w-3xl"
+          transition={{ duration: 0.8, delay: 1 }}
+          className="mt-10 w-full max-w-xl"
         >
           <div className="mb-3 flex items-center gap-2 px-1">
             <MapPin className="h-4 w-4 text-[hsl(40_40%_52%)]" strokeWidth={1.5} />

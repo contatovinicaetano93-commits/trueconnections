@@ -6,11 +6,12 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, User, X } from "lucide-react";
 
-const LOGO = "/images/logo-base44.jpeg";
+const LOGO =
+  "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/68c907e90_IMG_1114.jpeg";
 
 const navItems = [
   { path: "/eventos", label: "Eventos" },
-  { path: "/seja-associado", label: "Associados" },
+  { path: "/seja-associado", label: "Associados", match: ["/seja-associado"] },
   { path: "/impacto", label: "Impacto" },
   { path: "/loja", label: "Loja" },
   { path: "/quem-somos", label: "Manifesto" },
@@ -36,7 +37,7 @@ export function SiteNav() {
     pathname === path || pathname.startsWith(`${path}/`);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-black/[0.04] bg-[#F5F0E6]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
         <Link href="/" className="flex-shrink-0" onClick={() => setOpen(false)}>
           <Image
@@ -60,13 +61,13 @@ export function SiteNav() {
                 className={`relative font-[family-name:var(--font-body)] text-[11px] tracking-[0.15em] uppercase transition-colors duration-300 ${
                   active
                     ? "text-[hsl(24_12%_12%)]"
-                    : "text-[hsl(24_12%_12%)]/60 hover:text-[hsl(24_12%_12%)]"
+                    : "text-[hsl(24_8%_34%)]/60 hover:text-[hsl(24_12%_12%)]"
                 }`}
               >
                 {item.label}
                 {active ? (
                   <span
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-[hsl(40_40%_52%)]"
+                    className="absolute -bottom-1 right-0 left-0 h-px bg-[hsl(40_40%_52%)]"
                     aria-hidden
                   />
                 ) : null}
@@ -78,10 +79,13 @@ export function SiteNav() {
         <div className="flex items-center gap-3">
           <Link
             href="/associados/login"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white/40 transition-colors hover:border-[hsl(40_40%_52%)]/30"
-            aria-label="Perfil / área de membros"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_20%_91%/0.25)] transition-colors hover:border-[hsl(40_40%_52%)]/30"
+            aria-label="Área de membros"
           >
-            <User className="h-4 w-4 text-[hsl(24_12%_12%)]/40" strokeWidth={1.5} />
+            <User
+              className="h-4 w-4 text-[hsl(24_12%_12%)]/40"
+              strokeWidth={1.5}
+            />
           </Link>
           <button
             type="button"
@@ -97,26 +101,21 @@ export function SiteNav() {
 
       {open ? (
         <nav
-          className="border-t border-black/[0.04] bg-[#F5F0E6] px-4 py-4 md:hidden"
+          className="overflow-hidden border-t border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/95 md:hidden"
           aria-label="Mobile"
         >
-          <ul className="flex flex-col gap-1">
+          <div className="flex flex-col px-4 py-3">
             {navItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  onClick={() => setOpen(false)}
-                  className={`block rounded-xl px-4 py-3 text-[12px] tracking-[0.15em] uppercase ${
-                    isActive(item.path)
-                      ? "bg-[hsl(40_40%_52%)]/10 text-[hsl(40_40%_52%)]"
-                      : "text-[hsl(24_12%_12%)]/80"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              </li>
+              <Link
+                key={item.path}
+                href={item.path}
+                onClick={() => setOpen(false)}
+                className="border-b border-[hsl(32_14%_78%/0.2)] py-2.5 font-[family-name:var(--font-body)] text-sm tracking-wide text-[hsl(24_12%_12%)]/70 transition-colors last:border-0 hover:text-[hsl(24_12%_12%)]"
+              >
+                {item.label}
+              </Link>
             ))}
-          </ul>
+          </div>
         </nav>
       ) : null}
     </header>

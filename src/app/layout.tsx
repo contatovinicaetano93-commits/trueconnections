@@ -55,7 +55,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#F5F0E6",
+  themeColor: "#EDE6DC",
 };
 
 export default function RootLayout({
@@ -68,7 +68,7 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${display.variable} ${body.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-[#F5F0E6] font-[family-name:var(--font-body)] text-[hsl(24_12%_12%)]">
+      <body className="min-h-full bg-[hsl(38_28%_90%)] font-[family-name:var(--font-body)] text-[hsl(24_12%_12%)]">
         <a href="#topo" className="skip-link">
           Pular para o conteúdo
         </a>

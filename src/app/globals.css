@@ -1,23 +1,25 @@
 @import "tailwindcss";
 
 :root {
-  /* Base44 True Connection palette */
-  --ink: #f5f0e6;
-  --smoke: #ede8e0;
-  --ash: #e5ddd2;
+  /* Exact Base44 True Connection palette */
+  --background: hsl(38 28% 90%);
+  --foreground: hsl(24 12% 12%);
+  --border: hsl(32 14% 78% / 0.3);
+  --ink: hsl(38 28% 90%);
+  --smoke: hsl(38 20% 91% / 0.25);
+  --ash: hsl(38 14% 88% / 0.5);
   --parchment: hsl(24 12% 12%);
-  --mute: hsl(24 10% 40%);
+  --mute: hsl(24 8% 34%);
   --gold: hsl(40 40% 52%);
-  --gold-soft: hsl(40 35% 58%);
+  --gold-soft: hsl(40 30% 72%);
   --gold-bright: hsl(40 42% 62%);
   --ember: hsl(40 28% 42%);
-  --deep: hsl(24 12% 12%);
-  --line: rgba(36, 28, 22, 0.1);
-  --card: rgba(255, 255, 255, 0.42);
-  --card-elevated: #faf7f1;
-  --background: var(--ink);
-  --foreground: var(--parchment);
-  --border: var(--line);
+  --deep: hsl(24 14% 14%);
+  --line: hsl(32 14% 78% / 0.3);
+  --card: hsl(38 28% 96% / 0.15);
+  --card-elevated: hsl(38 28% 94%);
+  --primary: hsl(24 14% 14%);
+  --primary-foreground: hsl(38 28% 92%);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
