@@ -1,4 +1,5 @@
 import { SiteNav } from "@/components/layout/SiteNav";
+import { BackToHome } from "@/components/layout/BackToHome";
 
 export function ThemePageShell({
   children,
@@ -17,6 +18,7 @@ export function ThemePageShell({
           wide ? "max-w-2xl" : "max-w-lg"
         }`}
       >
+        <BackToHome />
         {title ? <span className="sr-only">{title}</span> : null}
         {children}
       </main>
