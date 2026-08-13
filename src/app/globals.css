@@ -1131,9 +1131,12 @@ header {
   flex-direction: column;
   gap: 1.15rem;
   padding: 1.15rem;
-  border: 1px solid var(--line);
+  border: 1px solid hsl(32 14% 78% / 0.35);
   border-radius: 1rem;
-  background: color-mix(in srgb, white 48%, transparent);
+  background: hsl(0 0% 100% / 0.65);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 @media (min-width: 768px) {
@@ -1145,24 +1148,27 @@ header {
 
 .members-media {
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid hsl(32 14% 78% / 0.35);
   border-radius: 1rem;
-  background: color-mix(in srgb, white 42%, transparent);
+  background: hsl(0 0% 100% / 0.65);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .members-study-row {
   display: block;
   padding: 1.35rem 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid hsl(32 14% 78% / 0.35);
   transition: border-color 0.3s var(--ease-out-expo);
 }
 
 .members-study-row:first-child {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid hsl(32 14% 78% / 0.35);
 }
 
 .members-study-row:hover {
-  border-bottom-color: color-mix(in srgb, var(--gold) 50%, var(--line));
+  border-bottom-color: hsl(40 40% 52% / 0.45);
 }
 
 .auth-panel {

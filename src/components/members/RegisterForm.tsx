@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
@@ -12,6 +13,7 @@ import {
   PasswordInput,
   authInputClass,
 } from "@/components/members/PasswordInput";
+import { memberAuthButtonClass } from "@/components/members/memberStyles";
 
 function signupErrorMessage(message: string | undefined) {
   if (!message) {
@@ -116,6 +118,7 @@ export function RegisterForm() {
           type="email"
           required
           autoComplete="email"
+          placeholder="seu@email.com"
           className={authInputClass}
         />
       </AuthField>
@@ -151,15 +154,28 @@ export function RegisterForm() {
         autoComplete="new-password"
       />
 
-      {error ? <p className="text-sm text-ember">{error}</p> : null}
+      {error ? (
+        <p
+          className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+          role="alert"
+        >
+          {error}
+        </p>
+      ) : null}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-deep transition hover:bg-gold-soft disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={memberAuthButtonClass}>
         {loading ? "Criando conta…" : "Criar conta gratuita"}
       </button>
+
+      <p className="text-center text-sm text-[hsl(30_8%_45%)]">
+        Já tem conta?{" "}
+        <Link
+          href="/associados/login"
+          className="font-medium text-[hsl(40_40%_42%)] hover:underline"
+        >
+          Entrar
+        </Link>
+      </p>
     </form>
   );
 }

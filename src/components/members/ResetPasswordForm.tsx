@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { PasswordInput } from "@/components/members/PasswordInput";
+import { memberAuthButtonClass } from "@/components/members/memberStyles";
 
 export function ResetPasswordForm() {
   const router = useRouter();
@@ -54,7 +55,7 @@ export function ResetPasswordForm() {
 
   if (!token && !invalid) {
     return (
-      <p className="text-sm text-mute">
+      <p className="text-sm text-[hsl(24_8%_34%)]">
         Abra o link enviado por e-mail para definir uma nova senha.
       </p>
     );
@@ -74,12 +75,19 @@ export function ResetPasswordForm() {
         autoComplete="new-password"
       />
 
-      {error ? <p className="text-sm text-ember">{error}</p> : null}
+      {error ? (
+        <p
+          className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+          role="alert"
+        >
+          {error}
+        </p>
+      ) : null}
 
       <button
         type="submit"
         disabled={loading || !token}
-        className="w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-deep transition hover:bg-gold-soft disabled:opacity-60"
+        className={memberAuthButtonClass}
       >
         {loading ? "Salvando…" : "Salvar nova senha"}
       </button>

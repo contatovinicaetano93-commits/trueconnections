@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-
-const fieldClass =
-  "w-full rounded-xl border border-line bg-ink/30 px-4 py-3.5 text-parchment outline-none transition placeholder:text-mute/50 focus:border-gold/50 focus:ring-2 focus:ring-gold/25";
+import { memberAuthInputClass } from "@/components/members/memberStyles";
 
 export function PasswordInput({
   name = "password",
@@ -25,9 +23,7 @@ export function PasswordInput({
 
   return (
     <label className="block space-y-2">
-      <span className="text-xs uppercase tracking-[0.18em] text-mute">
-        {label}
-      </span>
+      <span className="text-sm font-medium text-[hsl(30_10%_25%)]">{label}</span>
       <div className="relative">
         <input
           name={name}
@@ -36,12 +32,12 @@ export function PasswordInput({
           minLength={minLength}
           autoComplete={autoComplete}
           placeholder={placeholder}
-          className={`${fieldClass} pr-12`}
+          className={`${memberAuthInputClass} pr-12`}
         />
         <button
           type="button"
           onClick={() => setVisible((v) => !v)}
-          className="absolute top-1/2 right-3 -translate-y-1/2 rounded-md p-1 text-mute transition hover:text-gold"
+          className="absolute top-1/2 right-3 -translate-y-1/2 rounded-md p-1 text-[hsl(30_8%_45%)] transition hover:text-[hsl(30_10%_25%)]"
           aria-label={visible ? "Ocultar senha" : "Mostrar senha"}
           aria-pressed={visible}
         >
@@ -61,12 +57,10 @@ export function AuthField({
 }) {
   return (
     <label className="block space-y-2">
-      <span className="text-xs uppercase tracking-[0.18em] text-mute">
-        {label}
-      </span>
+      <span className="text-sm font-medium text-[hsl(30_10%_25%)]">{label}</span>
       {children}
     </label>
   );
 }
 
-export { fieldClass as authInputClass };
+export { memberAuthInputClass as authInputClass };

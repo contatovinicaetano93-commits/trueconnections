@@ -9,6 +9,7 @@ import {
   PasswordInput,
   authInputClass,
 } from "@/components/members/PasswordInput";
+import { memberAuthButtonClass } from "@/components/members/memberStyles";
 
 export function LoginForm() {
   const router = useRouter();
@@ -36,7 +37,6 @@ export function LoginForm() {
       return;
     }
 
-    // Server decide: admin → /admin, associado → /associados
     router.push("/associados/destino");
     router.refresh();
   }
@@ -49,29 +49,38 @@ export function LoginForm() {
           type="email"
           required
           autoComplete="email"
+          placeholder="seu@email.com"
           className={authInputClass}
         />
       </AuthField>
 
       <div className="space-y-2">
-        <PasswordInput name="password" label="Senha" autoComplete="current-password" />
+        <PasswordInput
+          name="password"
+          label="Senha"
+          autoComplete="current-password"
+          placeholder="••••••••"
+        />
         <div className="text-right">
           <Link
             href="/associados/esqueci-senha"
-            className="text-xs text-mute transition hover:text-gold"
+            className="text-xs text-[hsl(24_8%_34%)] transition hover:text-[hsl(40_40%_52%)]"
           >
             Esqueci a minha senha
           </Link>
         </div>
       </div>
 
-      {error ? <p className="text-sm text-ember">{error}</p> : null}
+      {error ? (
+        <p
+          className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+          role="alert"
+        >
+          {error}
+        </p>
+      ) : null}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-deep transition hover:bg-gold-soft disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={memberAuthButtonClass}>
         {loading ? "Entrando…" : "Entrar"}
       </button>
     </form>
