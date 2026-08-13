@@ -25,16 +25,13 @@ export function AssociadosSection() {
 
       <div className="mx-auto mb-6 max-w-xs rounded-2xl bg-[hsl(38_20%_91%/0.25)] p-6">
         <p className="mb-1 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
-          {associados.planLabel}
+          {associados.accessLabel}
         </p>
-        <p className="font-[family-name:var(--font-display)] text-3xl text-[hsl(24_12%_12%)]">
-          {associados.planPrice}
-          <span className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_8%_34%)]">
-            {associados.planPeriod}
-          </span>
+        <p className="font-[family-name:var(--font-display)] text-2xl text-[hsl(40_40%_52%)]">
+          Grátis
         </p>
         <p className="mt-2 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
-          {associados.planNote}
+          {associados.accessNote}
         </p>
       </div>
 
@@ -61,10 +58,6 @@ export function AssociadosSection() {
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-
-      <p className="mt-4 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
-        {associados.cancelNote}
-      </p>
     </div>
   );
 }

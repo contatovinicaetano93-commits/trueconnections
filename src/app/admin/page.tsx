@@ -1,38 +1,30 @@
 import Link from "next/link";
-import { and, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, desc, eq, sql } from "drizzle-orm";
 import {
   ArrowRight,
   BookOpen,
   Ticket,
   Users,
   Video,
-  Wallet,
 } from "lucide-react";
-import { syncSubscriptionStatuses } from "@/app/actions/members";
 import { CollapsibleCard } from "@/components/admin/CollapsibleCard";
 import { PageIntro } from "@/components/admin/ui";
 import { getDb } from "@/db";
 import { bibleStudies, partnerCoupons, ruachVideos, user } from "@/db/schema";
-import { formatBRL } from "@/lib/billing";
 
 export const metadata = {
   title: "Admin",
 };
 
 export default async function AdminPage() {
-  await syncSubscriptionStatuses();
-
   const db = getDb();
   const [
     [couponCount],
     [videoCount],
     [studyCount],
     [memberCount],
-    [pendingCount],
-    [overdueCount],
     recentCoupons,
     recentVideos,
-    pendingMembers,
   ] = await Promise.all([
     db
       .select({ n: sql<number>`count(*)::int` })
@@ -51,26 +43,6 @@ export default async function AdminPage() {
       .from(user)
       .where(and(eq(user.role, "member"), eq(user.active, true))),
     db
-      .select({ n: sql<number>`count(*)::int` })
-      .from(user)
-      .where(
-        and(
-          eq(user.role, "member"),
-          eq(user.active, true),
-          eq(user.subscriptionStatus, "pending"),
-        ),
-      ),
-    db
-      .select({ n: sql<number>`count(*)::int` })
-      .from(user)
-      .where(
-        and(
-          eq(user.role, "member"),
-          eq(user.active, true),
-          eq(user.subscriptionStatus, "overdue"),
-        ),
-      ),
-    db
       .select()
       .from(partnerCoupons)
       .orderBy(desc(partnerCoupons.createdAt))
@@ -80,28 +52,9 @@ export default async function AdminPage() {
       .from(ruachVideos)
       .orderBy(desc(ruachVideos.createdAt))
       .limit(3),
-    db
-      .select({
-        id: user.id,
-        name: user.name,
-        monthlyAmountCents: user.monthlyAmountCents,
-        subscriptionStatus: user.subscriptionStatus,
-        nextDueAt: user.nextDueAt,
-      })
-      .from(user)
-      .where(
-        and(
-          eq(user.role, "member"),
-          eq(user.active, true),
-          inArray(user.subscriptionStatus, ["pending", "overdue"]),
-        ),
-      )
-      .orderBy(user.nextDueAt)
-      .limit(6),
   ]);
 
   const members = memberCount?.n ?? 0;
-  const pending = (pendingCount?.n ?? 0) + (overdueCount?.n ?? 0);
 
   const peopleModules = [
     {
@@ -110,15 +63,7 @@ export default async function AdminPage() {
       label: "Associados",
       count: members,
       unit: members === 1 ? "ativo" : "ativos",
-      guide: "Contas com papel de associado e acesso liberado.",
-    },
-    {
-      href: "/admin/usuarios",
-      icon: Wallet,
-      label: "Pagamentos pendentes",
-      count: pending,
-      unit: pending === 1 ? "cobrança" : "cobranças",
-      guide: "Vencidos ou à cobrar — abra Usuários e cobre no WhatsApp.",
+      guide: "Contas com acesso gratuito à área de membros.",
     },
   ];
 
@@ -154,7 +99,7 @@ export default async function AdminPage() {
       <PageIntro
         eyebrow="Painel"
         title="Visão geral"
-        description="Acompanhe associados, cobranças e o conteúdo publicado na área de membros."
+        description="Acompanhe associados e o conteúdo publicado na área de membros."
       />
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -209,76 +154,25 @@ export default async function AdminPage() {
 
       <div className="mt-6 space-y-4">
         <CollapsibleCard
-          eyebrow="Cobrança"
-          title="Pendências do mês"
-          summary={
-            pendingMembers.length
-              ? `${pendingMembers.length} para cobrar agora`
-              : "Nenhuma pendência no momento"
-          }
-          defaultOpen={pendingMembers.length > 0}
-        >
-          {pendingMembers.length === 0 ? (
-            <p className="text-sm text-mute">
-              Quando um associado vencer a mensalidade, ele aparece aqui. Em
-              Usuários você cobra pelo WhatsApp e marca como pago.
-            </p>
-          ) : (
-            <ul className="space-y-2">
-              {pendingMembers.map((m) => (
-                <li
-                  key={m.id}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-ink/25 px-3 py-2.5 text-sm"
-                >
-                  <div>
-                    <p className="text-parchment">{m.name}</p>
-                    <p className="text-xs text-mute">
-                      {m.subscriptionStatus === "overdue" ? "Em atraso" : "Pendente"}
-                      {m.nextDueAt
-                        ? ` · venceu ${new Date(m.nextDueAt).toLocaleDateString("pt-BR", { timeZone: "UTC" })}`
-                        : ""}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-gold">
-                      {m.monthlyAmountCents != null
-                        ? formatBRL(m.monthlyAmountCents)
-                        : "—"}
-                    </span>
-                    <Link
-                      href="/admin/usuarios"
-                      className="text-xs font-medium text-gold hover:underline"
-                    >
-                      Cobrar →
-                    </Link>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </CollapsibleCard>
-
-        <CollapsibleCard
           eyebrow="Guia rápido"
-          title="Fluxo de mensalidade"
-          summary="Cadastro → cobrança WhatsApp → marcar pago → próximo vencimento"
+          title="Cadastro gratuito"
+          summary="Qualquer pessoa pode se cadastrar em /associados/cadastro"
           defaultOpen
         >
           <ol className="space-y-3 text-sm text-mute">
             <li>
-              <span className="font-medium text-parchment">1. Crie o associado</span>{" "}
-              em Usuários com WhatsApp. A 1ª mensalidade (R$ 50) vence 30 dias após
-              o cadastro — a data não se altera.
+              <span className="font-medium text-parchment">1. Cadastro público</span>{" "}
+              — visitantes criam conta gratuita em /associados/cadastro e acessam
+              cupons, Ruach e estudos.
             </li>
             <li>
-              <span className="font-medium text-parchment">2. Complete o perfil</span>{" "}
-              (nome + WhatsApp). Sem telefone, o botão de cobrança não abre.
+              <span className="font-medium text-parchment">2. Criação manual</span>{" "}
+              — em Usuários você ainda pode criar contas manualmente e enviar
+              credenciais por e-mail.
             </li>
             <li>
-              <span className="font-medium text-parchment">3. Cobrar no WhatsApp</span>{" "}
-              no vencimento e{" "}
-              <span className="font-medium text-parchment">marcar como pago</span> —
-              o próximo ciclo avança +30 dias.
+              <span className="font-medium text-parchment">3. Conteúdo</span>{" "}
+              — publique cupons, vídeos Ruach e estudos bíblicos para a comunidade.
             </li>
           </ol>
         </CollapsibleCard>

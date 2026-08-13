@@ -3,7 +3,6 @@ import {
   createMember,
   setUserActive,
   setUserRole,
-  syncSubscriptionStatuses,
 } from "@/app/actions/members";
 import { MemberBillingActions } from "@/components/admin/MemberBillingActions";
 import { CollapsibleCard } from "@/components/admin/CollapsibleCard";
@@ -16,12 +15,6 @@ import {
 } from "@/components/admin/ui";
 import { getDb } from "@/db";
 import { user } from "@/db/schema";
-import {
-  DEFAULT_MEMBERSHIP_AMOUNT_CENTS,
-  buildChargeWhatsAppUrl,
-  formatBRL,
-  resolveSubscriptionStatus,
-} from "@/lib/billing";
 import { requireAdmin } from "@/lib/session";
 
 export const metadata = {
@@ -30,7 +23,6 @@ export const metadata = {
 
 export default async function AdminUsuariosPage() {
   const session = await requireAdmin();
-  await syncSubscriptionStatuses();
 
   const users = await getDb()
     .select({
@@ -41,11 +33,6 @@ export default async function AdminUsuariosPage() {
       active: user.active,
       createdAt: user.createdAt,
       phone: user.phone,
-      billingDay: user.billingDay,
-      subscriptionStatus: user.subscriptionStatus,
-      lastPaidAt: user.lastPaidAt,
-      nextDueAt: user.nextDueAt,
-      monthlyAmountCents: user.monthlyAmountCents,
       profileNotes: user.profileNotes,
     })
     .from(user)
@@ -53,30 +40,21 @@ export default async function AdminUsuariosPage() {
 
   const admins = users.filter((u) => u.role === "admin").length;
   const activeCount = users.filter((u) => u.active).length;
-  const members = users.filter((u) => u.role === "member" && u.active);
-  const pendingBilling = members.filter((u) => {
-    const status = resolveSubscriptionStatus({
-      role: u.role,
-      active: u.active,
-      status: u.subscriptionStatus,
-      nextDueAt: u.nextDueAt,
-    });
-    return status === "pending" || status === "overdue";
-  }).length;
+  const members = users.filter((u) => u.role === "member" && u.active).length;
 
   return (
     <>
       <PageIntro
         eyebrow="Pessoas"
         title="Usuários"
-        description="Crie acessos, complete o perfil de cobrança e cobre no WhatsApp. A mensalidade vence a cada 30 dias a partir do cadastro (data não editável)."
+        description="Gerencie contas de associados e admins. O cadastro público está aberto e gratuito — qualquer pessoa pode criar conta em /associados/cadastro."
       />
 
       <div className="space-y-4">
         <CollapsibleCard
           eyebrow="Convidar"
           title="Novo acesso"
-          subtitle="Cadastro público está fechado. O associado recebe e-mail com login, senha inicial e link para criar a própria senha."
+          subtitle="Crie manualmente uma conta de associado ou admin. O associado recebe e-mail com login, senha inicial e link para criar a própria senha."
           summary="Abrir para criar um associado ou admin"
           defaultOpen={users.length <= 1}
         >
@@ -98,26 +76,10 @@ export default async function AdminUsuariosPage() {
                 className={adminInputClass}
               />
             </Field>
-            <Field
-              label="WhatsApp"
-              hint="Obrigatório para associado. Usado no botão Cobrar no WhatsApp."
-            >
+            <Field label="WhatsApp" hint="Opcional.">
               <input
                 name="phone"
                 placeholder="11999999999"
-                className={adminInputClass}
-              />
-            </Field>
-            <Field
-              label="Mensalidade (R$)"
-              hint={`Padrão ${formatBRL(DEFAULT_MEMBERSHIP_AMOUNT_CENTS)}. Só vale para associados.`}
-            >
-              <input
-                name="monthlyAmount"
-                type="text"
-                inputMode="decimal"
-                defaultValue={(DEFAULT_MEMBERSHIP_AMOUNT_CENTS / 100).toFixed(2)}
-                placeholder="50.00"
                 className={adminInputClass}
               />
             </Field>
@@ -132,7 +94,7 @@ export default async function AdminUsuariosPage() {
             </Field>
             <label className="flex items-center gap-2 text-sm text-mute">
               <input name="role" type="checkbox" value="admin" />
-              Criar como admin (sem cobrança)
+              Criar como admin
             </label>
             <button type="submit" className={adminPrimaryBtnClass}>
               Criar acesso
@@ -143,35 +105,18 @@ export default async function AdminUsuariosPage() {
         <CollapsibleCard
           eyebrow="Lista"
           title="Contas cadastradas"
-          summary={`${users.length} no total · ${activeCount} ativos · ${admins} admins · ${pendingBilling} cobranças pendentes`}
+          summary={`${users.length} no total · ${activeCount} ativos · ${admins} admins · ${members} associados`}
           defaultOpen
         >
           {users.length === 0 ? (
             <EmptyGuide
               title="Nenhuma conta ainda"
-              body="Crie o primeiro acesso no card acima."
+              body="Crie o primeiro acesso no card acima ou aguarde cadastros públicos."
             />
           ) : (
             <div className="space-y-3">
               {users.map((item) => {
                 const isSelf = item.id === session.user.id;
-                const resolvedStatus = resolveSubscriptionStatus({
-                  role: item.role,
-                  active: item.active,
-                  status: item.subscriptionStatus,
-                  nextDueAt: item.nextDueAt,
-                });
-                const chargeUrl =
-                  item.role === "member" && item.phone
-                    ? buildChargeWhatsAppUrl({
-                        phone: item.phone,
-                        name: item.name,
-                        amountCents:
-                          item.monthlyAmountCents ??
-                          DEFAULT_MEMBERSHIP_AMOUNT_CENTS,
-                        dueDate: item.nextDueAt,
-                      })
-                    : null;
 
                 return (
                   <div
@@ -266,13 +211,7 @@ export default async function AdminUsuariosPage() {
                           email: item.email,
                           phone: item.phone,
                           profileNotes: item.profileNotes,
-                          monthlyAmountCents: item.monthlyAmountCents,
-                          subscriptionStatus: item.subscriptionStatus,
-                          nextDueAt: item.nextDueAt,
-                          lastPaidAt: item.lastPaidAt,
                           createdAt: item.createdAt,
-                          chargeUrl,
-                          resolvedStatus,
                         }}
                       />
                     ) : null}

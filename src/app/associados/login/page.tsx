@@ -20,12 +20,12 @@ export default async function LoginPage({
       footer={
         <>
           <p>
-            Ainda não tem acesso?{" "}
+            Ainda não tem conta?{" "}
             <Link
               href="/associados/cadastro"
               className="font-medium text-gold hover:underline"
             >
-              Como obter acesso
+              Criar conta gratuita
             </Link>
           </p>
           <p>

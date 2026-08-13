@@ -490,17 +490,14 @@ export const qgs = {
 
 export const associados = {
   title: "Associados",
-  subtitle: "Área premium do clube",
+  subtitle: "Comunidade True Connection",
   exclusiveTitle: "Área Exclusiva",
-  body: "Torne-se um Associado True Connection e acesse o diretório de membros, estudos bíblicos, Método Ruach e benefícios exclusivos.",
-  planLabel: "Plano Mensal",
-  planPrice: "R$ 49,90",
-  planPeriod: "/mês",
-  planNote: "O valor da mensalidade vira crédito para 1 evento pago por mês.",
-  cta: "Quero me Associar",
+  body: "Cadastre-se gratuitamente e acesse estudos bíblicos, Método Ruach, cupons de parceiros e benefícios da comunidade.",
+  accessLabel: "Acesso gratuito",
+  accessNote: "Sem mensalidade. Crie sua conta em poucos minutos.",
+  cta: "Criar conta gratuita",
   ctaHref: "/associados/cadastro",
-  cancelNote: "Cancele quando quiser.",
-  membersCta: "Área de membros",
+  membersCta: "Já tenho conta — entrar",
   membersHref: "/associados/login",
   mark: site.mark,
 } as const;
@@ -572,6 +569,6 @@ export const faq = [
   },
   {
     q: "Os encontros são pagos?",
-    a: "Na Mesa e o Clube de Leitura são abertos e sem custo — só presença. Eventos especiais e a área de associados têm condições próprias, sempre comunicadas com clareza.",
+    a: "Na Mesa e o Clube de Leitura são abertos e sem custo — só presença. A área de associados também é gratuita: basta criar uma conta para acessar estudos, Ruach e cupons.",
   },
 ] as const;
