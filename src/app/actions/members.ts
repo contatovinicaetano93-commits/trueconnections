@@ -15,14 +15,7 @@ import {
   verification,
 } from "@/db/schema";
 import { getSession, requireAdmin } from "@/lib/session";
-import {
-  DEFAULT_MEMBERSHIP_AMOUNT_CENTS,
-  firstDueFromSignup,
-  nextDueAfterPayment,
-  normalizeBrazilPhone,
-  resolveSubscriptionStatus,
-  startOfUtcDay,
-} from "@/lib/billing";
+import { normalizeBrazilPhone } from "@/lib/billing";
 import { buildSetPasswordUrl, sendWelcomeInviteEmail } from "@/lib/email";
 
 function slugify(value: string) {
@@ -41,15 +34,8 @@ export async function createMember(formData: FormData) {
   const password = String(formData.get("password") || "");
   const role = formData.get("role") === "admin" ? "admin" : "member";
   const phone = normalizeBrazilPhone(String(formData.get("phone") || ""));
-  const amountRaw = String(formData.get("monthlyAmount") || "").trim();
-  const amountCents = amountRaw
-    ? Math.round(Number(amountRaw.replace(",", ".")) * 100)
-    : DEFAULT_MEMBERSHIP_AMOUNT_CENTS;
 
   if (!name || !email || password.length < 8) {
-    return;
-  }
-  if (role === "member" && !phone) {
     return;
   }
 
@@ -72,12 +58,10 @@ export async function createMember(formData: FormData) {
     emailVerified: false,
     role,
     active: true,
-    phone: role === "member" ? phone : null,
-    subscriptionStatus: role === "member" ? "active" : "none",
-    // Ciclo fixo: primeiro vencimento = cadastro + 30 dias (não editável)
-    nextDueAt: role === "member" ? firstDueFromSignup(now) : null,
-    monthlyAmountCents:
-      role === "member" && amountCents > 0 ? amountCents : null,
+    phone: phone || null,
+    subscriptionStatus: "none",
+    nextDueAt: null,
+    monthlyAmountCents: null,
     mustSetPassword: true,
     createdAt: now,
     updatedAt: now,
@@ -93,7 +77,6 @@ export async function createMember(formData: FormData) {
     updatedAt: now,
   });
 
-  // Token Better Auth (7 dias) para criar senha própria antes do painel
   const inviteToken = randomBytes(12).toString("hex");
   await db.insert(verification).values({
     id: crypto.randomUUID(),
@@ -114,47 +97,7 @@ export async function createMember(formData: FormData) {
     });
   } catch (error) {
     console.error("[createMember] falha ao enviar e-mail de boas-vindas:", error);
-    // Conta já criada — admin pode reenviar depois; não desfaz o cadastro
   }
-
-  revalidatePath("/admin");
-  revalidatePath("/admin/usuarios");
-}
-
-export async function markSubscriptionPaid(formData: FormData) {
-  await requireAdmin();
-  const id = String(formData.get("id") || "");
-  if (!id) return;
-
-  const db = getDb();
-  const [member] = await db
-    .select({
-      id: user.id,
-      role: user.role,
-      nextDueAt: user.nextDueAt,
-      createdAt: user.createdAt,
-    })
-    .from(user)
-    .where(eq(user.id, id))
-    .limit(1);
-
-  if (!member || member.role !== "member") return;
-
-  const now = new Date();
-  const paidThrough = member.nextDueAt
-    ? startOfUtcDay(member.nextDueAt)
-    : firstDueFromSignup(member.createdAt);
-  const nextDueAt = nextDueAfterPayment(paidThrough);
-
-  await db
-    .update(user)
-    .set({
-      subscriptionStatus: "active",
-      lastPaidAt: now,
-      nextDueAt,
-      updatedAt: now,
-    })
-    .where(eq(user.id, id));
 
   revalidatePath("/admin");
   revalidatePath("/admin/usuarios");
@@ -168,13 +111,8 @@ export async function updateMemberProfile(formData: FormData) {
   const name = String(formData.get("name") || "").trim();
   const phone = normalizeBrazilPhone(String(formData.get("phone") || ""));
   const notes = String(formData.get("profileNotes") || "").trim();
-  const amountRaw = String(formData.get("monthlyAmount") || "").trim();
-  const amountCents = amountRaw
-    ? Math.round(Number(amountRaw.replace(",", ".")) * 100)
-    : null;
-  const paused = formData.get("paused") === "on";
 
-  if (!name || !phone) return;
+  if (!name) return;
 
   const db = getDb();
   const [member] = await db
@@ -185,73 +123,19 @@ export async function updateMemberProfile(formData: FormData) {
   if (!member || member.role !== "member") return;
 
   const now = new Date();
-  // Data de vencimento nunca é editada manualmente — só inicia ciclo se ainda não houver.
-  let nextDueAt = member.nextDueAt;
-  if (!nextDueAt) {
-    nextDueAt = firstDueFromSignup(member.createdAt);
-  }
-
-  const status = paused
-    ? "paused"
-    : resolveSubscriptionStatus({
-        role: member.role,
-        active: member.active,
-        status: "active",
-        nextDueAt,
-        now,
-      });
 
   await db
     .update(user)
     .set({
       name,
-      phone,
+      phone: phone || null,
       profileNotes: notes || null,
-      monthlyAmountCents:
-        amountCents && amountCents > 0
-          ? amountCents
-          : member.monthlyAmountCents ?? DEFAULT_MEMBERSHIP_AMOUNT_CENTS,
-      nextDueAt,
-      subscriptionStatus: status,
       updatedAt: now,
     })
     .where(eq(user.id, id));
 
   revalidatePath("/admin");
   revalidatePath("/admin/usuarios");
-}
-
-export async function syncSubscriptionStatuses() {
-  await requireAdmin();
-  const db = getDb();
-  const members = await db
-    .select({
-      id: user.id,
-      role: user.role,
-      active: user.active,
-      subscriptionStatus: user.subscriptionStatus,
-      nextDueAt: user.nextDueAt,
-    })
-    .from(user)
-    .where(eq(user.role, "member"));
-
-  const now = new Date();
-  await Promise.all(
-    members.map(async (member) => {
-      const next = resolveSubscriptionStatus({
-        role: member.role,
-        active: member.active,
-        status: member.subscriptionStatus,
-        nextDueAt: member.nextDueAt,
-        now,
-      });
-      if (next === member.subscriptionStatus) return;
-      await db
-        .update(user)
-        .set({ subscriptionStatus: next, updatedAt: now })
-        .where(eq(user.id, member.id));
-    }),
-  );
 }
 
 export async function clearMustSetPassword() {

@@ -98,7 +98,7 @@ export function RegisterForm() {
         disabled={loading}
         className="w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-deep transition hover:bg-gold-soft disabled:opacity-60"
       >
-        {loading ? "Criando conta…" : "Criar acesso"}
+        {loading ? "Criando conta…" : "Criar conta gratuita"}
       </button>
     </form>
   );

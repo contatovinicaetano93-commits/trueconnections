@@ -5,8 +5,9 @@ export type SubscriptionStatus =
   | "overdue"
   | "paused";
 
-export const DEFAULT_MEMBERSHIP_AMOUNT_CENTS = 5000; // R$ 50,00 — editável por associado
+export const DEFAULT_MEMBERSHIP_AMOUNT_CENTS = 0;
 export const BILLING_CYCLE_DAYS = 30;
+export const FREE_MEMBERSHIP = true;
 
 export function formatBRL(cents: number) {
   return (cents / 100).toLocaleString("pt-BR", {

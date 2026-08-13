@@ -33,8 +33,7 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    // Public self-signup is closed — admins create members in /admin/usuarios
-    disableSignUp: true,
+    disableSignUp: false,
     sendResetPassword: async ({ user, url }) => {
       await sendPasswordResetEmail({
         to: user.email,
