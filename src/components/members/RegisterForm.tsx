@@ -13,6 +13,28 @@ import {
   authInputClass,
 } from "@/components/members/PasswordInput";
 
+function signupErrorMessage(message: string | undefined) {
+  if (!message) {
+    return "Não foi possível criar a conta. Tente novamente.";
+  }
+
+  const lower = message.toLowerCase();
+  if (lower.includes("exist") || lower.includes("already")) {
+    return "Este e-mail já está cadastrado. Faça login.";
+  }
+  if (lower.includes("phone")) {
+    return "Informe um telefone válido com DDD. Ex.: 11999999999";
+  }
+  if (lower.includes("birthdate") || lower.includes("birth date")) {
+    return "Informe uma data de nascimento válida.";
+  }
+  if (lower.includes("muitas tentativas") || lower.includes("rate")) {
+    return "Muitas tentativas. Aguarde alguns minutos e tente novamente.";
+  }
+
+  return message;
+}
+
 export function RegisterForm() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -68,11 +90,7 @@ export function RegisterForm() {
     setLoading(false);
 
     if (signUpError) {
-      setError(
-        signUpError.message?.includes("exist")
-          ? "Este e-mail já está cadastrado. Faça login."
-          : "Não foi possível criar a conta. Tente novamente.",
-      );
+      setError(signupErrorMessage(signUpError.message));
       return;
     }
 
@@ -107,7 +125,7 @@ export function RegisterForm() {
           type="tel"
           required
           autoComplete="tel"
-          inputMode="numeric"
+          inputMode="tel"
           placeholder="11999999999"
           className={authInputClass}
         />

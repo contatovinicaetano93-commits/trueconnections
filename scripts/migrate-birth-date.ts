@@ -1,15 +1,13 @@
 import "dotenv/config";
-import { neon } from "@neondatabase/serverless";
+import { ensureDatabaseMigrations } from "../src/lib/db-migrations";
 
 async function main() {
-  const url = process.env.DATABASE_URL;
-  if (!url) {
-    console.error("DATABASE_URL is not set");
-    process.exit(1);
+  if (!process.env.DATABASE_URL) {
+    console.warn("DATABASE_URL is not set — skipping birth_date migration.");
+    return;
   }
 
-  const sql = neon(url);
-  await sql`ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "birth_date" date`;
+  await ensureDatabaseMigrations();
   console.log("Migration 0001_user_birth_date applied.");
 }
 
