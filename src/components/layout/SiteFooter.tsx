@@ -45,6 +45,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/ciencia-fe" className="hover:text-[hsl(24_12%_12%)]">
+                Ciência & Fé
+              </Link>
+            </li>
+            <li>
               <Link href="/eventos" className="hover:text-[hsl(24_12%_12%)]">
                 Eventos
               </Link>

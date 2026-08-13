@@ -3,12 +3,12 @@ import { ThemePageShell } from "@/components/layout/ThemePageShell";
 import { EncontrosStory } from "@/components/sections/EncontrosStory";
 
 export const metadata: Metadata = {
-  title: "Encontros gratuitos",
+  title: "Encontros & Experiências",
 };
 
 export default function EncontrosPage() {
   return (
-    <ThemePageShell title="Encontros gratuitos">
+    <ThemePageShell title="Encontros & Experiências">
       <EncontrosStory />
     </ThemePageShell>
   );

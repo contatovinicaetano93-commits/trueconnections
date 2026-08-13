@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   BookOpen,
+  Brain,
   Briefcase,
   Calendar,
   Gift,
@@ -16,6 +17,7 @@ const iconMap: Record<(typeof portals)[number]["icon"], LucideIcon> = {
   book: BookOpen,
   users: Users,
   gift: Gift,
+  brain: Brain,
   calendar: Calendar,
   heart: Heart,
   briefcase: Briefcase,

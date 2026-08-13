@@ -71,8 +71,14 @@ export const portals = [
   {
     href: "/encontros",
     title: "Encontros",
-    subtitle: "Na Mesa & Estudo Bíblico",
+    subtitle: "Na Mesa, Ruach & Clube de Leitura",
     icon: "gift",
+  },
+  {
+    href: "/ciencia-fe",
+    title: "Ciência & Fé",
+    subtitle: "Instituto Lume · neurociência e fé",
+    icon: "brain",
   },
   {
     href: "/eventos",
@@ -140,8 +146,10 @@ export const manifesto = {
 } as const;
 
 export const encontros = {
-  title: "Eventos Gratuitos",
-  subtitle: "Encontros abertos para toda a comunidade. Sem custo, só presença.",
+  title: "Encontros & Experiências",
+  subtitle:
+    "Encontros abertos para a comunidade e experiências exclusivas para viver mais profundamente.",
+  exclusiveSection: "Experiências Exclusivas",
   booksHeadline: "Já lemos juntas",
   naMesaImages: [
     "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/8c1a3e893_8fb983bf-181d-4f74-a584-f3366b654762.jpg",
@@ -198,24 +206,108 @@ export const encontros = {
     title: "Próximo livro",
     body: "Em definição. Acompanhe nossas redes para votar na próxima obra!",
   },
+  spinPraise: {
+    tag: "Experiência exclusiva",
+    title: "Spin & Praise",
+    subtitle: "Corpo · Alma · Espírito",
+    paragraphs: [
+      "Spin & Praise é uma aula de spinning guiada por louvor e adoração. Em parceria com a Is Grace, conectamos corpo, alma e espírito louvando ao Senhor.",
+      "Mais que uma pedalada, é um espaço onde o movimento se encontra com a fé: respiramos, suamos e rendemos tudo a Deus em comunidade.",
+    ],
+    schedule: "Eventos pontuais · consultar próximos eventos",
+    place: "Confira a agenda",
+    images: [
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/84a32e3c2_IMG_0443.jpeg",
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/e2ec71d9d_2c3e4133-7b72-4c7b-8abc-7a714ebe85c0.jpeg",
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/61c782f24_IMG_0451.jpeg",
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/166cbc3dd_b3b1cf1c-9f0e-4097-9060-678357a0d365.jpeg",
+    ],
+    cta: "Leve o Spin & Praise para sua cidade",
+    ctaMessage:
+      "Olá! Vim pelo site da True Connection e gostaria de levar o Spin & Praise para minha empresa/cidade.",
+  },
+  ruach: {
+    tag: "Experiência exclusiva",
+    title: "Ruach",
+    subtitle: "Respiração · Movimento · Espírito",
+    paragraphs: [
+      'Ruach é a palavra hebraica para "espírito" e "respiração". Uma imersão que une corpo, alma e espírito através do movimento consciente, da respiração e da presença de Deus.',
+      "Mais que uma prática de bem-estar, é um espaço onde a neurociência se encontra com a fé: aprendemos a regular o sistema nervoso, acolher as emoções e abrir espaço para o que o Espírito quer respirar em nós.",
+    ],
+    schedule: "Encontros pontuais · Confira a agenda",
+    place: "True Connection · São Paulo",
+    images: [
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/46da01221_d20f586b-1e88-4db1-96f8-c321cef689bc.jpeg",
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/7fb85c41a_01f8d632-5ab5-481a-abe6-c9455819b6b9.jpeg",
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/02c7f40e9_IMG_2163.jpeg",
+      "https://media.base44.com/images/public/6a354520e06c23aeee38bc88/79163db7e_IMG_2161.jpeg",
+    ],
+    cta: "Leve o Ruach para sua cidade",
+    ctaMessage:
+      "Olá! Vim pelo site da True Connection e gostaria de levar o Ruach para minha empresa/cidade.",
+  },
+} as const;
+
+export const cienciaFe = {
+  title: "Ciência & Fé",
+  subtitle: "Onde a fé encontra a ciência.",
+  intro:
+    "Um espaço dedicado à transformação profunda — porque mudar não é questão de força de vontade, mas de entender como fomos desenhados.",
+  story: [
+    "Durante muito tempo, acreditei que a dificuldade de mudar era falta de fé. Que se eu orasse mais, me esforçasse mais, disciplinasse mais, tudo se resolveria.",
+    "Quando entendemos que Deus desenhou o cérebro com neuroplasticidade, que o coração tem seu próprio sistema nervoso, e que o corpo guarda memórias — a fé deixa de ser cobrança e vira caminho.",
+    "A verdadeira transformação não é lutar contra você mesmo. É aprender a funcionar diferente.",
+  ],
+  instituteLabel: "Instituto Lume",
+  journeyTitle: "Sua jornada começa aqui",
+  journeySubtitle: "Três caminhos. Escolha o seu nível de profundidade.",
+  paths: [
+    {
+      step: "01",
+      subtitle: "Comece pelo entendimento",
+      title: "Conhecimento base",
+      body: "Acesse os materiais e o livro do Instituto Lume para compreender como sua mente funciona e por que os ciclos se repetem.",
+      cta: "Conhecer o Instituto Lume",
+      href: "https://institutoleme.com.br",
+      external: true,
+    },
+    {
+      step: "02",
+      subtitle: "Não é se cobrar mais. É funcionar diferente.",
+      title: "Tratamento e cura",
+      body: "A Comunidade Lume oferece o Protocolo em 3 passos: quebrar padrões, criar novos padrões e manter a transformação.",
+      cta: "Entrar para a Comunidade Lume",
+      href: "https://pay.herospark.com/comunidade-leme-524786",
+      external: true,
+    },
+    {
+      step: "03",
+      subtitle: "Leve a transformação para sua cidade",
+      title: "Legado e expansão",
+      body: "Traga uma palestra ou imersão do Instituto Lume para sua empresa, igreja ou cidade. Falamos com você.",
+      cta: "Falar com o Instituto Lume",
+      phone: "5548998065748",
+      message:
+        "Olá! Vim pelo site da True Connection e gostaria de levar uma palestra/imersão do Instituto Lume para minha cidade ou empresa.",
+    },
+  ],
+  protocolTitle: "O Protocolo Lume em 3 passos",
+  protocolSteps: [
+    { n: "01", title: "Quebrar", body: "Entenda como os padrões se formaram" },
+    { n: "02", title: "Criar", body: "Reconstrua pela neuroplasticidade" },
+    { n: "03", title: "Manter", body: "Consolide com rotina neuroemocional" },
+  ],
 } as const;
 
 export const eventos = {
   title: "Próximos Eventos",
   subtitle: "Experiências curadas para sua jornada.",
   empty: "Nenhum evento agendado ainda.",
-  items: [
-    {
-      title: "Pocket Show Michele Mister",
-      place: "Rooftop Hotel Mercure Vila Mariana",
-      status: "Em breve",
-    },
-    {
-      title: "Aula Método Ruach",
-      place: "Rooftop Hotel Mercure Vila Mariana",
-      status: "Em breve",
-    },
-  ],
+  items: [] as readonly {
+    title: string;
+    place: string;
+    status: string;
+  }[],
 } as const;
 
 export const impacto = {

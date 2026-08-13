@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   BookOpen,
+  Brain,
   Briefcase,
   Calendar,
   Coffee,
@@ -39,9 +40,15 @@ const menuItems: {
   },
   {
     label: "Encontros",
-    desc: "Na Mesa & Estudo Bíblico",
+    desc: "Na Mesa, Ruach & Clube de Leitura",
     href: "/encontros",
     icon: Gift,
+  },
+  {
+    label: "Ciência & Fé",
+    desc: "Instituto Lume · neurociência e fé",
+    href: "/ciencia-fe",
+    icon: Brain,
   },
   {
     label: "Próximos Eventos",
