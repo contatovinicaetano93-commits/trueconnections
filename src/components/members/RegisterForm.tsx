@@ -4,6 +4,10 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import {
+  parseBirthDateInput,
+  requireBrazilPhone,
+} from "@/lib/member-profile";
+import {
   AuthField,
   PasswordInput,
   authInputClass,
@@ -22,8 +26,24 @@ export function RegisterForm() {
     const form = new FormData(event.currentTarget);
     const name = String(form.get("name") || "").trim();
     const email = String(form.get("email") || "").trim().toLowerCase();
+    const phoneRaw = String(form.get("phone") || "").trim();
+    const birthDateRaw = String(form.get("birthDate") || "").trim();
     const password = String(form.get("password") || "");
     const confirm = String(form.get("confirm") || "");
+
+    const phone = requireBrazilPhone(phoneRaw);
+    if (!phone) {
+      setError("Informe um telefone válido com DDD. Ex.: 11999999999");
+      setLoading(false);
+      return;
+    }
+
+    const birthDate = parseBirthDateInput(birthDateRaw);
+    if (!birthDate) {
+      setError("Informe uma data de nascimento válida.");
+      setLoading(false);
+      return;
+    }
 
     if (password !== confirm) {
       setError("As senhas não coincidem.");
@@ -41,6 +61,8 @@ export function RegisterForm() {
       name,
       email,
       password,
+      phone,
+      birthDate,
     });
 
     setLoading(false);
@@ -60,7 +82,7 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={onSubmit} className="mx-auto w-full space-y-5">
-      <AuthField label="Nome">
+      <AuthField label="Nome completo">
         <input
           name="name"
           type="text"
@@ -76,6 +98,26 @@ export function RegisterForm() {
           type="email"
           required
           autoComplete="email"
+          className={authInputClass}
+        />
+      </AuthField>
+      <AuthField label="Telefone / WhatsApp">
+        <input
+          name="phone"
+          type="tel"
+          required
+          autoComplete="tel"
+          inputMode="numeric"
+          placeholder="11999999999"
+          className={authInputClass}
+        />
+      </AuthField>
+      <AuthField label="Data de nascimento">
+        <input
+          name="birthDate"
+          type="date"
+          required
+          autoComplete="bday"
           className={authInputClass}
         />
       </AuthField>
