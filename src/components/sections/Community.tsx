@@ -35,7 +35,7 @@ export function ClubeERede() {
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <MagneticButton
                   href={associados.membersHref}
-                  className="w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
+                  className="w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-deep hover:bg-gold-soft"
                 >
                   {associados.membersCta}
                 </MagneticButton>
@@ -67,7 +67,7 @@ export function ClubeERede() {
                 <MagneticButton
                   href={trueAction.whatsapp}
                   external
-                  className="w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
+                  className="w-fit rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-deep hover:bg-gold-soft"
                 >
                   {trueAction.cta}
                 </MagneticButton>

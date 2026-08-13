@@ -98,7 +98,7 @@ export function HeroStory() {
               <MagneticButton
                 href={site.whatsapp}
                 external
-                className="rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft"
+                className="rounded-full bg-gold px-7 py-3.5 text-[0.72rem] font-medium tracking-[0.16em] uppercase text-deep hover:bg-gold-soft"
               >
                 Falar com a True
               </MagneticButton>

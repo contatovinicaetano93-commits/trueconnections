@@ -101,7 +101,7 @@ export function Header() {
         <div className="flex items-center gap-3">
           <MagneticButton
             href="/associados/login"
-            className="hidden rounded-full bg-gold px-4 py-2.5 text-[0.68rem] font-medium tracking-[0.16em] uppercase text-ink hover:bg-gold-soft sm:inline-flex"
+            className="hidden rounded-full bg-gold px-4 py-2.5 text-[0.68rem] font-medium tracking-[0.16em] uppercase text-deep hover:bg-gold-soft sm:inline-flex"
           >
             Área de membros
           </MagneticButton>
@@ -189,7 +189,7 @@ export function Header() {
           <Link
             href="/associados/login"
             onClick={close}
-            className="focus-ring mt-3 rounded-full bg-gold px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-ink"
+            className="focus-ring mt-3 rounded-full bg-gold px-5 py-3 text-center text-[0.72rem] font-medium tracking-[0.16em] uppercase text-deep"
           >
             Área de membros
           </Link>
