@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "seed:admin": "tsx scripts/seed-admin.ts",
-    "migrate:birth-date": "tsx scripts/migrate-birth-date.ts"
+    "migrate:birth-date": "tsx scripts/migrate-birth-date.ts",
+    "sync:base44": "tsx scripts/sync-base44-content.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
