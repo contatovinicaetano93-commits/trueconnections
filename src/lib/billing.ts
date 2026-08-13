@@ -20,7 +20,9 @@ export function formatBRL(cents: number) {
 export function normalizeBrazilPhone(raw: string) {
   const digits = raw.replace(/\D/g, "");
   if (!digits) return "";
-  if (digits.startsWith("55")) return digits;
+  // Country code 55 collides with DDD 55 (Goias). Only treat as international
+  // when the number is already 12-13 digits (55 + DDD + local).
+  if (digits.startsWith("55") && digits.length >= 12) return digits;
   if (digits.length >= 10 && digits.length <= 11) return `55${digits}`;
   return digits;
 }
