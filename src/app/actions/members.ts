@@ -16,6 +16,11 @@ import {
 } from "@/db/schema";
 import { getSession, requireAdmin } from "@/lib/session";
 import { normalizeBrazilPhone } from "@/lib/billing";
+import {
+  formatBirthDateInput,
+  parseBirthDateInput,
+  requireBrazilPhone,
+} from "@/lib/member-profile";
 import { buildSetPasswordUrl, sendWelcomeInviteEmail } from "@/lib/email";
 
 function slugify(value: string) {
@@ -33,9 +38,16 @@ export async function createMember(formData: FormData) {
   const email = String(formData.get("email") || "").trim().toLowerCase();
   const password = String(formData.get("password") || "");
   const role = formData.get("role") === "admin" ? "admin" : "member";
-  const phone = normalizeBrazilPhone(String(formData.get("phone") || ""));
+  const phoneRaw = String(formData.get("phone") || "");
+  const birthDateRaw = String(formData.get("birthDate") || "");
+  const phone = requireBrazilPhone(phoneRaw);
+  const birthDate = parseBirthDateInput(birthDateRaw);
 
   if (!name || !email || password.length < 8) {
+    return;
+  }
+
+  if (role === "member" && (!phone || !birthDate)) {
     return;
   }
 
@@ -58,7 +70,9 @@ export async function createMember(formData: FormData) {
     emailVerified: false,
     role,
     active: true,
-    phone: phone || null,
+    phone: role === "member" ? phone : normalizeBrazilPhone(phoneRaw) || null,
+    birthDate:
+      role === "member" && birthDate ? formatBirthDateInput(birthDate) : null,
     subscriptionStatus: "none",
     nextDueAt: null,
     monthlyAmountCents: null,
@@ -109,10 +123,11 @@ export async function updateMemberProfile(formData: FormData) {
   if (!id) return;
 
   const name = String(formData.get("name") || "").trim();
-  const phone = normalizeBrazilPhone(String(formData.get("phone") || ""));
+  const phone = requireBrazilPhone(String(formData.get("phone") || ""));
+  const birthDate = parseBirthDateInput(String(formData.get("birthDate") || ""));
   const notes = String(formData.get("profileNotes") || "").trim();
 
-  if (!name) return;
+  if (!name || !phone || !birthDate) return;
 
   const db = getDb();
   const [member] = await db
@@ -128,7 +143,8 @@ export async function updateMemberProfile(formData: FormData) {
     .update(user)
     .set({
       name,
-      phone: phone || null,
+      phone,
+      birthDate: formatBirthDateInput(birthDate),
       profileNotes: notes || null,
       updatedAt: now,
     })

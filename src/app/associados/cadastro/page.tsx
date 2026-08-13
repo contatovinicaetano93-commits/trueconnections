@@ -10,7 +10,7 @@ export default function CadastroPage() {
   return (
     <AuthCard
       title="Criar conta gratuita"
-      description="Cadastre-se para acessar estudos bíblicos, Método Ruach, cupons de parceiros e benefícios da comunidade True Connection — sem mensalidade."
+      description="Cadastre-se para acessar estudos bíblicos, Método Ruach, cupons de parceiros e benefícios da comunidade True Connection — sem mensalidade. Preencha nome, e-mail, telefone e data de nascimento."
       footer={
         <>
           <p>

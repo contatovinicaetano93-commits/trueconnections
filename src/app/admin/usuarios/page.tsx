@@ -16,6 +16,7 @@ import {
 import { getDb } from "@/db";
 import { user } from "@/db/schema";
 import { requireAdmin } from "@/lib/session";
+import { formatBirthDateDisplay } from "@/lib/member-profile";
 
 export const metadata = {
   title: "Admin · Usuários",
@@ -33,6 +34,7 @@ export default async function AdminUsuariosPage() {
       active: user.active,
       createdAt: user.createdAt,
       phone: user.phone,
+      birthDate: user.birthDate,
       profileNotes: user.profileNotes,
     })
     .from(user)
@@ -76,10 +78,18 @@ export default async function AdminUsuariosPage() {
                 className={adminInputClass}
               />
             </Field>
-            <Field label="WhatsApp" hint="Opcional.">
+            <Field label="Telefone / WhatsApp" hint="Obrigatório para associado. Com DDD.">
               <input
                 name="phone"
+                type="tel"
                 placeholder="11999999999"
+                className={adminInputClass}
+              />
+            </Field>
+            <Field label="Data de nascimento" hint="Obrigatório para associado.">
+              <input
+                name="birthDate"
+                type="date"
                 className={adminInputClass}
               />
             </Field>
@@ -136,6 +146,9 @@ export default async function AdminUsuariosPage() {
                         <p className="mt-1 truncate text-sm text-mute">
                           {item.email}
                           {item.phone ? ` · ${item.phone}` : ""}
+                          {item.birthDate
+                            ? ` · ${formatBirthDateDisplay(item.birthDate)}`
+                            : ""}
                         </p>
                         <div className="mt-3 flex flex-wrap gap-2">
                           <span
@@ -210,6 +223,7 @@ export default async function AdminUsuariosPage() {
                           name: item.name,
                           email: item.email,
                           phone: item.phone,
+                          birthDate: item.birthDate,
                           profileNotes: item.profileNotes,
                           createdAt: item.createdAt,
                         }}

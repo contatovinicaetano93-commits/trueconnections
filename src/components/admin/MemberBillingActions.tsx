@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { updateMemberProfile } from "@/app/actions/members";
 import {
+  formatBirthDateInput,
+  formatBirthDateDisplay,
+} from "@/lib/member-profile";
+import {
   adminEditBtnClass,
   adminInputClass,
   adminPrimaryBtnClass,
@@ -17,6 +21,7 @@ export function MemberBillingActions({
     name: string;
     email: string;
     phone: string | null;
+    birthDate: Date | string | null;
     profileNotes: string | null;
     createdAt: Date | string;
   };
@@ -32,7 +37,12 @@ export function MemberBillingActions({
         <span className="rounded-full bg-gold/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.14em] text-gold">
           Acesso gratuito
         </span>
-        <span className="text-xs text-mute">Cadastro em {signedUp}</span>
+        <span className="text-xs text-mute">
+          Cadastro em {signedUp}
+          {member.birthDate
+            ? ` · Nascimento ${formatBirthDateDisplay(member.birthDate)}`
+            : ""}
+        </span>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -72,11 +82,21 @@ export function MemberBillingActions({
               className={`${adminInputClass} opacity-70`}
             />
           </Field>
-          <Field label="WhatsApp" hint="Opcional. Com DDD. Ex.: 11999999999">
+          <Field label="Telefone / WhatsApp" hint="Com DDD. Ex.: 11999999999">
             <input
               name="phone"
+              required
               defaultValue={member.phone ?? ""}
               placeholder="11999999999"
+              className={adminInputClass}
+            />
+          </Field>
+          <Field label="Data de nascimento">
+            <input
+              name="birthDate"
+              type="date"
+              required
+              defaultValue={formatBirthDateInput(member.birthDate)}
               className={adminInputClass}
             />
           </Field>

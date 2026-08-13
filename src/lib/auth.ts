@@ -56,6 +56,16 @@ export const auth = betterAuth({
         defaultValue: true,
         input: false,
       },
+      phone: {
+        type: "string",
+        required: true,
+        input: true,
+      },
+      birthDate: {
+        type: "date",
+        required: true,
+        input: true,
+      },
     },
   },
   plugins: [nextCookies()],

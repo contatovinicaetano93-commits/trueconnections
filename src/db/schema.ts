@@ -1,5 +1,6 @@
 import {
   boolean,
+  date,
   integer,
   pgTable,
   text,
@@ -18,6 +19,7 @@ export const user = pgTable("user", {
   role: text("role").notNull().default("member"),
   active: boolean("active").notNull().default(true),
   phone: text("phone"),
+  birthDate: date("birth_date"),
   billingDay: integer("billing_day"),
   subscriptionStatus: text("subscription_status").notNull().default("none"),
   lastPaidAt: timestamp("last_paid_at", { withTimezone: true }),
