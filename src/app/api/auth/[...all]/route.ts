@@ -1,3 +1,4 @@
+import { ensureDatabaseMigrations } from "@/lib/db-migrations";
 import { toNextJsHandler } from "better-auth/next-js";
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
@@ -63,5 +64,11 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  try {
+    await ensureDatabaseMigrations();
+  } catch (error) {
+    console.error("[auth] migration before signup failed:", error);
+  }
+
   return withRateLimit(request, "POST");
 }

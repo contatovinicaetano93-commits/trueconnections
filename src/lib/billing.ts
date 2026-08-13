@@ -18,8 +18,9 @@ export function formatBRL(cents: number) {
 
 /** Digits only, with Brazil country code when missing. */
 export function normalizeBrazilPhone(raw: string) {
-  const digits = raw.replace(/\D/g, "");
+  let digits = raw.replace(/\D/g, "");
   if (!digits) return "";
+  if (digits.startsWith("5555")) digits = digits.slice(2);
   if (digits.startsWith("55")) return digits;
   if (digits.length >= 10 && digits.length <= 11) return `55${digits}`;
   return digits;
