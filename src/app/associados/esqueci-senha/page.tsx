@@ -14,7 +14,10 @@ export default function EsqueciSenhaPage() {
       footer={
         <p>
           Lembrou a senha?{" "}
-          <Link href="/associados/login" className="text-gold hover:underline">
+          <Link
+            href="/associados/login"
+            className="font-medium text-[hsl(40_40%_42%)] hover:underline"
+          >
             Voltar ao login
           </Link>
         </p>

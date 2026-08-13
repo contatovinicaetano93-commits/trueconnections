@@ -60,7 +60,7 @@ export default async function RuachPage() {
         backLabel="Voltar ao início"
         meta={
           videos.length > 0 ? (
-            <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-gold uppercase">
+            <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-[hsl(40_40%_52%)] uppercase">
               {videos.length} {videos.length === 1 ? "aula" : "aulas"}
             </p>
           ) : null
@@ -82,7 +82,7 @@ export default async function RuachPage() {
               const direct = isDirectVideo(video.videoUrl);
               return (
                 <article key={video.id} className="members-media">
-                  <div className="aspect-video bg-deep/15">
+                  <div className="aspect-video bg-[hsl(24_12%_12%)]/5">
                     {embed ? (
                       <iframe
                         src={embed}
@@ -98,7 +98,7 @@ export default async function RuachPage() {
                         playsInline
                         preload="metadata"
                         poster={video.thumbnailUrl || undefined}
-                        className="h-full w-full bg-deep object-contain"
+                        className="h-full w-full bg-[hsl(24_12%_12%)]/5 object-contain"
                       >
                         Seu navegador não reproduz este vídeo.
                       </video>
@@ -107,21 +107,21 @@ export default async function RuachPage() {
                         href={video.videoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex h-full items-center justify-center text-sm text-gold transition hover:text-gold-soft"
+                        className="flex h-full items-center justify-center text-sm text-[hsl(40_40%_52%)] transition hover:text-[hsl(40_40%_42%)]"
                       >
                         Abrir vídeo →
                       </a>
                     )}
                   </div>
                   <div className="px-5 py-5 md:px-6 md:py-6">
-                    <p className="text-[0.65rem] font-semibold tracking-[0.18em] text-gold uppercase">
+                    <p className="text-[0.65rem] font-semibold tracking-[0.18em] text-[hsl(40_40%_52%)] uppercase">
                       Aula {String(index + 1).padStart(2, "0")}
                     </p>
-                    <h2 className="display mt-2 text-2xl text-parchment md:text-[1.75rem]">
+                    <h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl text-[hsl(24_12%_12%)] md:text-[1.75rem]">
                       {video.title}
                     </h2>
                     {video.description ? (
-                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-mute">
+                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[hsl(24_8%_34%)]">
                         {video.description}
                       </p>
                     ) : null}

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MembersBottomNav } from "@/components/members/MembersBottomNav";
@@ -7,7 +8,7 @@ import { isMemberNavActive, memberNav } from "@/components/members/nav";
 import { SignOutButton } from "@/components/members/SignOutButton";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-import { BrandLogo } from "@/components/ui/BrandLogo";
+import { site } from "@/lib/content";
 
 function firstName(fullName: string) {
   const part = fullName.trim().split(/\s+/)[0];
@@ -29,44 +30,28 @@ export function MembersShell({
 
   return (
     <MotionProvider>
-      <div className="members-shell bg-ink text-parchment">
-        <div className="members-shell__glow" aria-hidden>
-          <div className="mesh" />
-        </div>
-
-        <header className="members-header">
-          <div className="members-header__inner">
+      <div className="flex min-h-screen flex-col bg-[hsl(38_28%_90%)] text-[hsl(24_12%_12%)]">
+        <header className="sticky top-0 z-40 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-xl">
+          <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
             <Link
               href="/associados"
-              className="shrink-0 transition hover:opacity-90"
-              aria-label="True Connections — início da área de membros"
+              className="flex-shrink-0 transition hover:opacity-90"
+              aria-label="True Connection — área de membros"
             >
-              <BrandLogo variant="lockup" size="sm" priority />
+              <Image
+                src={site.logo}
+                alt="True Connection"
+                width={200}
+                height={63}
+                className="h-10 w-auto object-contain md:h-12"
+                priority
+              />
             </Link>
 
-            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-              <p className="hidden truncate text-sm text-mute sm:block">
-                Olá,{" "}
-                <span className="font-medium text-parchment">{greeting}</span>
-              </p>
-              {isAdmin ? (
-                <Link
-                  href="/admin"
-                  className="rounded-full border border-gold/45 bg-gold/12 px-3 py-1.5 text-[0.65rem] font-medium tracking-wide text-gold transition hover:border-gold/75 sm:text-xs sm:px-3.5"
-                >
-                  Admin
-                </Link>
-              ) : null}
-              <SignOutButton />
-            </div>
-          </div>
-
-          {/* Desktop: links no topo. Mobile: bottom tabs. */}
-          <nav
-            aria-label="Área de membros"
-            className="relative hidden border-t border-line/70 lg:block"
-          >
-            <div className="mx-auto flex max-w-6xl items-center gap-8 px-8 py-3">
+            <nav
+              aria-label="Área de membros"
+              className="hidden items-center gap-6 lg:flex"
+            >
               {memberNav.map((link) => {
                 const active = isMemberNavActive(pathname, link);
                 return (
@@ -74,27 +59,59 @@ export function MembersShell({
                     key={link.href}
                     href={link.href}
                     aria-current={active ? "page" : undefined}
-                    className="members-nav-link"
+                    className={`relative font-[family-name:var(--font-body)] text-[11px] tracking-[0.15em] uppercase transition-colors duration-300 ${
+                      active
+                        ? "text-[hsl(24_12%_12%)]"
+                        : "text-[hsl(24_8%_34%)]/60 hover:text-[hsl(24_12%_12%)]"
+                    }`}
                   >
                     {link.label}
+                    {active ? (
+                      <span
+                        className="absolute -bottom-1 right-0 left-0 h-px bg-[hsl(40_40%_52%)]"
+                        aria-hidden
+                      />
+                    ) : null}
                   </Link>
                 );
               })}
+            </nav>
+
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+              <p className="hidden truncate text-sm text-[hsl(24_8%_34%)] sm:block">
+                Olá,{" "}
+                <span className="font-medium text-[hsl(24_12%_12%)]">
+                  {greeting}
+                </span>
+              </p>
+              {isAdmin ? (
+                <Link
+                  href="/admin"
+                  className="rounded-full border border-[hsl(40_40%_52%)]/35 bg-[hsl(40_40%_52%)]/10 px-3 py-1.5 text-[0.65rem] font-medium tracking-wide text-[hsl(40_40%_52%)] transition hover:border-[hsl(40_40%_52%)]/60"
+                >
+                  Admin
+                </Link>
+              ) : null}
+              <SignOutButton />
             </div>
-          </nav>
+          </div>
         </header>
 
-        <main className="members-main">
+        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 pb-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:px-6 md:py-10 lg:max-w-4xl lg:pb-10">
           <FadeIn key={pathname}>{children}</FadeIn>
         </main>
 
-        <footer className="members-footer">
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 px-5 py-6 md:px-8 lg:py-8">
-            <BrandLogo variant="lockup" size="md" />
-            <p className="text-[0.65rem] tracking-[0.2em] text-mute uppercase">
-              Área de membros
-            </p>
-          </div>
+        <footer className="hidden border-t border-[hsl(32_14%_78%/0.3)] pb-8 pt-6 text-center lg:block">
+          <Image
+            src={site.logo}
+            alt=""
+            width={160}
+            height={50}
+            className="mx-auto h-10 w-auto object-contain opacity-80"
+          />
+          <p className="mt-2 font-[family-name:var(--font-body)] text-[0.65rem] tracking-[0.2em] text-[hsl(24_8%_34%)] uppercase">
+            Área de membros
+          </p>
         </footer>
 
         <MembersBottomNav />

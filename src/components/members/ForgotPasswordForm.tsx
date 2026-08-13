@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { AuthField, authInputClass } from "@/components/members/PasswordInput";
+import { memberAuthButtonClass } from "@/components/members/memberStyles";
 
 export function ForgotPasswordForm() {
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +39,7 @@ export function ForgotPasswordForm() {
 
   if (done) {
     return (
-      <div className="rounded-2xl border border-gold/30 bg-gold/10 px-5 py-6 text-sm text-parchment">
+      <div className="rounded-xl border border-[hsl(40_40%_52%)]/30 bg-[hsl(40_40%_52%)]/10 px-5 py-6 text-sm text-[hsl(24_12%_12%)]">
         Se este e-mail estiver cadastrado, você receberá um link para redefinir a
         senha. Confira também a caixa de spam.
       </div>
@@ -57,13 +58,16 @@ export function ForgotPasswordForm() {
         />
       </AuthField>
 
-      {error ? <p className="text-sm text-ember">{error}</p> : null}
+      {error ? (
+        <p
+          className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700"
+          role="alert"
+        >
+          {error}
+        </p>
+      ) : null}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full rounded-full bg-gold px-6 py-3 text-sm font-semibold tracking-wide text-deep transition hover:bg-gold-soft disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={memberAuthButtonClass}>
         {loading ? "Enviando…" : "Enviar link de recuperação"}
       </button>
     </form>

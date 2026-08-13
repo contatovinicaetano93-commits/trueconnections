@@ -32,7 +32,7 @@ export default async function EstudosPage() {
         backLabel="Voltar ao início"
         meta={
           studies.length > 0 ? (
-            <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-gold uppercase">
+            <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-[hsl(40_40%_52%)] uppercase">
               {studies.length} {studies.length === 1 ? "estudo" : "estudos"}
             </p>
           ) : null
@@ -58,25 +58,25 @@ export default async function EstudosPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h2 className="display text-xl text-parchment transition group-hover:text-gold md:text-2xl">
+                      <h2 className="font-[family-name:var(--font-display)] text-xl text-[hsl(24_12%_12%)] transition group-hover:text-[hsl(40_40%_52%)] md:text-2xl">
                         {study.title}
                       </h2>
                       {study.audioUrl ? (
-                        <span className="inline-flex items-center gap-1 text-[0.65rem] font-semibold tracking-[0.14em] text-gold uppercase">
+                        <span className="inline-flex items-center gap-1 text-[0.65rem] font-semibold tracking-[0.14em] text-[hsl(40_40%_52%)] uppercase">
                           <Headphones size={12} aria-hidden />
                           Áudio
                         </span>
                       ) : null}
                     </div>
                     {study.excerpt ? (
-                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-mute">
+                      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[hsl(24_8%_34%)]">
                         {study.excerpt}
                       </p>
                     ) : null}
                   </div>
                   <ArrowRight
                     size={18}
-                    className="mt-1.5 shrink-0 text-mute transition group-hover:translate-x-1 group-hover:text-gold"
+                    className="mt-1.5 shrink-0 text-[hsl(24_8%_34%)] transition group-hover:translate-x-1 group-hover:text-[hsl(40_40%_52%)]"
                     aria-hidden
                   />
                 </div>

@@ -25,13 +25,13 @@ export function CopyCodeButton({ code }: { code: string }) {
 
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <code className="rounded-xl border border-gold/35 bg-gold/12 px-4 py-2.5 font-mono text-sm tracking-[0.12em] text-deep uppercase">
+      <code className="rounded-xl border border-[hsl(40_40%_52%)]/35 bg-[hsl(40_40%_52%)]/12 px-4 py-2.5 font-mono text-sm tracking-[0.12em] text-[hsl(24_12%_12%)] uppercase">
         {code}
       </code>
       <button
         type="button"
         onClick={copy}
-        className="inline-flex items-center gap-2 rounded-full border border-line bg-ink/35 px-4 py-2.5 text-sm text-parchment transition hover:border-gold/50 hover:text-gold"
+        className="inline-flex items-center gap-2 rounded-xl border border-[hsl(32_14%_78%/0.45)] bg-white px-4 py-2.5 text-sm text-[hsl(24_12%_12%)] transition hover:border-[hsl(40_40%_52%)]/50 hover:text-[hsl(40_40%_52%)]"
       >
         {copied ? <Check size={15} aria-hidden /> : <Copy size={15} aria-hidden />}
         <span className="text-[0.68rem] font-semibold tracking-[0.14em] uppercase">

@@ -1,54 +1,52 @@
-import { BrandLogo } from "@/components/ui/BrandLogo";
+import Image from "next/image";
 import { Skeleton, SkeletonText } from "@/components/ui/Skeleton";
+import { site } from "@/lib/content";
 
 /** Shell de loading da área de membros — sem sessão, só estrutura. */
 export function MembersLoadingSkeleton() {
   return (
-    <div className="members-shell bg-ink text-parchment" aria-busy="true">
-      <div className="members-shell__glow" aria-hidden>
-        <div className="mesh opacity-50" />
-      </div>
-
-      <header className="members-header">
-        <div className="members-header__inner">
-          <BrandLogo variant="lockup" size="xs" />
+    <div
+      className="flex min-h-screen flex-col bg-[hsl(38_28%_90%)] text-[hsl(24_12%_12%)]"
+      aria-busy="true"
+    >
+      <header className="sticky top-0 z-40 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-xl">
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
+          <Image
+            src={site.logo}
+            alt=""
+            width={160}
+            height={50}
+            className="h-10 w-auto object-contain opacity-70"
+          />
           <Skeleton variant="line" className="h-4 w-20" />
         </div>
-        <nav
-          className="relative hidden border-t border-line/70 lg:block"
-          aria-hidden
-        >
-          <div className="mx-auto flex max-w-6xl gap-8 px-8 py-3.5">
-            <Skeleton variant="line" className="h-3 w-14" />
-            <Skeleton variant="line" className="h-3 w-16" />
-            <Skeleton variant="line" className="h-3 w-14" />
-            <Skeleton variant="line" className="h-3 w-16" />
-          </div>
-        </nav>
       </header>
 
-      <main className="members-main">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 pb-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:px-6 md:py-10 lg:max-w-4xl lg:pb-10">
         <p className="sr-only">Carregando área de membros…</p>
         <div className="max-w-2xl">
-          <Skeleton variant="circle" className="mb-4 h-8 w-8" />
           <Skeleton variant="line" className="mb-3 h-3 w-24" />
           <Skeleton className="mb-4 h-10 w-full max-w-md" />
           <SkeletonText lines={2} className="max-w-lg" />
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3 md:gap-5">
+        <div className="mt-10 grid grid-cols-2 gap-2.5 md:grid-cols-3 md:gap-3">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="members-benefit pointer-events-none">
-              <Skeleton className="h-9 w-9" />
-              <Skeleton className="mt-5 h-7 w-2/3" />
-              <SkeletonText lines={2} className="mt-3" />
-              <Skeleton variant="line" className="mt-8 h-3 w-20" />
+            <div
+              key={i}
+              className="flex min-h-[105px] flex-col items-center justify-center rounded-2xl bg-white/[0.12] p-5 ring-1 ring-black/[0.04] md:min-h-[118px] md:p-6"
+            >
+              <Skeleton variant="circle" className="mb-3 h-10 w-10" />
+              <Skeleton variant="line" className="h-3 w-16" />
             </div>
           ))}
         </div>
       </main>
 
-      <nav className="members-bottom-nav lg:hidden" aria-hidden>
+      <nav
+        className="fixed inset-x-0 bottom-0 z-40 border-t border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom,0px)] lg:hidden"
+        aria-hidden
+      >
         <div className="mx-auto flex w-full max-w-lg justify-around py-3">
           {[0, 1, 2, 3].map((i) => (
             <Skeleton key={i} className="h-10 w-12" />

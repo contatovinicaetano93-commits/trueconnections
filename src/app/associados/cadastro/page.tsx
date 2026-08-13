@@ -9,19 +9,18 @@ export const metadata = {
 export default function CadastroPage() {
   return (
     <AuthCard
+      icon="signup"
       title="Criar conta gratuita"
-      description="Cadastre-se para acessar estudos bíblicos, Método Ruach, cupons de parceiros e benefícios da comunidade True Connection — sem mensalidade. Preencha nome, e-mail, telefone e data de nascimento."
+      description="Cadastre-se para acessar estudos bíblicos, Método Ruach, cupons de parceiros e benefícios da comunidade True Connection — sem mensalidade."
       footer={
         <>
           <p>
             Já tem conta?{" "}
-            <Link href="/associados/login" className="font-medium text-gold hover:underline">
+            <Link
+              href="/associados/login"
+              className="font-medium text-[hsl(40_40%_42%)] hover:underline"
+            >
               Entrar
-            </Link>
-          </p>
-          <p>
-            <Link href="/" className="transition hover:text-gold">
-              Voltar ao site
             </Link>
           </p>
         </>

@@ -27,15 +27,15 @@ export function MemberSectionLinks({
   return (
     <nav
       aria-label="Outras áreas"
-      className="mt-14 border-t border-line pt-8"
+      className="mt-14 border-t border-[hsl(32_14%_78%/0.3)] pt-8"
     >
-      <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-mute uppercase">
+      <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-[hsl(24_8%_34%)] uppercase">
         Continuar navegando
       </p>
       <div className="mt-4 flex flex-wrap gap-3">
         <Link
           href="/associados"
-          className="inline-flex items-center gap-2 border border-line px-4 py-2.5 text-sm text-mute transition hover:border-gold/45 hover:text-gold"
+          className="inline-flex items-center gap-2 rounded-xl border border-[hsl(32_14%_78%/0.45)] px-4 py-2.5 text-sm text-[hsl(24_8%_34%)] transition hover:border-[hsl(40_40%_52%)]/45 hover:text-[hsl(40_40%_52%)]"
         >
           Início
         </Link>
@@ -48,10 +48,10 @@ export function MemberSectionLinks({
               key={section.href}
               href={section.href}
               aria-current={active ? "page" : undefined}
-              className={`inline-flex items-center gap-2 border px-4 py-2.5 text-sm transition ${
+              className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm transition ${
                 active
-                  ? "border-gold/45 bg-gold/10 text-gold"
-                  : "border-line text-mute hover:border-gold/45 hover:text-gold"
+                  ? "border-[hsl(40_40%_52%)]/45 bg-[hsl(40_40%_52%)]/10 text-[hsl(40_40%_42%)]"
+                  : "border-[hsl(32_14%_78%/0.45)] text-[hsl(24_8%_34%)] hover:border-[hsl(40_40%_52%)]/45 hover:text-[hsl(40_40%_52%)]"
               }`}
             >
               <Icon size={15} strokeWidth={1.7} aria-hidden />

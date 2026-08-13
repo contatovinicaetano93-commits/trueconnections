@@ -14,13 +14,16 @@ export default function RedefinirSenhaPage() {
       description="Defina uma nova senha para voltar a acessar a área de associados."
       footer={
         <p>
-          <Link href="/associados/login" className="text-gold hover:underline">
+          <Link
+            href="/associados/login"
+            className="font-medium text-[hsl(40_40%_42%)] hover:underline"
+          >
             Voltar ao login
           </Link>
         </p>
       }
     >
-      <Suspense fallback={<p className="text-sm text-mute">Carregando…</p>}>
+      <Suspense fallback={<p className="text-sm text-[hsl(24_8%_34%)]">Carregando…</p>}>
         <ResetPasswordForm />
       </Suspense>
     </AuthCard>
