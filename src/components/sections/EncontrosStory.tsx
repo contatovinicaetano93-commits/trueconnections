@@ -179,7 +179,7 @@ export function EncontrosStory() {
             </div>
             <Link
               href={naMesa.ctaHref}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[hsl(24_14%_14%)] py-3 font-[family-name:var(--font-body)] text-sm font-medium text-[hsl(38_28%_92%)] transition-all hover:bg-[hsl(24_14%_14%)]/80"
+              className="cta-primary"
             >
               {naMesa.cta}
               <ArrowRight className="h-4 w-4" />
