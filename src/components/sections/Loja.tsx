@@ -79,7 +79,7 @@ function ProductDetail({
             />
             <button
               type="submit"
-              className="w-full rounded-xl bg-[hsl(24_14%_14%)] py-3 font-[family-name:var(--font-body)] text-sm font-medium text-[hsl(38_28%_92%)] transition-all hover:bg-[hsl(24_14%_14%)]/80"
+              className="cta-primary"
             >
               Quero este produto
             </button>

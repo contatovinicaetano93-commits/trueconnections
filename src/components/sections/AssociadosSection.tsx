@@ -41,7 +41,7 @@ export function AssociadosSection() {
       <div className="flex flex-col items-center gap-3">
         <Link
           href={associados.ctaHref}
-          className="inline-flex items-center gap-2.5 rounded-full bg-[hsl(24_14%_14%)] px-8 py-3.5 font-[family-name:var(--font-body)] text-sm font-medium text-[hsl(38_28%_92%)] transition-all hover:bg-[hsl(24_14%_14%)]/80"
+          className="cta-primary cta-primary--pill gap-2.5"
         >
           <Image
             src={associados.mark}

@@ -70,7 +70,7 @@ export function Manifesto() {
         <div className="flex flex-col justify-center gap-3 md:flex-row">
           <Link
             href={manifesto.ctaPrimaryHref}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[hsl(24_14%_14%)] px-6 py-3 font-[family-name:var(--font-body)] text-sm font-medium text-[hsl(38_28%_92%)] transition-all hover:bg-[hsl(24_14%_14%)]/80"
+            className="cta-primary cta-primary--pill"
           >
             {manifesto.ctaPrimary} <ArrowRight className="h-4 w-4" />
           </Link>
