@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { LogIn } from "lucide-react";
 import { AuthCard } from "@/components/members/AuthCard";
 import { LoginForm } from "@/components/members/LoginForm";
 
@@ -16,7 +15,7 @@ export default async function LoginPage({
 
   return (
     <AuthCard
-      icon={LogIn}
+      icon="login"
       title="Bem-vindo de volta"
       description="Entre com seu e-mail e senha para acessar cupons, aulas Ruach e estudos bíblicos."
       footer={

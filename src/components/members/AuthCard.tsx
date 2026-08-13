@@ -1,23 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import type { LucideIcon } from "lucide-react";
+import { KeyRound, LogIn, UserPlus } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { MotionProvider } from "@/components/motion/MotionProvider";
+
+const authIcons = {
+  login: LogIn,
+  signup: UserPlus,
+  password: KeyRound,
+} as const;
 
 export function AuthCard({
   title,
   description,
-  icon: Icon,
+  icon,
   children,
   footer,
 }: {
   title: string;
   description: string;
-  icon?: LucideIcon;
+  icon?: keyof typeof authIcons;
   children: React.ReactNode;
   footer?: React.ReactNode;
 }) {
+  const Icon = icon ? authIcons[icon] : null;
+
   return (
     <MotionProvider>
       <div className="relative flex min-h-screen items-center justify-center bg-[hsl(38_28%_90%)] px-5 py-16">
