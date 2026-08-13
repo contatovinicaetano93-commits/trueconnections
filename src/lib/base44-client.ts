@@ -1,5 +1,6 @@
 const DEFAULT_BASE44_APP_ID = "6a354520e06c23aeee38bc88";
 const BASE44_API = "https://app.base44.com/api/apps";
+const BASE44_PAGE_SIZE = 5000;
 
 export type Base44PartnerBrand = {
   id: string;
@@ -30,27 +31,37 @@ function appId() {
 }
 
 export async function fetchBase44Entity<T>(entityName: string): Promise<T[]> {
-  const response = await fetch(
-    `${BASE44_API}/${appId()}/entities/${entityName}`,
-    {
-      headers: { Accept: "application/json" },
-      next: { revalidate: 0 },
-    },
-  );
+  const records: T[] = [];
+  let skip = 0;
 
-  if (!response.ok) {
-    const detail = await response.text();
-    throw new Error(
-      `Base44 ${entityName} request failed (${response.status}): ${detail.slice(0, 200)}`,
+  while (true) {
+    const response = await fetch(
+      `${BASE44_API}/${appId()}/entities/${entityName}?limit=${BASE44_PAGE_SIZE}&skip=${skip}`,
+      {
+        headers: { Accept: "application/json" },
+        next: { revalidate: 0 },
+      },
     );
+
+    if (!response.ok) {
+      const detail = await response.text();
+      throw new Error(
+        `Base44 ${entityName} request failed (${response.status}): ${detail.slice(0, 200)}`,
+      );
+    }
+
+    const data: unknown = await response.json();
+    if (!Array.isArray(data)) {
+      throw new Error(`Base44 ${entityName} returned unexpected payload`);
+    }
+
+    const page = data as T[];
+    records.push(...page);
+    if (page.length < BASE44_PAGE_SIZE) break;
+    skip += BASE44_PAGE_SIZE;
   }
 
-  const data: unknown = await response.json();
-  if (!Array.isArray(data)) {
-    throw new Error(`Base44 ${entityName} returned unexpected payload`);
-  }
-
-  return data as T[];
+  return records;
 }
 
 export async function fetchBase44PartnerBrands() {

@@ -7,8 +7,9 @@ import { requireAdmin } from "@/lib/session";
 export async function syncBase44ContentAction(): Promise<
   { ok: true; result: Base44SyncResult } | { ok: false; error: string }
 > {
+  await requireAdmin();
+
   try {
-    await requireAdmin();
     const result = await syncBase44Content();
 
     revalidatePath("/associados");

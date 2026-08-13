@@ -28,9 +28,6 @@ export function extractCouponCode(offer: string, partnerName: string) {
   const match = offer.match(/c[oó]digo:\s*([A-Za-z0-9_-]+)/i);
   if (match?.[1]) return match[1].toUpperCase();
 
-  const compact = offer.replace(/\s+/g, "").toUpperCase();
-  if (compact.length >= 3 && compact.length <= 24) return compact;
-
   return slugify(partnerName).replace(/-/g, "").toUpperCase().slice(0, 12) || "TRUE";
 }
 
@@ -112,11 +109,17 @@ export async function syncBase44Content(): Promise<Base44SyncResult> {
       continue;
     }
 
-    await db.insert(partnerCoupons).values({
-      ...mapped,
-      createdAt: now,
-      updatedAt: now,
-    });
+    const [created] = await db
+      .insert(partnerCoupons)
+      .values({
+        ...mapped,
+        createdAt: now,
+        updatedAt: now,
+      })
+      .returning();
+    if (created) {
+      couponByName.set(mapped.partnerName.toLowerCase(), created);
+    }
     result.coupons.created += 1;
   }
 
@@ -147,16 +150,22 @@ export async function syncBase44Content(): Promise<Base44SyncResult> {
         .where(eq(bibleStudies.id, existing.id));
       result.studies.updated += 1;
     } else {
-      await db.insert(bibleStudies).values({
-        title: mapped.title,
-        slug: mapped.slug,
-        excerpt: mapped.excerpt,
-        body: mapped.body,
-        published: true,
-        publishedAt: mapped.publishedAt,
-        createdAt: now,
-        updatedAt: now,
-      });
+      const [created] = await db
+        .insert(bibleStudies)
+        .values({
+          title: mapped.title,
+          slug: mapped.slug,
+          excerpt: mapped.excerpt,
+          body: mapped.body,
+          published: true,
+          publishedAt: mapped.publishedAt,
+          createdAt: now,
+          updatedAt: now,
+        })
+        .returning();
+      if (created) {
+        studyBySlug.set(mapped.slug, created);
+      }
       result.studies.created += 1;
     }
 
@@ -181,15 +190,21 @@ export async function syncBase44Content(): Promise<Base44SyncResult> {
       continue;
     }
 
-    await db.insert(ruachVideos).values({
-      title: mapped.title,
-      description: mapped.excerpt,
-      videoUrl: mapped.videoUrl,
-      published: true,
-      sortOrder: result.ruachVideos.created + result.ruachVideos.updated,
-      createdAt: now,
-      updatedAt: now,
-    });
+    const [createdVideo] = await db
+      .insert(ruachVideos)
+      .values({
+        title: mapped.title,
+        description: mapped.excerpt,
+        videoUrl: mapped.videoUrl,
+        published: true,
+        sortOrder: result.ruachVideos.created + result.ruachVideos.updated,
+        createdAt: now,
+        updatedAt: now,
+      })
+      .returning();
+    if (createdVideo) {
+      videoByTitle.set(mapped.title.toLowerCase(), createdVideo);
+    }
     result.ruachVideos.created += 1;
   }
 
