@@ -8,6 +8,7 @@ import {
   Video,
 } from "lucide-react";
 import { CollapsibleCard } from "@/components/admin/CollapsibleCard";
+import { SyncBase44Button } from "@/components/admin/SyncBase44Button";
 import { PageIntro } from "@/components/admin/ui";
 import { getDb } from "@/db";
 import { bibleStudies, partnerCoupons, ruachVideos, user } from "@/db/schema";
@@ -101,6 +102,19 @@ export default async function AdminPage() {
         title="Visão geral"
         description="Acompanhe associados e o conteúdo publicado na área de membros."
       />
+
+      <div className="mb-8 rounded-2xl border border-line bg-card/90 p-5 md:p-6">
+        <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-gold uppercase">
+          Base44
+        </p>
+        <p className="mt-2 max-w-2xl text-sm text-mute">
+          Copie cupons e estudos já publicados na área de associados do Base44 para o nosso
+          banco de dados.
+        </p>
+        <div className="mt-4">
+          <SyncBase44Button />
+        </div>
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         {peopleModules.map(({ href, icon: Icon, label, count, unit, guide }) => (
