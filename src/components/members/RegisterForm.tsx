@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
@@ -166,16 +165,6 @@ export function RegisterForm() {
       <button type="submit" disabled={loading} className={memberAuthButtonClass}>
         {loading ? "Criando conta…" : "Criar conta gratuita"}
       </button>
-
-      <p className="text-center text-sm text-[hsl(30_8%_45%)]">
-        Já tem conta?{" "}
-        <Link
-          href="/associados/login"
-          className="font-medium text-[hsl(40_40%_42%)] hover:underline"
-        >
-          Entrar
-        </Link>
-      </p>
     </form>
   );
 }

@@ -9,7 +9,7 @@ export function MembersLoadingSkeleton() {
       className="flex min-h-screen flex-col bg-[hsl(38_28%_90%)] text-[hsl(24_12%_12%)]"
       aria-busy="true"
     >
-      <header className="sticky top-0 z-40 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
           <Image
             src={site.logo}

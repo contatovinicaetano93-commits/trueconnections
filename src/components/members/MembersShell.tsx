@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { User } from "lucide-react";
 import { MembersBottomNav } from "@/components/members/MembersBottomNav";
 import { isMemberNavActive, memberNav } from "@/components/members/nav";
 import { SignOutButton } from "@/components/members/SignOutButton";
@@ -32,7 +31,7 @@ export function MembersShell({
   return (
     <MotionProvider>
       <div className="flex min-h-screen flex-col bg-[hsl(38_28%_90%)] text-[hsl(24_12%_12%)]">
-        <header className="sticky top-0 z-40 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 backdrop-blur-xl">
+        <header className="sticky top-0 z-40 border-b border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_28%_90%)]/90 pt-[env(safe-area-inset-top,0px)] backdrop-blur-xl">
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
             <Link
               href="/associados"
@@ -93,16 +92,6 @@ export function MembersShell({
                   Admin
                 </Link>
               ) : null}
-              <Link
-                href="/associados"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[hsl(32_14%_78%/0.3)] bg-[hsl(38_20%_91%/0.25)] lg:hidden"
-                aria-label="Perfil"
-              >
-                <User
-                  className="h-4 w-4 text-[hsl(24_12%_12%)]/40"
-                  strokeWidth={1.5}
-                />
-              </Link>
               <SignOutButton />
             </div>
           </div>
