@@ -29,10 +29,15 @@ async function getCouponsFromDatabase(): Promise<AssociadosCoupon[]> {
 }
 
 export async function getAssociadosCoupons(): Promise<AssociadosCoupon[]> {
+  const dbCoupons = await getCouponsFromDatabase();
+  if (dbCoupons.length > 0) {
+    return dbCoupons;
+  }
+
   try {
     const brands = await fetchBase44PartnerBrands();
     if (brands.length > 0) {
-      void seedCouponsIfDatabaseEmpty(brands).catch((error) => {
+      void syncBase44Coupons(brands).catch((error) => {
         console.error("[associados-coupons] background seed failed:", error);
       });
 
@@ -49,16 +54,15 @@ export async function getAssociadosCoupons(): Promise<AssociadosCoupon[]> {
       });
     }
   } catch (error) {
-    console.error("[associados-coupons] Base44 fetch failed, using database fallback:", error);
+    console.error("[associados-coupons] Base44 fetch failed:", error);
   }
 
-  return getCouponsFromDatabase();
+  return [];
 }
 
-async function seedCouponsIfDatabaseEmpty(brands: Awaited<ReturnType<typeof fetchBase44PartnerBrands>>) {
-  const db = getDb();
-  const [existing] = await db.select({ id: partnerCoupons.id }).from(partnerCoupons).limit(1);
-  if (existing) return;
-
-  await syncBase44Coupons(brands);
+export async function getAdminCoupons() {
+  return getDb()
+    .select()
+    .from(partnerCoupons)
+    .orderBy(desc(partnerCoupons.createdAt));
 }

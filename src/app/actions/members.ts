@@ -202,34 +202,35 @@ export async function saveCoupon(formData: FormData) {
   const id = String(formData.get("id") || "");
   const partnerName = String(formData.get("partnerName") || "").trim();
   const code = String(formData.get("code") || "").trim();
+  const offer = String(formData.get("offer") || "").trim();
   const description = String(formData.get("description") || "").trim();
+  const websiteUrl = String(formData.get("websiteUrl") || "").trim();
   const active = formData.get("active") === "on";
 
   if (!partnerName || !code) {
     return;
   }
 
+  const payload = {
+    partnerName,
+    code,
+    offer: offer || null,
+    description: description || null,
+    websiteUrl: websiteUrl || null,
+    active,
+    updatedAt: new Date(),
+  };
+
   if (id) {
-    await db
-      .update(partnerCoupons)
-      .set({
-        partnerName,
-        code,
-        description: description || null,
-        active,
-        updatedAt: new Date(),
-      })
-      .where(eq(partnerCoupons.id, id));
+    await db.update(partnerCoupons).set(payload).where(eq(partnerCoupons.id, id));
   } else {
-    await db.insert(partnerCoupons).values({
-      partnerName,
-      code,
-      description: description || null,
-      active,
-    });
+    await db.insert(partnerCoupons).values(payload);
   }
 
+  revalidatePath("/admin");
+  revalidatePath("/admin/beneficios");
   revalidatePath("/admin/cupons");
+  revalidatePath("/associados");
   revalidatePath("/associados/cupons");
 }
 
@@ -238,7 +239,10 @@ export async function deleteCoupon(formData: FormData) {
   const id = String(formData.get("id") || "");
   if (!id) return;
   await getDb().delete(partnerCoupons).where(eq(partnerCoupons.id, id));
+  revalidatePath("/admin");
+  revalidatePath("/admin/beneficios");
   revalidatePath("/admin/cupons");
+  revalidatePath("/associados");
   revalidatePath("/associados/cupons");
 }
 
@@ -250,12 +254,27 @@ export async function saveVideo(formData: FormData) {
   const description = String(formData.get("description") || "").trim();
   const videoUrl = String(formData.get("videoUrl") || "").trim();
   const thumbnailUrl = String(formData.get("thumbnailUrl") || "").trim();
+  const duration = String(formData.get("duration") || "").trim();
+  const sectionRaw = String(formData.get("section") || "ruach");
+  const section = sectionRaw === "leme" ? "leme" : "ruach";
   const sortOrder = Number(formData.get("sortOrder") || 0);
   const published = formData.get("published") === "on";
 
   if (!title || !videoUrl) {
     return;
   }
+
+  const payload = {
+    title,
+    description: description || null,
+    videoUrl,
+    thumbnailUrl: thumbnailUrl || null,
+    duration: duration || null,
+    section,
+    sortOrder,
+    published,
+    updatedAt: new Date(),
+  };
 
   if (id) {
     const [existing] = await db
@@ -276,30 +295,15 @@ export async function saveVideo(formData: FormData) {
       }
     }
 
-    await db
-      .update(ruachVideos)
-      .set({
-        title,
-        description: description || null,
-        videoUrl,
-        thumbnailUrl: thumbnailUrl || null,
-        sortOrder,
-        published,
-        updatedAt: new Date(),
-      })
-      .where(eq(ruachVideos.id, id));
+    await db.update(ruachVideos).set(payload).where(eq(ruachVideos.id, id));
   } else {
-    await db.insert(ruachVideos).values({
-      title,
-      description: description || null,
-      videoUrl,
-      thumbnailUrl: thumbnailUrl || null,
-      sortOrder,
-      published,
-    });
+    await db.insert(ruachVideos).values(payload);
   }
 
+  revalidatePath("/admin");
   revalidatePath("/admin/ruach");
+  revalidatePath("/admin/leme");
+  revalidatePath("/associados");
   revalidatePath("/associados/ruach");
 }
 
@@ -324,7 +328,10 @@ export async function deleteVideo(formData: FormData) {
   }
 
   await db.delete(ruachVideos).where(eq(ruachVideos.id, id));
+  revalidatePath("/admin");
   revalidatePath("/admin/ruach");
+  revalidatePath("/admin/leme");
+  revalidatePath("/associados");
   revalidatePath("/associados/ruach");
 }
 
@@ -403,6 +410,7 @@ export async function saveStudy(formData: FormData) {
   }
 
   revalidatePath("/admin/estudos");
+  revalidatePath("/associados");
   revalidatePath("/associados/estudos");
   revalidatePath(`/associados/estudos/${slug}`);
 }
@@ -429,5 +437,6 @@ export async function deleteStudy(formData: FormData) {
 
   await db.delete(bibleStudies).where(eq(bibleStudies.id, id));
   revalidatePath("/admin/estudos");
+  revalidatePath("/associados");
   revalidatePath("/associados/estudos");
 }

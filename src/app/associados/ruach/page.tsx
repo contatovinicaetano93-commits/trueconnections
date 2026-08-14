@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm";
+import { asc, and, eq } from "drizzle-orm";
 import { MemberEmptyState } from "@/components/members/MemberEmptyState";
 import { MemberPageIntro } from "@/components/members/MemberPageIntro";
 import { MemberSectionLinks } from "@/components/members/MemberSectionLinks";
@@ -18,7 +18,7 @@ export default async function RuachPage() {
   const videos = await getDb()
     .select()
     .from(ruachVideos)
-    .where(eq(ruachVideos.published, true))
+    .where(and(eq(ruachVideos.section, "ruach"), eq(ruachVideos.published, true)))
     .orderBy(asc(ruachVideos.sortOrder));
 
   return (

@@ -14,16 +14,14 @@ import {
 import {
   ASSOCIADOS_TABS,
   LUME_HERO_IMAGE,
-  LUME_VIDEOS,
   LUME_WEBSITE,
   NEW_TESTAMENT_BOOKS,
   OLD_TESTAMENT_BOOKS,
   RUACH_HERO_IMAGE,
-  RUACH_LESSONS,
   type AssociadosTab,
-  type AssociadosVideo,
 } from "@/lib/associados-content";
 import { type AssociadosCoupon } from "@/lib/associados-coupons";
+import { type AssociadosHubVideo } from "@/lib/associados-videos";
 import { site } from "@/lib/content";
 import { embedUrl, isDirectVideo } from "@/lib/video-embed";
 
@@ -34,14 +32,6 @@ export type AssociadosStudy = {
   title: string;
   slug: string;
   excerpt: string | null;
-};
-
-export type AssociadosRuachVideo = {
-  id: string;
-  title: string;
-  description: string | null;
-  videoUrl: string;
-  thumbnailUrl: string | null;
 };
 
 const TAB_ICONS = {
@@ -110,7 +100,7 @@ function HeroVideo({
 }: {
   image: string;
   alt: string;
-  video?: AssociadosVideo | AssociadosRuachVideo | null;
+  video?: AssociadosHubVideo | null;
   onPlay?: () => void;
 }) {
   if (video?.videoUrl) {
@@ -146,12 +136,10 @@ function VideoListItem({
   active,
   onSelect,
 }: {
-  video: AssociadosVideo | AssociadosRuachVideo;
+  video: AssociadosHubVideo;
   active: boolean;
   onSelect: () => void;
 }) {
-  const description = "description" in video ? video.description : null;
-
   return (
     <button
       type="button"
@@ -167,13 +155,13 @@ function VideoListItem({
         <p className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
           {video.title}
         </p>
-        {description ? (
+        {video.description ? (
           <p className="mt-0.5 font-[family-name:var(--font-body)] text-[11px] leading-relaxed text-[hsl(24_8%_34%)]">
-            {description}
+            {video.description}
           </p>
         ) : null}
       </div>
-      {"duration" in video ? (
+      {video.duration ? (
         <span className="shrink-0 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
           {video.duration}
         </span>
@@ -233,38 +221,61 @@ function BeneficiosPanel({ coupons }: { coupons: AssociadosCoupon[] }) {
   );
 }
 
-function RuachPanel({ dbVideos }: { dbVideos: AssociadosRuachVideo[] }) {
-  const videos: AssociadosRuachVideo[] =
-    dbVideos.length > 0
-      ? dbVideos
-      : RUACH_LESSONS.map((lesson, index) => ({
-          id: `default-${index}`,
-          title: lesson.title,
-          description: null,
-          videoUrl: lesson.videoUrl,
-          thumbnailUrl: null,
-        }));
-
+function VideoSectionPanel({
+  videos,
+  heroImage,
+  heroAlt,
+  title,
+  description,
+  footerLink,
+}: {
+  videos: AssociadosHubVideo[];
+  heroImage: string;
+  heroAlt: string;
+  title: string;
+  description: string;
+  footerLink?: { href: string; label: string };
+}) {
   const [activeId, setActiveId] = useState(videos[0]?.id ?? "");
   const activeVideo = videos.find((video) => video.id === activeId) ?? videos[0] ?? null;
 
   return (
     <div>
+      {title === "Instituto Lume" ? (
+        <div className="mb-4 flex items-center gap-2">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(40_40%_52%)]/10">
+            <Sparkles className="h-5 w-5 text-[hsl(40_40%_52%)]" strokeWidth={1.5} />
+          </span>
+          <div>
+            <h3 className="font-[family-name:var(--font-display)] text-lg leading-tight text-[hsl(24_12%_12%)]">
+              {title}
+            </h3>
+            <p className="font-[family-name:var(--font-body)] text-[10px] tracking-wider text-[hsl(24_8%_34%)] uppercase">
+              Ciência &amp; Fé · Vídeos
+            </p>
+          </div>
+        </div>
+      ) : null}
+
       <HeroVideo
-        image={RUACH_HERO_IMAGE}
-        alt="Método Ruach"
+        image={heroImage}
+        alt={heroAlt}
         video={activeVideo}
         onPlay={() => {
           if (videos[0]) setActiveId(videos[0].id);
         }}
       />
-      <h3 className="font-[family-name:var(--font-display)] text-lg text-[hsl(24_12%_12%)]">
-        Método Ruach
-      </h3>
+
+      {title !== "Instituto Lume" ? (
+        <h3 className="font-[family-name:var(--font-display)] text-lg text-[hsl(24_12%_12%)]">
+          {title}
+        </h3>
+      ) : null}
       <p className="mt-1 mb-4 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
-        Aulas gravadas de bem-estar, respiração e espiritualidade aplicada.
+        {description}
       </p>
-      <div className="space-y-2">
+
+      <div className={`space-y-2 ${footerLink ? "mb-5" : ""}`}>
         {videos.map((video) => (
           <VideoListItem
             key={video.id}
@@ -274,6 +285,18 @@ function RuachPanel({ dbVideos }: { dbVideos: AssociadosRuachVideo[] }) {
           />
         ))}
       </div>
+
+      {footerLink ? (
+        <a
+          href={footerLink.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(24_14%_14%)] px-4 py-2.5 text-xs font-medium text-[hsl(38_28%_92%)] transition hover:bg-[hsl(24_14%_14%)]/90"
+        >
+          <ExternalLink className="h-3.5 w-3.5" />
+          {footerLink.label}
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -392,59 +415,28 @@ function TestamentBooks({
   );
 }
 
-function LumePanel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeVideo = LUME_VIDEOS[activeIndex] ?? LUME_VIDEOS[0];
-
+function LumePanel({ videos }: { videos: AssociadosHubVideo[] }) {
   return (
-    <div>
-      <div className="mb-4 flex items-center gap-2">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(40_40%_52%)]/10">
-          <Sparkles className="h-5 w-5 text-[hsl(40_40%_52%)]" strokeWidth={1.5} />
-        </span>
-        <div>
-          <h3 className="font-[family-name:var(--font-display)] text-lg leading-tight text-[hsl(24_12%_12%)]">
-            Instituto Lume
-          </h3>
-          <p className="font-[family-name:var(--font-body)] text-[10px] tracking-wider text-[hsl(24_8%_34%)] uppercase">
-            Ciência &amp; Fé · Vídeos
-          </p>
-        </div>
-      </div>
+    <VideoSectionPanel
+      videos={videos}
+      heroImage={LUME_HERO_IMAGE}
+      heroAlt="Instituto Lume"
+      title="Instituto Lume"
+      description="Conteúdos selecionados do Instituto Lume sobre neurociência, padrões emocionais e a interseção entre ciência e fé."
+      footerLink={{ href: LUME_WEBSITE, label: "Visitar Instituto Lume" }}
+    />
+  );
+}
 
-      <HeroVideo
-        image={LUME_HERO_IMAGE}
-        alt="Instituto Lume"
-        video={activeVideo}
-        onPlay={() => setActiveIndex(0)}
-      />
-
-      <p className="mb-4 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
-        Conteúdos selecionados do Instituto Lume sobre neurociência, padrões emocionais e a
-        interseção entre ciência e fé.
-      </p>
-
-      <div className="mb-5 space-y-2">
-        {LUME_VIDEOS.map((video, index) => (
-          <VideoListItem
-            key={video.title}
-            video={video}
-            active={index === activeIndex}
-            onSelect={() => setActiveIndex(index)}
-          />
-        ))}
-      </div>
-
-      <a
-        href={LUME_WEBSITE}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(24_14%_14%)] px-4 py-2.5 text-xs font-medium text-[hsl(38_28%_92%)] transition hover:bg-[hsl(24_14%_14%)]/90"
-      >
-        <ExternalLink className="h-3.5 w-3.5" />
-        Visitar Instituto Lume
-      </a>
-    </div>
+function RuachPanel({ videos }: { videos: AssociadosHubVideo[] }) {
+  return (
+    <VideoSectionPanel
+      videos={videos}
+      heroImage={RUACH_HERO_IMAGE}
+      heroAlt="Método Ruach"
+      title="Método Ruach"
+      description="Aulas gravadas de bem-estar, respiração e espiritualidade aplicada."
+    />
   );
 }
 
@@ -452,10 +444,12 @@ export function AssociadosHub({
   coupons,
   studies,
   ruachVideos,
+  lumeVideos,
 }: {
   coupons: AssociadosCoupon[];
   studies: AssociadosStudy[];
-  ruachVideos: AssociadosRuachVideo[];
+  ruachVideos: AssociadosHubVideo[];
+  lumeVideos: AssociadosHubVideo[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -516,9 +510,9 @@ export function AssociadosHub({
 
       <div role="tabpanel">
         {activeTab === "beneficios" ? <BeneficiosPanel coupons={coupons} /> : null}
-        {activeTab === "ruach" ? <RuachPanel dbVideos={ruachVideos} /> : null}
+        {activeTab === "ruach" ? <RuachPanel videos={ruachVideos} /> : null}
         {activeTab === "estudos" ? <EstudosPanel studies={studies} /> : null}
-        {activeTab === "leme" ? <LumePanel /> : null}
+        {activeTab === "leme" ? <LumePanel videos={lumeVideos} /> : null}
       </div>
     </div>
   );

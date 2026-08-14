@@ -17,7 +17,12 @@ export async function syncBase44ContentAction(): Promise<
     revalidatePath("/associados/estudos");
     revalidatePath("/associados/ruach");
     revalidatePath("/admin");
+    revalidatePath("/admin/beneficios");
+    revalidatePath("/admin");
+    revalidatePath("/admin/beneficios");
     revalidatePath("/admin/cupons");
+    revalidatePath("/admin/ruach");
+    revalidatePath("/admin/leme");
     revalidatePath("/admin/estudos");
     revalidatePath("/admin/ruach");
 

@@ -18,6 +18,8 @@ export type VideoFormValues = {
   description: string | null;
   videoUrl: string;
   thumbnailUrl: string | null;
+  duration: string | null;
+  section: "ruach" | "leme";
   sortOrder: number;
   published: boolean;
 };
@@ -36,9 +38,11 @@ function defaultMode(initial?: VideoFormValues): SourceMode {
 
 export function RuachVideoForm({
   initial,
+  section = "ruach",
   onSaved,
 }: {
   initial?: VideoFormValues;
+  section?: "ruach" | "leme";
   onSaved?: () => void;
 }) {
   const router = useRouter();
@@ -110,6 +114,8 @@ export function RuachVideoForm({
       payload.set("videoUrl", videoUrl);
       payload.set("description", String(data.get("description") || ""));
       payload.set("thumbnailUrl", String(data.get("thumbnailUrl") || ""));
+      payload.set("duration", String(data.get("duration") || ""));
+      payload.set("section", initial?.section ?? section);
       payload.set("sortOrder", String(data.get("sortOrder") || "0"));
       if (data.get("published") === "on") {
         payload.set("published", "on");
@@ -148,6 +154,7 @@ export function RuachVideoForm({
 
   return (
     <form onSubmit={onSubmit} className="grid max-w-2xl gap-4">
+      <input type="hidden" name="section" value={initial?.section ?? section} />
       <div className="flex flex-wrap gap-2">
         {modeOptions.map(([value, label]) => (
           <button
@@ -234,6 +241,14 @@ export function RuachVideoForm({
           rows={3}
           defaultValue={initial?.description ?? ""}
           placeholder="Resumo da aula para o associado"
+          className={adminInputClass}
+        />
+      </Field>
+      <Field label="Duração" hint="Ex.: 12min — aparece na lista do hub.">
+        <input
+          name="duration"
+          defaultValue={initial?.duration ?? ""}
+          placeholder="12min"
           className={adminInputClass}
         />
       </Field>

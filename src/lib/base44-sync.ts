@@ -205,6 +205,7 @@ export async function syncBase44Content(): Promise<Base44SyncResult> {
         title: mapped.title,
         description: mapped.excerpt,
         videoUrl: mapped.videoUrl,
+        section: "ruach",
         published: true,
         sortOrder: result.ruachVideos.created + result.ruachVideos.updated,
         createdAt: now,
