@@ -230,6 +230,7 @@ export async function saveCoupon(formData: FormData) {
   }
 
   revalidatePath("/admin/cupons");
+  revalidatePath("/associados");
   revalidatePath("/associados/cupons");
 }
 
@@ -239,6 +240,7 @@ export async function deleteCoupon(formData: FormData) {
   if (!id) return;
   await getDb().delete(partnerCoupons).where(eq(partnerCoupons.id, id));
   revalidatePath("/admin/cupons");
+  revalidatePath("/associados");
   revalidatePath("/associados/cupons");
 }
 
@@ -300,6 +302,7 @@ export async function saveVideo(formData: FormData) {
   }
 
   revalidatePath("/admin/ruach");
+  revalidatePath("/associados");
   revalidatePath("/associados/ruach");
 }
 
@@ -325,6 +328,7 @@ export async function deleteVideo(formData: FormData) {
 
   await db.delete(ruachVideos).where(eq(ruachVideos.id, id));
   revalidatePath("/admin/ruach");
+  revalidatePath("/associados");
   revalidatePath("/associados/ruach");
 }
 
@@ -403,6 +407,7 @@ export async function saveStudy(formData: FormData) {
   }
 
   revalidatePath("/admin/estudos");
+  revalidatePath("/associados");
   revalidatePath("/associados/estudos");
   revalidatePath(`/associados/estudos/${slug}`);
 }
@@ -429,5 +434,6 @@ export async function deleteStudy(formData: FormData) {
 
   await db.delete(bibleStudies).where(eq(bibleStudies.id, id));
   revalidatePath("/admin/estudos");
+  revalidatePath("/associados");
   revalidatePath("/associados/estudos");
 }
