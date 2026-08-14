@@ -21,8 +21,10 @@ import {
   RUACH_HERO_IMAGE,
   RUACH_LESSONS,
   type AssociadosTab,
+  type AssociadosVideo,
 } from "@/lib/associados-content";
 import { site } from "@/lib/content";
+import { embedUrl, isDirectVideo } from "@/lib/video-embed";
 
 export type AssociadosCoupon = {
   id: string;
@@ -40,6 +42,14 @@ export type AssociadosStudy = {
   excerpt: string | null;
 };
 
+export type AssociadosRuachVideo = {
+  id: string;
+  title: string;
+  description: string | null;
+  videoUrl: string;
+  thumbnailUrl: string | null;
+};
+
 const TAB_ICONS = {
   beneficios: Gift,
   ruach: Play,
@@ -51,22 +61,130 @@ function isAssociadosTab(value: string | null): value is AssociadosTab {
   return ASSOCIADOS_TABS.some((tab) => tab.id === value);
 }
 
+function VideoPlayer({
+  videoUrl,
+  title,
+  poster,
+}: {
+  videoUrl: string;
+  title: string;
+  poster?: string | null;
+}) {
+  const embed = embedUrl(videoUrl);
+  const direct = isDirectVideo(videoUrl);
+
+  return (
+    <div className="relative aspect-video overflow-hidden rounded-2xl bg-[hsl(24_12%_12%)]/5">
+      {embed ? (
+        <iframe
+          src={embed}
+          title={title}
+          className="h-full w-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : direct ? (
+        <video
+          src={videoUrl}
+          controls
+          playsInline
+          preload="metadata"
+          poster={poster || undefined}
+          className="h-full w-full bg-[hsl(24_12%_12%)]/5 object-contain"
+        >
+          Seu navegador não reproduz este vídeo.
+        </video>
+      ) : (
+        <a
+          href={videoUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex h-full items-center justify-center text-sm text-[hsl(40_40%_52%)] transition hover:text-[hsl(40_40%_42%)]"
+        >
+          Abrir vídeo →
+        </a>
+      )}
+    </div>
+  );
+}
+
 function HeroVideo({
   image,
   alt,
+  video,
+  onPlay,
 }: {
   image: string;
   alt: string;
+  video?: AssociadosVideo | AssociadosRuachVideo | null;
+  onPlay?: () => void;
 }) {
+  if (video?.videoUrl) {
+    return (
+      <div className="mb-4">
+        <VideoPlayer
+          videoUrl={video.videoUrl}
+          title={video.title}
+          poster={"thumbnailUrl" in video ? video.thumbnailUrl : undefined}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="relative mb-4 aspect-video overflow-hidden rounded-2xl bg-[hsl(38_20%_88%)]">
+    <button
+      type="button"
+      onClick={onPlay}
+      className="relative mb-4 block w-full aspect-video overflow-hidden rounded-2xl bg-[hsl(38_20%_88%)]"
+    >
       <Image src={image} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 672px" />
       <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/30">
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-sm">
           <Play className="ml-0.5 h-5 w-5 text-[hsl(24_12%_12%)]" strokeWidth={1.8} />
         </span>
       </div>
-    </div>
+    </button>
+  );
+}
+
+function VideoListItem({
+  video,
+  active,
+  onSelect,
+}: {
+  video: AssociadosVideo | AssociadosRuachVideo;
+  active: boolean;
+  onSelect: () => void;
+}) {
+  const description = "description" in video ? video.description : null;
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition ${
+        active
+          ? "border-[hsl(40_40%_52%)]/40 bg-[hsl(40_40%_52%)]/5"
+          : "border-[hsl(32_14%_78%/0.35)] bg-white hover:border-[hsl(40_40%_52%)]/25"
+      }`}
+    >
+      <Play className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(40_40%_52%)]" strokeWidth={1.8} />
+      <div className="min-w-0 flex-1">
+        <p className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
+          {video.title}
+        </p>
+        {description ? (
+          <p className="mt-0.5 font-[family-name:var(--font-body)] text-[11px] leading-relaxed text-[hsl(24_8%_34%)]">
+            {description}
+          </p>
+        ) : null}
+      </div>
+      {"duration" in video ? (
+        <span className="shrink-0 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
+          {video.duration}
+        </span>
+      ) : null}
+    </button>
   );
 }
 
@@ -121,10 +239,31 @@ function BeneficiosPanel({ coupons }: { coupons: AssociadosCoupon[] }) {
   );
 }
 
-function RuachPanel() {
+function RuachPanel({ dbVideos }: { dbVideos: AssociadosRuachVideo[] }) {
+  const videos: AssociadosRuachVideo[] =
+    dbVideos.length > 0
+      ? dbVideos
+      : RUACH_LESSONS.map((lesson, index) => ({
+          id: `default-${index}`,
+          title: lesson.title,
+          description: null,
+          videoUrl: lesson.videoUrl,
+          thumbnailUrl: null,
+        }));
+
+  const [activeId, setActiveId] = useState(videos[0]?.id ?? "");
+  const activeVideo = videos.find((video) => video.id === activeId) ?? videos[0] ?? null;
+
   return (
     <div>
-      <HeroVideo image={RUACH_HERO_IMAGE} alt="Método Ruach" />
+      <HeroVideo
+        image={RUACH_HERO_IMAGE}
+        alt="Método Ruach"
+        video={activeVideo}
+        onPlay={() => {
+          if (videos[0]) setActiveId(videos[0].id);
+        }}
+      />
       <h3 className="font-[family-name:var(--font-display)] text-lg text-[hsl(24_12%_12%)]">
         Método Ruach
       </h3>
@@ -132,19 +271,13 @@ function RuachPanel() {
         Aulas gravadas de bem-estar, respiração e espiritualidade aplicada.
       </p>
       <div className="space-y-2">
-        {RUACH_LESSONS.map((lesson) => (
-          <div
-            key={lesson.title}
-            className="flex cursor-pointer items-center gap-3 rounded-xl border border-[hsl(32_14%_78%/0.35)] bg-white p-3 transition hover:border-[hsl(40_40%_52%)]/25"
-          >
-            <Play className="h-3.5 w-3.5 text-[hsl(40_40%_52%)]" strokeWidth={1.8} />
-            <span className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
-              {lesson.title}
-            </span>
-            <span className="ml-auto font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
-              {lesson.duration}
-            </span>
-          </div>
+        {videos.map((video) => (
+          <VideoListItem
+            key={video.id}
+            video={video}
+            active={video.id === activeVideo?.id}
+            onSelect={() => setActiveId(video.id)}
+          />
         ))}
       </div>
     </div>
@@ -266,6 +399,9 @@ function TestamentBooks({
 }
 
 function LumePanel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeVideo = LUME_VIDEOS[activeIndex] ?? LUME_VIDEOS[0];
+
   return (
     <div>
       <div className="mb-4 flex items-center gap-2">
@@ -282,7 +418,12 @@ function LumePanel() {
         </div>
       </div>
 
-      <HeroVideo image={LUME_HERO_IMAGE} alt="Instituto Lume" />
+      <HeroVideo
+        image={LUME_HERO_IMAGE}
+        alt="Instituto Lume"
+        video={activeVideo}
+        onPlay={() => setActiveIndex(0)}
+      />
 
       <p className="mb-4 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
         Conteúdos selecionados do Instituto Lume sobre neurociência, padrões emocionais e a
@@ -290,24 +431,13 @@ function LumePanel() {
       </p>
 
       <div className="mb-5 space-y-2">
-        {LUME_VIDEOS.map((video) => (
-          <div
+        {LUME_VIDEOS.map((video, index) => (
+          <VideoListItem
             key={video.title}
-            className="flex items-start gap-3 rounded-xl border border-[hsl(32_14%_78%/0.35)] bg-white p-3"
-          >
-            <Play className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(40_40%_52%)]" strokeWidth={1.8} />
-            <div className="min-w-0 flex-1">
-              <p className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
-                {video.title}
-              </p>
-              <p className="mt-0.5 font-[family-name:var(--font-body)] text-[11px] leading-relaxed text-[hsl(24_8%_34%)]">
-                {video.description}
-              </p>
-            </div>
-            <span className="shrink-0 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
-              {video.duration}
-            </span>
-          </div>
+            video={video}
+            active={index === activeIndex}
+            onSelect={() => setActiveIndex(index)}
+          />
         ))}
       </div>
 
@@ -327,9 +457,11 @@ function LumePanel() {
 export function AssociadosHub({
   coupons,
   studies,
+  ruachVideos,
 }: {
   coupons: AssociadosCoupon[];
   studies: AssociadosStudy[];
+  ruachVideos: AssociadosRuachVideo[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -390,7 +522,7 @@ export function AssociadosHub({
 
       <div role="tabpanel">
         {activeTab === "beneficios" ? <BeneficiosPanel coupons={coupons} /> : null}
-        {activeTab === "ruach" ? <RuachPanel /> : null}
+        {activeTab === "ruach" ? <RuachPanel dbVideos={ruachVideos} /> : null}
         {activeTab === "estudos" ? <EstudosPanel studies={studies} /> : null}
         {activeTab === "leme" ? <LumePanel /> : null}
       </div>

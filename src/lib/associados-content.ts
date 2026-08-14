@@ -85,34 +85,56 @@ export const NEW_TESTAMENT_BOOKS = [
 export const RUACH_HERO_IMAGE =
   "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=450&fit=crop";
 
-export const RUACH_LESSONS = [
-  { title: "Respiração Consciente", duration: "12min" },
-  { title: "Conexão Espiritual", duration: "12min" },
-  { title: "Corpo em Movimento", duration: "12min" },
-] as const;
+export type AssociadosVideo = {
+  title: string;
+  duration: string;
+  description?: string;
+  videoUrl: string;
+};
+
+export const RUACH_LESSONS: readonly AssociadosVideo[] = [
+  {
+    title: "Respiração Consciente",
+    duration: "12min",
+    videoUrl: "https://www.youtube.com/watch?v=1faSlWFh4MY",
+  },
+  {
+    title: "Conexão Espiritual",
+    duration: "12min",
+    videoUrl: "https://www.youtube.com/watch?v=4uvZuaUhAfE",
+  },
+  {
+    title: "Corpo em Movimento",
+    duration: "12min",
+    videoUrl: "https://www.youtube.com/watch?v=DMeJxiJ-lDA",
+  },
+];
 
 export const LUME_HERO_IMAGE =
   "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=450&fit=crop";
 
 export const LUME_WEBSITE = "https://institutoleme.com.br";
 
-export const LUME_VIDEOS = [
+export const LUME_VIDEOS: readonly (AssociadosVideo & { description: string })[] = [
   {
     title: "Neuroplasticidade e fé",
     description:
       "Como o cérebro se reorganiza quando entendemos como fomos desenhados.",
     duration: "18min",
+    videoUrl: "https://www.youtube.com/watch?v=BxfKMLXmi_o",
   },
   {
     title: "Padrões emocionais",
     description:
       "Por que a informação, a emoção e a repetição criam ciclos — e como quebrá-los.",
     duration: "22min",
+    videoUrl: "https://www.youtube.com/watch?v=cPoO0lpVI-o",
   },
   {
     title: "O coração e seu sistema nervoso",
     description:
       "A ciência por trás do que a fé sempre soube: o coração decide antes de pensar.",
     duration: "15min",
+    videoUrl: "https://www.youtube.com/watch?v=nCpMivOMWE0",
   },
-] as const;
+];
