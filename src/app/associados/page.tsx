@@ -3,7 +3,8 @@ import { asc, desc, eq } from "drizzle-orm";
 import { AssociadosHub } from "@/components/members/AssociadosHub";
 import { MembersShell } from "@/components/members/MembersShell";
 import { getDb } from "@/db";
-import { bibleStudies, partnerCoupons, ruachVideos } from "@/db/schema";
+import { bibleStudies, ruachVideos } from "@/db/schema";
+import { getAssociadosCoupons } from "@/lib/associados-coupons";
 import { requireMember } from "@/lib/session";
 
 export const metadata = {
@@ -15,18 +16,7 @@ export default async function AssociadosHomePage() {
   const db = getDb();
 
   const [coupons, studies, ruachVideoRows] = await Promise.all([
-    db
-      .select({
-        id: partnerCoupons.id,
-        partnerName: partnerCoupons.partnerName,
-        code: partnerCoupons.code,
-        offer: partnerCoupons.offer,
-        description: partnerCoupons.description,
-        websiteUrl: partnerCoupons.websiteUrl,
-      })
-      .from(partnerCoupons)
-      .where(eq(partnerCoupons.active, true))
-      .orderBy(desc(partnerCoupons.createdAt)),
+    getAssociadosCoupons(),
     db
       .select({
         id: bibleStudies.id,

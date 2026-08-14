@@ -1,12 +1,10 @@
-import { desc, eq } from "drizzle-orm";
 import { CopyCodeButton } from "@/components/members/CopyCodeButton";
 import { MemberEmptyState } from "@/components/members/MemberEmptyState";
 import { MemberPageIntro } from "@/components/members/MemberPageIntro";
 import { MemberSectionLinks } from "@/components/members/MemberSectionLinks";
 import { MembersShell } from "@/components/members/MembersShell";
 import { Stagger } from "@/components/motion/Stagger";
-import { getDb } from "@/db";
-import { partnerCoupons } from "@/db/schema";
+import { getAssociadosCoupons } from "@/lib/associados-coupons";
 import { requireMember } from "@/lib/session";
 
 export const metadata = {
@@ -15,11 +13,7 @@ export const metadata = {
 
 export default async function CuponsPage() {
   const session = await requireMember();
-  const coupons = await getDb()
-    .select()
-    .from(partnerCoupons)
-    .where(eq(partnerCoupons.active, true))
-    .orderBy(desc(partnerCoupons.createdAt));
+  const coupons = await getAssociadosCoupons();
 
   return (
     <MembersShell name={session.user.name} role={session.user.role}>

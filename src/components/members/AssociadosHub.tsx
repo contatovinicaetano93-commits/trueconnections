@@ -23,17 +23,11 @@ import {
   type AssociadosTab,
   type AssociadosVideo,
 } from "@/lib/associados-content";
+import { type AssociadosCoupon } from "@/lib/associados-coupons";
 import { site } from "@/lib/content";
 import { embedUrl, isDirectVideo } from "@/lib/video-embed";
 
-export type AssociadosCoupon = {
-  id: string;
-  partnerName: string;
-  code: string;
-  offer: string | null;
-  description: string | null;
-  websiteUrl: string | null;
-};
+export type { AssociadosCoupon };
 
 export type AssociadosStudy = {
   id: string;

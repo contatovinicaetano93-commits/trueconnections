@@ -42,6 +42,55 @@ export function mapPartnerBrand(record: Base44PartnerBrand) {
   };
 }
 
+export async function syncBase44Coupons(
+  brands: Base44PartnerBrand[],
+): Promise<{ created: number; updated: number; total: number }> {
+  const db = getDb();
+  const result = { created: 0, updated: 0, total: brands.length };
+
+  const existingCoupons = await db.select().from(partnerCoupons);
+  const couponByName = new Map(
+    existingCoupons.map((coupon) => [coupon.partnerName.toLowerCase(), coupon]),
+  );
+
+  for (const brand of brands) {
+    const mapped = mapPartnerBrand(brand);
+    const existing = couponByName.get(mapped.partnerName.toLowerCase());
+    const now = new Date();
+
+    if (existing) {
+      await db
+        .update(partnerCoupons)
+        .set({
+          code: mapped.code,
+          offer: mapped.offer,
+          description: mapped.description,
+          websiteUrl: mapped.websiteUrl,
+          active: true,
+          updatedAt: now,
+        })
+        .where(eq(partnerCoupons.id, existing.id));
+      result.updated += 1;
+      continue;
+    }
+
+    const [created] = await db
+      .insert(partnerCoupons)
+      .values({
+        ...mapped,
+        createdAt: now,
+        updatedAt: now,
+      })
+      .returning();
+    if (created) {
+      couponByName.set(mapped.partnerName.toLowerCase(), created);
+    }
+    result.created += 1;
+  }
+
+  return result;
+}
+
 function excerptFromStudy(record: Base44EstudoBiblico) {
   const meta = [record.livro, record.categoria].filter(Boolean).join(" · ");
   if (meta) return meta;
@@ -80,45 +129,8 @@ export async function syncBase44Content(): Promise<Base44SyncResult> {
     skippedRuachFromStudies: 0,
   };
 
-  const existingCoupons = await db.select().from(partnerCoupons);
-  const couponByName = new Map(
-    existingCoupons.map((coupon) => [coupon.partnerName.toLowerCase(), coupon]),
-  );
-
-  for (const brand of brands) {
-    const mapped = mapPartnerBrand(brand);
-    const existing = couponByName.get(mapped.partnerName.toLowerCase());
-    const now = new Date();
-
-    if (existing) {
-      await db
-        .update(partnerCoupons)
-        .set({
-          code: mapped.code,
-          offer: mapped.offer,
-          description: mapped.description,
-          websiteUrl: mapped.websiteUrl,
-          active: true,
-          updatedAt: now,
-        })
-        .where(eq(partnerCoupons.id, existing.id));
-      result.coupons.updated += 1;
-      continue;
-    }
-
-    const [created] = await db
-      .insert(partnerCoupons)
-      .values({
-        ...mapped,
-        createdAt: now,
-        updatedAt: now,
-      })
-      .returning();
-    if (created) {
-      couponByName.set(mapped.partnerName.toLowerCase(), created);
-    }
-    result.coupons.created += 1;
-  }
+  const couponSync = await syncBase44Coupons(brands);
+  result.coupons = couponSync;
 
   const existingStudies = await db.select().from(bibleStudies);
   const studyBySlug = new Map(existingStudies.map((study) => [study.slug, study]));
