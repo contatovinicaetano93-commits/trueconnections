@@ -32,17 +32,12 @@ export function extractCouponCode(offer: string, partnerName: string) {
 }
 
 export function mapPartnerBrand(record: Base44PartnerBrand) {
-  const parts = [
-    record.offer?.trim(),
-    record.description?.trim(),
-    record.category ? `Categoria: ${record.category}` : null,
-    record.website_url ? `Site: ${record.website_url}` : null,
-  ].filter(Boolean);
-
   return {
     partnerName: record.name.trim(),
     code: extractCouponCode(record.offer || "", record.name),
-    description: parts.join("\n"),
+    offer: record.offer?.trim() || null,
+    description: record.description?.trim() || null,
+    websiteUrl: record.website_url?.trim() || null,
     active: true,
   };
 }
@@ -100,7 +95,9 @@ export async function syncBase44Content(): Promise<Base44SyncResult> {
         .update(partnerCoupons)
         .set({
           code: mapped.code,
+          offer: mapped.offer,
           description: mapped.description,
+          websiteUrl: mapped.websiteUrl,
           active: true,
           updatedAt: now,
         })

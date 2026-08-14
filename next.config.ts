@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "m.media-amazon.com",
-        pathname: "/images/**",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
       },
     ],
   },
@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       { source: "/concierge", destination: "/contato", permanent: false },
+      { source: "/associados/cupons", destination: "/associados?tab=beneficios", permanent: false },
+      { source: "/associados/ruach", destination: "/associados?tab=ruach", permanent: false },
+      { source: "/associados/estudos", destination: "/associados?tab=estudos", permanent: false },
     ];
   },
 };

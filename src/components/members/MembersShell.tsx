@@ -19,10 +19,12 @@ export function MembersShell({
   name,
   role,
   children,
+  hubLayout = false,
 }: {
   name: string;
   role?: string | null;
   children: React.ReactNode;
+  hubLayout?: boolean;
 }) {
   const pathname = usePathname();
   const isAdmin = role === "admin";
@@ -52,29 +54,31 @@ export function MembersShell({
               aria-label="Área de membros"
               className="hidden items-center gap-6 lg:flex"
             >
-              {memberNav.map((link) => {
-                const active = isMemberNavActive(pathname, link);
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    aria-current={active ? "page" : undefined}
-                    className={`relative font-[family-name:var(--font-body)] text-[11px] tracking-[0.15em] uppercase transition-colors duration-300 ${
-                      active
-                        ? "text-[hsl(24_12%_12%)]"
-                        : "text-[hsl(24_8%_34%)]/60 hover:text-[hsl(24_12%_12%)]"
-                    }`}
-                  >
-                    {link.label}
-                    {active ? (
-                      <span
-                        className="absolute -bottom-1 right-0 left-0 h-px bg-[hsl(40_40%_52%)]"
-                        aria-hidden
-                      />
-                    ) : null}
-                  </Link>
-                );
-              })}
+              {!hubLayout
+                ? memberNav.map((link) => {
+                    const active = isMemberNavActive(pathname, link);
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        aria-current={active ? "page" : undefined}
+                        className={`relative font-[family-name:var(--font-body)] text-[11px] tracking-[0.15em] uppercase transition-colors duration-300 ${
+                          active
+                            ? "text-[hsl(24_12%_12%)]"
+                            : "text-[hsl(24_8%_34%)]/60 hover:text-[hsl(24_12%_12%)]"
+                        }`}
+                      >
+                        {link.label}
+                        {active ? (
+                          <span
+                            className="absolute -bottom-1 right-0 left-0 h-px bg-[hsl(40_40%_52%)]"
+                            aria-hidden
+                          />
+                        ) : null}
+                      </Link>
+                    );
+                  })
+                : null}
             </nav>
 
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
@@ -97,24 +101,32 @@ export function MembersShell({
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 pb-[calc(5.25rem+env(safe-area-inset-bottom,0px))] md:px-6 md:py-10 lg:max-w-4xl lg:pb-10">
+        <main
+          className={`mx-auto w-full flex-1 px-4 py-8 md:px-6 md:py-10 ${
+            hubLayout
+              ? "max-w-2xl pb-10"
+              : "max-w-3xl pb-[calc(5.25rem+env(safe-area-inset-bottom,0px))] lg:max-w-4xl lg:pb-10"
+          }`}
+        >
           <FadeIn key={pathname}>{children}</FadeIn>
         </main>
 
-        <footer className="hidden border-t border-[hsl(32_14%_78%/0.3)] pb-8 pt-6 text-center lg:block">
-          <Image
-            src={site.logo}
-            alt=""
-            width={160}
-            height={50}
-            className="mx-auto h-10 w-auto object-contain opacity-80"
-          />
-          <p className="mt-2 font-[family-name:var(--font-body)] text-[0.65rem] tracking-[0.2em] text-[hsl(24_8%_34%)] uppercase">
-            Área de membros
-          </p>
-        </footer>
+        {!hubLayout ? (
+          <footer className="hidden border-t border-[hsl(32_14%_78%/0.3)] pb-8 pt-6 text-center lg:block">
+            <Image
+              src={site.logo}
+              alt=""
+              width={160}
+              height={50}
+              className="mx-auto h-10 w-auto object-contain opacity-80"
+            />
+            <p className="mt-2 font-[family-name:var(--font-body)] text-[0.65rem] tracking-[0.2em] text-[hsl(24_8%_34%)] uppercase">
+              Área de membros
+            </p>
+          </footer>
+        ) : null}
 
-        <MembersBottomNav />
+        {!hubLayout ? <MembersBottomNav /> : null}
       </div>
     </MotionProvider>
   );
