@@ -46,11 +46,8 @@ export default async function EstudoPage({
     <MembersShell name={session.user.name} role={session.user.role}>
       <article className="mx-auto max-w-3xl">
         <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-          <MemberBackLink
-            href="/associados/estudos"
-            label="Voltar aos estudos"
-          />
-          <MemberBackLink href="/associados" label="Voltar ao início" />
+          <MemberBackLink href="/associados?tab=estudos" label="Voltar aos estudos" />
+          <MemberBackLink href="/associados?tab=estudos" label="Voltar à área premium" />
         </div>
 
         <Image
