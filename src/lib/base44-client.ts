@@ -30,7 +30,10 @@ function appId() {
   return process.env.BASE44_APP_ID?.trim() || DEFAULT_BASE44_APP_ID;
 }
 
-export async function fetchBase44Entity<T>(entityName: string): Promise<T[]> {
+export async function fetchBase44Entity<T>(
+  entityName: string,
+  revalidate = 300,
+): Promise<T[]> {
   const records: T[] = [];
   let skip = 0;
 
@@ -39,7 +42,7 @@ export async function fetchBase44Entity<T>(entityName: string): Promise<T[]> {
       `${BASE44_API}/${appId()}/entities/${entityName}?limit=${BASE44_PAGE_SIZE}&skip=${skip}`,
       {
         headers: { Accept: "application/json" },
-        next: { revalidate: 0 },
+        next: { revalidate },
       },
     );
 
@@ -64,10 +67,10 @@ export async function fetchBase44Entity<T>(entityName: string): Promise<T[]> {
   return records;
 }
 
-export async function fetchBase44PartnerBrands() {
-  return fetchBase44Entity<Base44PartnerBrand>("PartnerBrand");
+export async function fetchBase44PartnerBrands(revalidate = 300) {
+  return fetchBase44Entity<Base44PartnerBrand>("PartnerBrand", revalidate);
 }
 
-export async function fetchBase44Estudos() {
-  return fetchBase44Entity<Base44EstudoBiblico>("EstudoBiblico");
+export async function fetchBase44Estudos(revalidate = 0) {
+  return fetchBase44Entity<Base44EstudoBiblico>("EstudoBiblico", revalidate);
 }

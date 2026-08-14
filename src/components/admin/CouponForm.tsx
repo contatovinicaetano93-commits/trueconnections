@@ -15,7 +15,9 @@ export type CouponFormValues = {
   id?: string;
   partnerName: string;
   code: string;
+  offer: string | null;
   description: string | null;
+  websiteUrl: string | null;
   active: boolean;
 };
 
@@ -45,7 +47,7 @@ export function CouponForm({
       className="grid max-w-2xl gap-4"
     >
       {initial?.id ? <input type="hidden" name="id" value={initial.id} /> : null}
-      <Field label="Parceiro" hint="Ex.: Amém Café, livraria, clínica…">
+      <Field label="Parceiro" hint="Nome que aparece no card de benefício.">
         <input
           name="partnerName"
           required
@@ -54,7 +56,15 @@ export function CouponForm({
           className={adminInputClass}
         />
       </Field>
-      <Field label="Código" hint="O que o associado mostra no caixa.">
+      <Field label="Oferta" hint="Ex.: 12% OFF · Código: TRUE — linha destacada no card.">
+        <input
+          name="offer"
+          defaultValue={initial?.offer ?? ""}
+          placeholder="12% OFF · Código: TRUE"
+          className={adminInputClass}
+        />
+      </Field>
+      <Field label="Código" hint="Código que o associado usa no parceiro.">
         <input
           name="code"
           required
@@ -68,7 +78,16 @@ export function CouponForm({
           name="description"
           rows={3}
           defaultValue={initial?.description ?? ""}
-          placeholder="10% em bebidas · válido até…"
+          placeholder="Detalhes do benefício · validade · condições"
+          className={adminInputClass}
+        />
+      </Field>
+      <Field label="Site do parceiro" hint="Se preenchido, o botão 'Acessar benefício' abre este link.">
+        <input
+          name="websiteUrl"
+          type="url"
+          defaultValue={initial?.websiteUrl ?? ""}
+          placeholder="https://parceiro.com.br"
           className={adminInputClass}
         />
       </Field>
@@ -78,7 +97,7 @@ export function CouponForm({
           type="checkbox"
           defaultChecked={initial?.active ?? true}
         />
-        Ativo para associados
+        Ativo na aba Benefícios
       </label>
       <button
         type="submit"
@@ -89,7 +108,7 @@ export function CouponForm({
           ? "Salvando…"
           : isEdit
             ? "Salvar alterações"
-            : "Publicar cupom"}
+            : "Publicar benefício"}
       </button>
     </form>
   );
@@ -107,11 +126,17 @@ export function CouponListItem({
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="display text-xl text-parchment">{coupon.partnerName}</p>
-          <p className="mt-1 font-mono text-sm tracking-wide text-gold">
+          {coupon.offer ? (
+            <p className="mt-1 text-sm text-gold">{coupon.offer}</p>
+          ) : null}
+          <p className="mt-1 font-mono text-sm tracking-wide text-parchment/80">
             {coupon.code}
           </p>
           {coupon.description ? (
             <p className="mt-2 text-sm text-mute">{coupon.description}</p>
+          ) : null}
+          {coupon.websiteUrl ? (
+            <p className="mt-2 break-all text-xs text-mute">{coupon.websiteUrl}</p>
           ) : null}
           <p className="mt-2 text-xs uppercase tracking-[0.14em] text-mute">
             {coupon.active ? "Ativo" : "Inativo"}
@@ -137,7 +162,7 @@ export function CouponListItem({
       {editing ? (
         <div className="mt-5 border-t border-line pt-5">
           <p className="mb-4 text-[0.68rem] uppercase tracking-[0.16em] text-gold">
-            Editar cupom
+            Editar benefício
           </p>
           <CouponForm initial={coupon} onSaved={() => setEditing(false)} />
         </div>

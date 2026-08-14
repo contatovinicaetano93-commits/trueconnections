@@ -14,24 +14,18 @@ import {
 import {
   ASSOCIADOS_TABS,
   LUME_HERO_IMAGE,
-  LUME_VIDEOS,
   LUME_WEBSITE,
   NEW_TESTAMENT_BOOKS,
   OLD_TESTAMENT_BOOKS,
   RUACH_HERO_IMAGE,
-  RUACH_LESSONS,
   type AssociadosTab,
 } from "@/lib/associados-content";
+import { type AssociadosCoupon } from "@/lib/associados-coupons";
+import { type AssociadosHubVideo } from "@/lib/associados-videos";
 import { site } from "@/lib/content";
+import { embedUrl, isDirectVideo } from "@/lib/video-embed";
 
-export type AssociadosCoupon = {
-  id: string;
-  partnerName: string;
-  code: string;
-  offer: string | null;
-  description: string | null;
-  websiteUrl: string | null;
-};
+export type { AssociadosCoupon };
 
 export type AssociadosStudy = {
   id: string;
@@ -51,22 +45,128 @@ function isAssociadosTab(value: string | null): value is AssociadosTab {
   return ASSOCIADOS_TABS.some((tab) => tab.id === value);
 }
 
+function VideoPlayer({
+  videoUrl,
+  title,
+  poster,
+}: {
+  videoUrl: string;
+  title: string;
+  poster?: string | null;
+}) {
+  const embed = embedUrl(videoUrl);
+  const direct = isDirectVideo(videoUrl);
+
+  return (
+    <div className="relative aspect-video overflow-hidden rounded-2xl bg-[hsl(24_12%_12%)]/5">
+      {embed ? (
+        <iframe
+          src={embed}
+          title={title}
+          className="h-full w-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : direct ? (
+        <video
+          src={videoUrl}
+          controls
+          playsInline
+          preload="metadata"
+          poster={poster || undefined}
+          className="h-full w-full bg-[hsl(24_12%_12%)]/5 object-contain"
+        >
+          Seu navegador não reproduz este vídeo.
+        </video>
+      ) : (
+        <a
+          href={videoUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex h-full items-center justify-center text-sm text-[hsl(40_40%_52%)] transition hover:text-[hsl(40_40%_42%)]"
+        >
+          Abrir vídeo →
+        </a>
+      )}
+    </div>
+  );
+}
+
 function HeroVideo({
   image,
   alt,
+  video,
+  onPlay,
 }: {
   image: string;
   alt: string;
+  video?: AssociadosHubVideo | null;
+  onPlay?: () => void;
 }) {
+  if (video?.videoUrl) {
+    return (
+      <div className="mb-4">
+        <VideoPlayer
+          videoUrl={video.videoUrl}
+          title={video.title}
+          poster={"thumbnailUrl" in video ? video.thumbnailUrl : undefined}
+        />
+      </div>
+    );
+  }
+
   return (
-    <div className="relative mb-4 aspect-video overflow-hidden rounded-2xl bg-[hsl(38_20%_88%)]">
+    <button
+      type="button"
+      onClick={onPlay}
+      className="relative mb-4 block w-full aspect-video overflow-hidden rounded-2xl bg-[hsl(38_20%_88%)]"
+    >
       <Image src={image} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 672px" />
       <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/30">
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-sm">
           <Play className="ml-0.5 h-5 w-5 text-[hsl(24_12%_12%)]" strokeWidth={1.8} />
         </span>
       </div>
-    </div>
+    </button>
+  );
+}
+
+function VideoListItem({
+  video,
+  active,
+  onSelect,
+}: {
+  video: AssociadosHubVideo;
+  active: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left transition ${
+        active
+          ? "border-[hsl(40_40%_52%)]/40 bg-[hsl(40_40%_52%)]/5"
+          : "border-[hsl(32_14%_78%/0.35)] bg-white hover:border-[hsl(40_40%_52%)]/25"
+      }`}
+    >
+      <Play className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(40_40%_52%)]" strokeWidth={1.8} />
+      <div className="min-w-0 flex-1">
+        <p className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
+          {video.title}
+        </p>
+        {video.description ? (
+          <p className="mt-0.5 font-[family-name:var(--font-body)] text-[11px] leading-relaxed text-[hsl(24_8%_34%)]">
+            {video.description}
+          </p>
+        ) : null}
+      </div>
+      {video.duration ? (
+        <span className="shrink-0 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
+          {video.duration}
+        </span>
+      ) : null}
+    </button>
   );
 }
 
@@ -121,32 +221,82 @@ function BeneficiosPanel({ coupons }: { coupons: AssociadosCoupon[] }) {
   );
 }
 
-function RuachPanel() {
+function VideoSectionPanel({
+  videos,
+  heroImage,
+  heroAlt,
+  title,
+  description,
+  footerLink,
+}: {
+  videos: AssociadosHubVideo[];
+  heroImage: string;
+  heroAlt: string;
+  title: string;
+  description: string;
+  footerLink?: { href: string; label: string };
+}) {
+  const [activeId, setActiveId] = useState(videos[0]?.id ?? "");
+  const activeVideo = videos.find((video) => video.id === activeId) ?? videos[0] ?? null;
+
   return (
     <div>
-      <HeroVideo image={RUACH_HERO_IMAGE} alt="Método Ruach" />
-      <h3 className="font-[family-name:var(--font-display)] text-lg text-[hsl(24_12%_12%)]">
-        Método Ruach
-      </h3>
-      <p className="mt-1 mb-4 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
-        Aulas gravadas de bem-estar, respiração e espiritualidade aplicada.
-      </p>
-      <div className="space-y-2">
-        {RUACH_LESSONS.map((lesson) => (
-          <div
-            key={lesson.title}
-            className="flex cursor-pointer items-center gap-3 rounded-xl border border-[hsl(32_14%_78%/0.35)] bg-white p-3 transition hover:border-[hsl(40_40%_52%)]/25"
-          >
-            <Play className="h-3.5 w-3.5 text-[hsl(40_40%_52%)]" strokeWidth={1.8} />
-            <span className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
-              {lesson.title}
-            </span>
-            <span className="ml-auto font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
-              {lesson.duration}
-            </span>
+      {title === "Instituto Lume" ? (
+        <div className="mb-4 flex items-center gap-2">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(40_40%_52%)]/10">
+            <Sparkles className="h-5 w-5 text-[hsl(40_40%_52%)]" strokeWidth={1.5} />
+          </span>
+          <div>
+            <h3 className="font-[family-name:var(--font-display)] text-lg leading-tight text-[hsl(24_12%_12%)]">
+              {title}
+            </h3>
+            <p className="font-[family-name:var(--font-body)] text-[10px] tracking-wider text-[hsl(24_8%_34%)] uppercase">
+              Ciência &amp; Fé · Vídeos
+            </p>
           </div>
+        </div>
+      ) : null}
+
+      <HeroVideo
+        image={heroImage}
+        alt={heroAlt}
+        video={activeVideo}
+        onPlay={() => {
+          if (videos[0]) setActiveId(videos[0].id);
+        }}
+      />
+
+      {title !== "Instituto Lume" ? (
+        <h3 className="font-[family-name:var(--font-display)] text-lg text-[hsl(24_12%_12%)]">
+          {title}
+        </h3>
+      ) : null}
+      <p className="mt-1 mb-4 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
+        {description}
+      </p>
+
+      <div className={`space-y-2 ${footerLink ? "mb-5" : ""}`}>
+        {videos.map((video) => (
+          <VideoListItem
+            key={video.id}
+            video={video}
+            active={video.id === activeVideo?.id}
+            onSelect={() => setActiveId(video.id)}
+          />
         ))}
       </div>
+
+      {footerLink ? (
+        <a
+          href={footerLink.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(24_14%_14%)] px-4 py-2.5 text-xs font-medium text-[hsl(38_28%_92%)] transition hover:bg-[hsl(24_14%_14%)]/90"
+        >
+          <ExternalLink className="h-3.5 w-3.5" />
+          {footerLink.label}
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -265,71 +415,41 @@ function TestamentBooks({
   );
 }
 
-function LumePanel() {
+function LumePanel({ videos }: { videos: AssociadosHubVideo[] }) {
   return (
-    <div>
-      <div className="mb-4 flex items-center gap-2">
-        <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(40_40%_52%)]/10">
-          <Sparkles className="h-5 w-5 text-[hsl(40_40%_52%)]" strokeWidth={1.5} />
-        </span>
-        <div>
-          <h3 className="font-[family-name:var(--font-display)] text-lg leading-tight text-[hsl(24_12%_12%)]">
-            Instituto Lume
-          </h3>
-          <p className="font-[family-name:var(--font-body)] text-[10px] tracking-wider text-[hsl(24_8%_34%)] uppercase">
-            Ciência &amp; Fé · Vídeos
-          </p>
-        </div>
-      </div>
+    <VideoSectionPanel
+      videos={videos}
+      heroImage={LUME_HERO_IMAGE}
+      heroAlt="Instituto Lume"
+      title="Instituto Lume"
+      description="Conteúdos selecionados do Instituto Lume sobre neurociência, padrões emocionais e a interseção entre ciência e fé."
+      footerLink={{ href: LUME_WEBSITE, label: "Visitar Instituto Lume" }}
+    />
+  );
+}
 
-      <HeroVideo image={LUME_HERO_IMAGE} alt="Instituto Lume" />
-
-      <p className="mb-4 font-[family-name:var(--font-body)] text-xs text-[hsl(24_8%_34%)]">
-        Conteúdos selecionados do Instituto Lume sobre neurociência, padrões emocionais e a
-        interseção entre ciência e fé.
-      </p>
-
-      <div className="mb-5 space-y-2">
-        {LUME_VIDEOS.map((video) => (
-          <div
-            key={video.title}
-            className="flex items-start gap-3 rounded-xl border border-[hsl(32_14%_78%/0.35)] bg-white p-3"
-          >
-            <Play className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[hsl(40_40%_52%)]" strokeWidth={1.8} />
-            <div className="min-w-0 flex-1">
-              <p className="font-[family-name:var(--font-body)] text-sm text-[hsl(24_12%_12%)]">
-                {video.title}
-              </p>
-              <p className="mt-0.5 font-[family-name:var(--font-body)] text-[11px] leading-relaxed text-[hsl(24_8%_34%)]">
-                {video.description}
-              </p>
-            </div>
-            <span className="shrink-0 font-[family-name:var(--font-body)] text-[10px] text-[hsl(24_8%_34%)]">
-              {video.duration}
-            </span>
-          </div>
-        ))}
-      </div>
-
-      <a
-        href={LUME_WEBSITE}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full bg-[hsl(24_14%_14%)] px-4 py-2.5 text-xs font-medium text-[hsl(38_28%_92%)] transition hover:bg-[hsl(24_14%_14%)]/90"
-      >
-        <ExternalLink className="h-3.5 w-3.5" />
-        Visitar Instituto Lume
-      </a>
-    </div>
+function RuachPanel({ videos }: { videos: AssociadosHubVideo[] }) {
+  return (
+    <VideoSectionPanel
+      videos={videos}
+      heroImage={RUACH_HERO_IMAGE}
+      heroAlt="Método Ruach"
+      title="Método Ruach"
+      description="Aulas gravadas de bem-estar, respiração e espiritualidade aplicada."
+    />
   );
 }
 
 export function AssociadosHub({
   coupons,
   studies,
+  ruachVideos,
+  lumeVideos,
 }: {
   coupons: AssociadosCoupon[];
   studies: AssociadosStudy[];
+  ruachVideos: AssociadosHubVideo[];
+  lumeVideos: AssociadosHubVideo[];
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -390,9 +510,9 @@ export function AssociadosHub({
 
       <div role="tabpanel">
         {activeTab === "beneficios" ? <BeneficiosPanel coupons={coupons} /> : null}
-        {activeTab === "ruach" ? <RuachPanel /> : null}
+        {activeTab === "ruach" ? <RuachPanel videos={ruachVideos} /> : null}
         {activeTab === "estudos" ? <EstudosPanel studies={studies} /> : null}
-        {activeTab === "leme" ? <LumePanel /> : null}
+        {activeTab === "leme" ? <LumePanel videos={lumeVideos} /> : null}
       </div>
     </div>
   );

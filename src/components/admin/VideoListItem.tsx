@@ -11,8 +11,10 @@ import { adminEditBtnClass } from "@/components/admin/ui";
 
 export function VideoListItem({
   video,
+  section,
 }: {
   video: VideoFormValues & { id: string };
+  section: "ruach" | "leme";
 }) {
   const [editing, setEditing] = useState(false);
 
@@ -24,6 +26,7 @@ export function VideoListItem({
           <p className="mt-1 break-all text-sm text-mute">{video.videoUrl}</p>
           <p className="mt-2 text-xs uppercase tracking-[0.14em] text-mute">
             {video.published ? "Publicado" : "Rascunho"} · ordem {video.sortOrder}
+            {video.duration ? ` · ${video.duration}` : ""}
           </p>
         </div>
         <div className="flex items-center gap-4">
@@ -50,6 +53,7 @@ export function VideoListItem({
           </p>
           <RuachVideoForm
             initial={video}
+            section={section}
             onSaved={() => setEditing(false)}
           />
         </div>

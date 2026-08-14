@@ -22,10 +22,20 @@ export default async function AdminEstudosPage() {
   return (
     <>
       <PageIntro
-        eyebrow="Leitura e áudio"
+        eyebrow="Estudos"
         title="Estudos bíblicos"
-        description="Publique texto e, se quiser, um áudio. Associados leem e/ou ouvem na área de membros."
+        description="Publique textos para a aba Estudos do hub /associados. Estudos de Romanos aparecem no Novo Testamento."
       />
+
+      <p className="mb-6 text-sm text-mute">
+        Prévia:{" "}
+        <a
+          href="/associados?tab=estudos"
+          className="text-gold underline-offset-2 hover:underline"
+        >
+          /associados?tab=estudos
+        </a>
+      </p>
 
       <div className="space-y-4">
         <CollapsibleCard

@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm";
+import { asc, and, eq } from "drizzle-orm";
 import { MemberEmptyState } from "@/components/members/MemberEmptyState";
 import { MemberPageIntro } from "@/components/members/MemberPageIntro";
 import { MemberSectionLinks } from "@/components/members/MemberSectionLinks";
@@ -7,47 +7,18 @@ import { Stagger } from "@/components/motion/Stagger";
 import { getDb } from "@/db";
 import { ruachVideos } from "@/db/schema";
 import { requireMember } from "@/lib/session";
+import { embedUrl, isDirectVideo } from "@/lib/video-embed";
 
 export const metadata = {
   title: "Ruach | Associados",
 };
-
-function embedUrl(url: string) {
-  try {
-    const parsed = new URL(url);
-    if (parsed.hostname.includes("youtu.be")) {
-      return `https://www.youtube.com/embed/${parsed.pathname.slice(1)}`;
-    }
-    if (parsed.hostname.includes("youtube.com")) {
-      const id = parsed.searchParams.get("v");
-      if (id) return `https://www.youtube.com/embed/${id}`;
-    }
-    if (parsed.hostname.includes("vimeo.com")) {
-      const id = parsed.pathname.split("/").filter(Boolean).pop();
-      if (id) return `https://player.vimeo.com/video/${id}`;
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
-
-function isDirectVideo(url: string) {
-  try {
-    const parsed = new URL(url);
-    if (parsed.hostname.includes("blob.vercel-storage.com")) return true;
-    return /\.(mp4|webm|mov|m4v)(\?|$)/i.test(parsed.pathname);
-  } catch {
-    return false;
-  }
-}
 
 export default async function RuachPage() {
   const session = await requireMember();
   const videos = await getDb()
     .select()
     .from(ruachVideos)
-    .where(eq(ruachVideos.published, true))
+    .where(and(eq(ruachVideos.section, "ruach"), eq(ruachVideos.published, true)))
     .orderBy(asc(ruachVideos.sortOrder));
 
   return (

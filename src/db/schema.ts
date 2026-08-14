@@ -91,6 +91,8 @@ export const ruachVideos = pgTable("ruach_videos", {
   description: text("description"),
   videoUrl: text("video_url").notNull(),
   thumbnailUrl: text("thumbnail_url"),
+  section: text("section").notNull().default("ruach"),
+  duration: text("duration"),
   published: boolean("published").notNull().default(false),
   sortOrder: integer("sort_order").notNull().default(0),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
