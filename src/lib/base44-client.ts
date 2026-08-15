@@ -26,6 +26,22 @@ export type Base44EstudoBiblico = {
   updated_date?: string;
 };
 
+export type Base44Event = {
+  id: string;
+  title: string;
+  date?: string | null;
+  location?: string | null;
+  description?: string | null;
+  price?: string | null;
+  image_url?: string | null;
+  type?: string | null;
+  category?: string | null;
+  spots_total?: number | null;
+  spots_taken?: number | null;
+  created_date?: string;
+  updated_date?: string;
+};
+
 function appId() {
   return process.env.BASE44_APP_ID?.trim() || DEFAULT_BASE44_APP_ID;
 }
@@ -73,4 +89,8 @@ export async function fetchBase44PartnerBrands(revalidate = 300) {
 
 export async function fetchBase44Estudos(revalidate = 0) {
   return fetchBase44Entity<Base44EstudoBiblico>("EstudoBiblico", revalidate);
+}
+
+export async function fetchBase44Events(revalidate = 300) {
+  return fetchBase44Entity<Base44Event>("Event", revalidate);
 }
