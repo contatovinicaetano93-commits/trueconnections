@@ -40,7 +40,7 @@ const menuItems: {
   },
   {
     label: "Encontros",
-    desc: "Na Mesa, Ruach & Clube de Leitura",
+    desc: "Na Mesa e Clube de Leitura · gratuitos",
     href: "/encontros",
     icon: Gift,
   },

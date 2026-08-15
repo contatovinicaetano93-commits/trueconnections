@@ -71,7 +71,7 @@ export const portals = [
   {
     href: "/encontros",
     title: "Encontros",
-    subtitle: "Na Mesa, Ruach & Clube de Leitura",
+    subtitle: "Na Mesa e Clube de Leitura · gratuitos",
     icon: "gift",
   },
   {
@@ -148,7 +148,7 @@ export const manifesto = {
 export const encontros = {
   title: "Encontros & Experiências",
   subtitle:
-    "Encontros abertos para a comunidade e experiências exclusivas para viver mais profundamente.",
+    "Na Mesa e o Clube de Leitura são 100% gratuitos — encontros abertos para a comunidade. Ruach e Spin & Praise são experiências exclusivas.",
   exclusiveSection: "Experiências Exclusivas",
   booksHeadline: "Já lemos juntas",
   naMesaImages: [
@@ -159,15 +159,16 @@ export const encontros = {
   ],
   items: [
     {
-      tag: "Encontro de mulheres",
+      tag: "Encontro de mulheres · Gratuito",
       title: "Na Mesa",
+      accessNote: "100% gratuito — basta comparecer, sem inscrição paga.",
       paragraphs: [
         'O "Na Mesa" nasceu em novembro de 2024 de forma muito simples e verdadeira: mulheres reunidas em volta da mesa buscando mais de Deus.',
         "Os encontros acontecem de forma itinerante, nas casas de mulheres que desejam abrir suas portas e viver essa comunhão com a gente. Fazemos isso para que todas se sintam pertencentes, acolhidas e parte da comunidade.",
         "Nesses encontros, louvamos ao Senhor, compartilhamos a Palavra, oramos, conversamos e dividimos uma refeição juntas. Mas acima de tudo, buscamos intimidade com Deus e transformação.",
         "Acreditamos profundamente que esses encontros mudam o nosso caminhar. Dividindo lutas, alegrias, dores e testemunhos, ajudamos umas às outras a permanecer firmes na Palavra e sermos instruídas por mulheres que também vivem para Cristo.",
       ],
-      italic: "O Na Mesa é sobre comunhão, presença e crescimento espiritual verdadeiro.",
+      italic: "O Na Mesa é sobre comunhão, presença e crescimento espiritual verdadeiro — sempre gratuito.",
       schedule: "Toda terceira quinta-feira do mês",
       time: "14h às 17h",
       place: "Itinerante — nas casas das mulheres da comunidade",
@@ -175,9 +176,10 @@ export const encontros = {
       ctaHref: "/contato",
     },
     {
-      tag: "Encontro mensal",
+      tag: "Encontro mensal · Gratuito",
       title: "Clube de Leitura",
-      body: "Nosso espaço de crescimento intelectual e espiritual. Lemos obras que nos desafiam a caminhar mais perto de Cristo, compartilhando reflexões e aprendizados em encontros que nutrem nossa fé e comunhão.",
+      accessNote: "100% gratuito — o encontro é aberto; você só compra o livro se quiser ler junto.",
+      body: "Nosso espaço de crescimento intelectual e espiritual, sem custo de participação. Lemos obras que nos desafiam a caminhar mais perto de Cristo, compartilhando reflexões e aprendizados em encontros que nutrem nossa fé e comunhão.",
       schedule: "Toda última sexta-feira do mês",
       time: "8h30 às 10h30",
     },
@@ -552,7 +554,7 @@ export const presence = {
 
 export const fullBleed = {
   eyebrow: "Na Mesa",
-  body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão que transforma o caminhar.",
+  body: "Louvamos, oramos, compartilhamos a Palavra e dividimos uma refeição. Comunhão gratuita que transforma o caminhar.",
   image: "/images/meditacao.jpg",
   cta: "Conhecer os encontros",
   href: "/encontros",
@@ -569,6 +571,6 @@ export const faq = [
   },
   {
     q: "Os encontros são pagos?",
-    a: "Na Mesa e o Clube de Leitura são abertos e sem custo — só presença. A área de associados também é gratuita: basta criar uma conta para acessar estudos, Ruach e cupons.",
+    a: "Não. Na Mesa e o Clube de Leitura são 100% gratuitos — basta comparecer, sem taxa de inscrição. No Clube de Leitura, você só investe no livro se quiser ler junto conosco. A área de associados também é gratuita: crie uma conta para acessar estudos, Ruach e cupons.",
   },
 ] as const;

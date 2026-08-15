@@ -7,6 +7,14 @@ import { ArrowRight, Calendar, MapPin } from "lucide-react";
 import { encontros } from "@/lib/content";
 import { ExperienceCta } from "@/components/ui/ExperienceCta";
 
+function FreeAccessBadge({ note }: { note: string }) {
+  return (
+    <p className="mb-4 inline-flex items-center rounded-full border border-[hsl(40_40%_52%)]/25 bg-[hsl(40_40%_52%)]/10 px-3 py-1.5 font-[family-name:var(--font-body)] text-[11px] font-medium text-[hsl(40_40%_42%)]">
+      {note}
+    </p>
+  );
+}
+
 function ImageCarousel({
   images,
   altPrefix,
@@ -145,6 +153,9 @@ export function EncontrosStory() {
             <h2 className="mb-4 font-[family-name:var(--font-display)] text-xl text-[hsl(24_12%_12%)]">
               {naMesa.title}
             </h2>
+            {"accessNote" in naMesa && naMesa.accessNote ? (
+              <FreeAccessBadge note={naMesa.accessNote} />
+            ) : null}
             <div className="mb-6 space-y-4 font-[family-name:var(--font-body)] text-sm leading-relaxed text-[hsl(24_8%_34%)]">
               {naMesa.paragraphs.map((p, i) => (
                 <p key={p.slice(0, 40)}>
@@ -197,6 +208,9 @@ export function EncontrosStory() {
             <h2 className="mb-4 font-[family-name:var(--font-display)] text-xl text-[hsl(24_12%_12%)]">
               {clube.title}
             </h2>
+            {"accessNote" in clube && clube.accessNote ? (
+              <FreeAccessBadge note={clube.accessNote} />
+            ) : null}
             <p className="mb-6 font-[family-name:var(--font-body)] text-sm leading-relaxed text-[hsl(24_8%_34%)]">
               {clube.body}
             </p>
